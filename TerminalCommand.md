@@ -1,21 +1,97 @@
 # linux(centos) Terminal Command
 
+* * *
 
-navitagion：
+**navitagion**
 
 - [基本命令](#基本命令)
+    - 切换用户(#切换用户)
+    - 关机(#关机)
+    - 重启(#重启)
+    - 查看目录(#查看目录)
+    - 改变工作目录(#改变工作目录)
+    - 查看当前目录(#查看当前目录)
+    - 创建空文件(#创建空文件)
+    - 拷贝(#拷贝)
+    - 移动或者更名(#移动或者更名)
+    - 显示文件内容(#显示文件内容)
+    - 分页显示文件内容(#分页显示文件内容)
+    - 查看文件的前几行(#查看文件的前几行)
+    - 查看文件的后几行(#查看文件的后几行)
+    - 创建链接(#创建链接)
+    - 改变访问权限(#改变访问权限)
+    - 改变所有者(#改变所有者)
+    - 改变所属组(#改变所属组)
+    - 显示、设置文件缺省权限(#显示、设置文件缺省权限)
+    - 显示系统命令所在目录(#显示系统命令所在目录)
+    - 查找文件或目录(#查找文件或目录)
+    - 建立整个系统目录文件数据库(#建立整个系统目录文件数据库)
+    - 在文件中搜寻字符串匹配的行输出(#在文件中搜寻字符串匹配的行输出)
+    - 帮助文档(#帮助文档)
+    - 获得帮助信息(#获得帮助信息)
+    - 获得索引简短说明(#获得索引简短说明)
+    - 判断文件类型(#判断文件类型)
+    - 解压压缩文件(#解压压缩文件)
+    - 网络通信(#网络通信)
+    - 测试网络连通性(#测试网络连通性)
+    - 查案网络设置信息(#查案网络设置信息)
+    - 查看网络状态(#查看网络状态)
+
 - [bash技巧](#bash技巧)
+    - 命令历史(#命令历史)
+    - 命令别名：alias(#命令别名：alias)
+    - 输入/输出重定向(#输入/输出重定向)
+    - 错误输出重定向(#错误输出重定向)
+    - 管道：command1 | command2 | command3....(#管道：command1 | command2 | command3....)
+    - 命令连接符(#命令连接符)
+    - 查看权限(#查看权限)
+
 - [软件管理](#软件管理)
+    - rpm包管理(#rpm包管理)
+    - 源代码安装(例proftpd)(#源代码安装(例proftpd))
+    - 脚本安装：(例webmin/OpenOffice)(#脚本安装：(例webmin/OpenOffice))
+    - yum包管理(#yum包管理)
+    - apt包管理(#apt包管理)
+
 - [用户管理](#用户管理)
+    - 用户类别(#用户类别)
+    - 手动添加用户(#手动添加用户)
+    - 添加用户(root)(#添加用户(root))
+    - 删除用户(#删除用户)
+    - 修改用户名(#修改用户名)
+    - 添加用户组(#添加用户组)
+    - 删除用户组(#删除用户组)
+    - 修改用户组信息(#修改用户组信息)
+    - 案例(#案例)
+    - 批量添加用户(#批量添加用户)
+    - 脚本添加(#脚本添加)
+    - 限制用户su为root(#限制用户su为root)
+    
 - [进程管理](#进程管理)
-- [磁盘管理](#磁盘管理)
+    - 查看系统中的进程(#查看系统中的进程)
+    - 进程挂起和恢复(#进程挂起和恢复)
+    - 进程显示和控制(#进程显示和控制)
+    - 计划任务(#计划任务)
+    
+- [磁盘管理](#磁盘管理)    
+    - 查看磁盘(#查看磁盘)
+    - 查看磁盘使用情况(#查看磁盘使用情况)
+    - 查看目录大小(#查看目录大小)
+    - 查看目录共多少文件(#查看目录共多少文件)
+    - 修复文件系统(#修复文件系统)
+    - 添加磁盘或者分区(#添加磁盘或者分区)
+    - 拷贝硬盘(#拷贝硬盘)
+    - 创建指定大小的文件(#创建指定大小的文件)
+    - swapfile实现(#swapfile实现)
+    - 磁盘配额实现(#磁盘配额实现)
+    - 备份(#备份)
 
 ***
 
 # 基本命令
 
 
-**切换用户**
+## 切换用户
 
 `su`
 
@@ -24,7 +100,7 @@ su cuz
 su roo
 ```
 
-**关机**
+## 关机
 
 `shutdown`
 
@@ -34,14 +110,14 @@ shutdown now
 shutdown -h now
 ```
 
-**重启**
+## 重启
 
 ```
 reboot; 
 /usr/sbin/reboot
 ```
 
-**查看目录**
+## 查看目录
 
 `ls(list);   /bin/ls`
 
@@ -53,7 +129,7 @@ reboot;
 - ls -d查看目录属性
 - ```
 
-**改变工作目录**
+## 改变工作目录
 
 `cd(change directory);  shell 内置命令`
 
@@ -63,15 +139,15 @@ reboot;
 - cd /home/cnsu
 - ```
 
-**查看当前目录**
+## 查看当前目录
 
 `pwd`
 
-**创建空文件**
+## 创建空文件
 
 `toouch newfile`
 
-**创建新目录**
+## 创建新目录
 
 `mkdir(make directory); /bin/mkdir`
 
@@ -81,7 +157,7 @@ mkdir /home/cnsu/testdir
 mkdir -p /home/cnsu/testdir/testdir2（if testdir1 is exist not,mkdir testdir1 first）
 ```
 
-**拷贝**
+## 拷贝
 
 `cp(copy); /bin/cp`
 
@@ -94,7 +170,7 @@ cp file1 file2 dir1 将文件file1,file2复制到目录dir1
 cp -R dir1 dir2     将dir1下的所有文件复制到dir2
 ```
 
-**移动或者更名**
+## 移动或者更名
 
 `mv(move); /bin/mv`
 
@@ -107,7 +183,7 @@ rm /home/cnsu/ProgDemo/JavaDemo/Demo.java
 rm -r /home/cnsu/ProgDemo
 ```
 
-**显示文件内容**
+## 显示文件内容
 
 `cat(conCATenate and display files); /bin/cat`
 
@@ -116,7 +192,7 @@ cat /etc/issue
 cat /etc/services
 ```
 
-**分页显示文件内容**
+## 分页显示文件内容
 
 `more; /bin/more`
 
@@ -128,7 +204,7 @@ q				退出
 
 *more /etc/services*
 
-**查看文件的前几行**
+## 查看文件的前几行
 
 `head; /bin/head`
 
@@ -137,7 +213,7 @@ head -num
 head -30 /etc/services
 ```
 
-**查看文件的后几行**
+## 查看文件的后几行
 
 `tail; /bin/tail`
 
@@ -147,7 +223,7 @@ tail -f 动态显示文件内容
 tail -30 /etc/services
 ```
 
-**创建链接**
+## 创建链接
 
 `ln(link); /bin/ln`
 
@@ -156,7 +232,7 @@ ln -s 创建符号链接(软连接，同Windows)
 ln 创建硬链接(同步更新，不同inode)
 ```
 
-**改变访问权限**
+## 改变访问权限
 `chmod(CHange the permission MODe of a file); /bin/chmod`
 
 ```
@@ -184,16 +260,23 @@ chmod g+w hello.c
 chmod 761 hello.c
 ```
 
-- 改变所有者：chown(CHange file WONership); /bin/chown
-  `chown cnsu file1`
+## 改变所有者
+`chown(CHange file WONership); /bin/chown`
+`chown cnsu file1`
 
-- 改变所属组：chgrp(CHange file GRouP ownership); /bin/chgrp
-  `chgrp cnsu file`
+## 改变所属组
 
-- 显示、设置文件缺省权限：umask
-  uamsk -S 以rex形式显示新建文件或目录缺省权限`
+`chgrp(CHange file GRouP ownership); /bin/chgrp`
+`chgrp cnsu file`
 
-- 显示系统命令所在目录：which; /usr/bin/which
+## 显示、设置文件缺省权限
+
+`umask`
+`uamsk -S 以rex形式显示新建文件或目录缺省权限`
+
+## 显示系统命令所在目录
+
+`which; /usr/bin/which`
 
 ```
 which ls
@@ -201,7 +284,7 @@ which cd
 which rm
 ```
 
-**查找文件或目录**
+## 查找文件或目录
 
 `find; /usr/bin/find`
 
@@ -221,11 +304,11 @@ find /etc -name inittab -exec ls -l {} \
 locate file 列出所有跟file相关的文件
 ```
 
-**建立整个系统目录文件数据库**
+## 建立整个系统目录文件数据库
 
 `updatedb; /usr/bin/updatedb`
 
-**在文件中搜寻字符串匹配的行输出**
+## 在文件中搜寻字符串匹配的行输出
 
 `grep; /bin/grep`
 
@@ -236,7 +319,7 @@ grep "hello" ./ -rn
 netstat -a | grep tftp
 ```
 
-**帮助文档**
+## 帮助文档
 
 `man(manual);/usr/bin/man`
 
@@ -245,7 +328,7 @@ man ls
 man services
 ```
 
-**获得帮助信息**
+## 获得帮助信息
 `info(information); /usr/bin/info`
 
 ```
@@ -253,7 +336,7 @@ info ls
 info serviecs
 ```
 
-**获得索引简短说明**
+## 获得索引简短说明
 
 `whatis`
 
@@ -264,9 +347,11 @@ whatis ls`\
 whatis fstab 相当于man -k
 ```
 
-**判断文件类型**
+## 判断文件类型
 
 `file`
+
+## 解压压缩文件
 
 - 压缩文件：gzip(GNU zip); /bin/gzip,压缩后文件格式\*.gz  只能压缩文件，不保留原文件
 `gzip newfile`
@@ -320,7 +405,7 @@ tar xvzf tmp.tar.gz
 ```
 
 
-**网络通信**
+## 网络通信
 
 `write`
 
@@ -329,19 +414,21 @@ tar xvzf tmp.tar.gz
 - wall 广播信息
 - wall Happy New Yer
 
-**测试网络连通性**
+## 测试网络连通性
 
 `ping; /usr/sbin/ping`
 `ping 192.168.211.3`
 
-**查案网络设置信息**
+## 查案网络设置信息
 
 `ifconfig`
 `ifconfig -a 显示所有网络`
 
-**查看网络状态**
+## 查看网络状态
 
 `netstat`
+
+* * *
 
 # bash技巧
 
@@ -349,18 +436,18 @@ tar xvzf tmp.tar.gz
 - /etc/rc.[TAB]
 - eg：mk[TAB][TAB]
 
-**命令历史**
+## 命令历史
 
 up、down
 
-**命令别名：alias**
+## 命令别名：alias
 
 - alias copy=cp
 - alias xrm="rm -r"
 - 查看别名信息：alias
 - 删除别名信息：unalias copy
 
-**输入/输出重定向：**
+## 输入/输出重定向
 
 - 0 (stdin)
 - 1(stdout)
@@ -373,11 +460,11 @@ up、down
 - < 输入重定向
 - wall < /etc/motd
 
-** 错误输出重定向**
+## 错误输出重定向
 
 `cp -R /usr/backup/usr.abk 2> /bak.error`
 
-**管道：command1 | command2 | command3....**
+## 管道：command1 | command2 | command3....
 
 ```
 ls -l /etc | more
@@ -385,7 +472,7 @@ ls -l /etc | grep init
 ls -l /etc | grep init | wc -l
 ```
 
-**命令连接符**
+## 命令连接符
 
 - ; 间隔命令按顺序执行
 - && 前面true后面才执行，逻辑与
@@ -395,12 +482,16 @@ ls -l /etc | grep init | wc -l
 
 - ls -l `which touch`
 
-**查看权限：umask**
+## 查看权限
 
+`umask`
+
+
+* * * 
 
 # 软件管理
 
-**rpm包管理**
+## rpm包管理
 
 安装：
 
@@ -465,7 +556,7 @@ ls -l /etc | grep init | wc -l
 
 `rpm2cpio 软件名.rpm | cpio -idv ./etc/inittab`
 
-**源代码安装(例proftpd)**
+## 源代码安装(例proftpd)
 
 ```
 tar -xzvf proftpd-1.3.3d.tar.gz(解压)
@@ -476,7 +567,7 @@ make install(安装)
 htttp://www.proftpd.org
 ``` 
 
-**脚本安装]]：(例webmin/OpenOffice)**
+## 脚本安装：(例webmin/OpenOffice)
 
 ```
 tar -xzvf webmin-1.530.tar.gz
@@ -486,7 +577,7 @@ vim README
 http://www.webmin.com*
 ```
 
-**yum包管理**
+## yum包管理
 
 - 安装：yum install
 - 检测升级：yum check-update
@@ -496,7 +587,7 @@ http://www.webmin.com*
 - 卸载：yum remove
 - 帮助：yum -help/man yum
 
-**apt包管理**
+## apt包管理
 
 - 搜索软件包：apt-cache search
 - 软件包信息：apt-cache show
@@ -506,7 +597,9 @@ http://www.webmin.com*
 - 更新已安装包：apt-get upgrade
 
 
-**用户管理**
+# 用户管理
+
+## 用户类别
 
 - `用户信息文件：	/etc/passwd`
 - `密码文件:		/etc/shadow`
@@ -554,7 +647,7 @@ md5sum(转换md5值) Ctrl-D结束
 
 `echo "cnsu" |  md5sum`
 
-手动添加用户：(mango)
+## 手动添加用户
 
 1.  vim /etc/passwd  
 2. mkdir /home/mango  
@@ -590,7 +683,7 @@ taken 粘着位，权限为1，O  chmod o+t /public
 如果一个权限为777目录具有粘着位，每个用户都可以在该目录下  
 创建文件，但只能删除自己是所有者的文件  
 
-添加用户(root)：
+## 添加用户(root)
 
 useradd
 
@@ -605,11 +698,11 @@ useradd
 - `useradd mango`  
 - `passwd mango`  
   
-删除用户：  
+## 删除用户
 
 `userdel mango`  
   
-修改用户名：  
+## 修改用户名
 
 `usermod -l mango  -d /home/mango -g work testusr`  
 将用户testusr的登录名改为mango，加入到work组中，用户目录为/home/mango    
@@ -617,17 +710,17 @@ useradd
 `usermod -G softgroup cnsu`  
 将用户cnsu加入到softgroup用户组    
   
-添加用户组：  
+## 添加用户组
 
 - `groupadd webadmin`  
 - `groupadd -g 500 webadmin`
 - `用户组webadmin 其GID为500`
   
-删除用户组：  
+## 删除用户组
 
 `groupdel webadmin`  
   
-修改用户组信息:
+## 修改用户组信息
 
 `groupmod -n apach webadmin`  
 
@@ -648,7 +741,7 @@ gpasswd
 `gpasswd -a mango cnsu `  
 `gpasswd -d cnsu root`  
   
-案例：  
+## 案例
 
 授权用户jack和mary对目录/apps有写权限    
 
@@ -707,16 +800,16 @@ chage 设定密码
 `authconfig`
 `/etc/sysconfig/authconfig`
 
-批量添加用户：
+## 批量添加用户
 
 1. newusers		导入用户信息文件    newusers < addusrs.info  
 2. pwunconv	取消shadow passwd功能  
 3. chpasswd	导入密码文件(格式：用户:密码)  
 4. pwconv		将密码写入shadow文件  
 
-脚本添加
+## 脚本添加
 
-限制用户su为root
+## 限制用户su为root
 
 - `groupadd sugroup`
 - `chgrp sugroup /bin/su		**********这步在前`
@@ -734,7 +827,9 @@ chage 设定密码
 
 # 进程管理
 
-**查看系统中的进程：ps  **
+## 查看系统中的进程
+
+`ps `
 
 - -a  显示所有用户进程  
 - -u	显示用户名和启动时间  
@@ -792,7 +887,7 @@ nohup:用户登出后任然执行，数据放在nohup.out
 
 *格式：nohup program &*
 
-进程挂起和恢复：
+## 进程挂起和恢复
 
 - 中止：Ctrl-C
 - 挂起：Ctrl-C
@@ -800,7 +895,9 @@ nohup:用户登出后任然执行，数据放在nohup.out
 - 恢复到后台运行：bg
 - 查看被挂起进程：jobs
 
-进程显示和控制：top
+## 进程显示和控制
+
+`top`
 
 - d 指定刷新时间间隔  
 - c 显示整个命令行  
@@ -811,7 +908,7 @@ nohup:用户登出后任然执行，数据放在nohup.out
 - s 改变刷新间隔  
 - W 将当前设置写入~/.toprc  
 
-计划任务：
+## 计划任务
 
 - at			安排在某一个时刻执行一次
 - batch			安排作业在系统负载不重是执行一次
@@ -905,6 +1002,8 @@ crontab文件建立好以可以到/var/spool/cron目录确认
 - /boot					内核文件及自举程序文件
 - /mnt						临时文件系统安装点
 
+## 查看磁盘
+
 - 查看分区使用情况：df
 - 查看文件、目录大小：du
 - 查看文件详细时间参数：stat
@@ -912,18 +1011,19 @@ crontab文件建立好以可以到/var/spool/cron目录确认
 
 检测修复文件系统：fsck、e2fsck(单用户模式卸载文件系统后执行)
 
-查看磁盘使用情况：
+## 查看磁盘使用情况
+
 - df
 - df -m
 
-查看目录大小：
+## 查看目录大小
 
 - `du`
 - `du [option] dir`
 - `du -b test`
 - `du -h docs`
 
-查看目录共多少文件：  
+## 查看目录共多少文件
 
  `ls -l /bin | grep "" -c`
 
@@ -932,19 +1032,26 @@ crontab文件建立好以可以到/var/spool/cron目录确认
 - `tree /bin`
 - `ll | wc -l`
 
-修复文件系统
+## 修复文件系统
 
 `fsck (file system check)、e2fsck`
 
-添加磁盘或者分区：
+## 添加磁盘或者分区
 
-1. 划分分区    
+1. 划分分区
+
 `fdisk`    
-2. 创建文件系统  
-`mkfs`  
-3. 尝试挂载  
+
+2. 创建文件系统
+
+`mkfs` 
+
+3. 尝试挂载
+
 `mount`  
+
 4. 写入配置文件  
+
 `/etc/fstab`  
 
 挂载：mount
@@ -958,17 +1065,17 @@ crontab文件建立好以可以到/var/spool/cron目录确认
 - `umount /mnt`
 eject
 
-拷贝硬盘
+## 拷贝硬盘
 
 - `dd if=/dev/sda of=/dev/sdb`
 - `dd if=/dev/zero 伪设备`
 - `dd if=/dev/null 伪设备`
 
-创建指定大小的文件
+## 创建指定大小的文件
 
 `dd if=/dev/zero of=/var/swap/file.swp bs=1k count=2`
 
-**swapfile实现**
+## swapfile实现
 
 1. mkdir /var/swap  
 	hmod 700 /var/swap  
@@ -980,7 +1087,7 @@ eject
 6. swapon /var/swap/file.swp  
 7. free  
 
-**磁盘配额实现**
+## 磁盘配额实现
 
 1. 开启分区匹配功能
 
@@ -997,9 +1104,9 @@ eject
 	
 3. 启动配额功能  
 
-	quotaon 分区名称   
+	`quotaon 分区名称`  
 	`qoutaon /home `  
-	quotaoff 关闭分区配额  
+	`quotaoff 关闭分区配额`
 	
 4. 编辑用户配额  
 
@@ -1008,6 +1115,8 @@ eject
 - `edquota -t 设置宽限期`  
 - `edqota -p 模版用户 复制用户1 复制用户2   复制用户配额`  
 - `quota -a   查看用户配额使用情`  
+
+## 备份
 
 *系统备份：/etc、/boot、/var/log、/usr/local*  
 *用户备份：/home*  
