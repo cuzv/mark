@@ -42,14 +42,14 @@
     - [命令别名：alias](#命令别名：alias)
     - [输入/输出重定向](#输入/输出重定向)
     - [错误输出重定向](#错误输出重定向)
-    - [管道：command1 | command2 | command3....](#管道：command1 | command2 | command3....)
+    - [管道命令](#管道命令)
     - [命令连接符](#命令连接符)
     - [查看权限](#查看权限)
 
 - [软件管理](#软件管理)
     - [rpm包管理](#rpm包管理)
-    - [源代码安装](例proftpd)(#源代码安装(例proftpd))
-    - [脚本安装：](例webmin/OpenOffice)(#脚本安装：(例webmin/OpenOffice))
+    - [源代码安装](#源代码安装)
+    - [脚本安装](#脚本安装)
     - [yum包管理](#yum包管理)
     - [apt包管理](#apt包管理)
 
@@ -464,7 +464,9 @@ up、down
 
 `cp -R /usr/backup/usr.abk 2> /bak.error`
 
-## 管道：command1 | command2 | command3....
+## 管道
+
+`command1 | command2 | command3....`
 
 ```
 ls -l /etc | more
@@ -556,7 +558,7 @@ ls -l /etc | grep init | wc -l
 
 `rpm2cpio 软件名.rpm | cpio -idv ./etc/inittab`
 
-## 源代码安装(例proftpd)
+## 源代码安装
 
 ```
 tar -xzvf proftpd-1.3.3d.tar.gz(解压)
@@ -567,7 +569,7 @@ make install(安装)
 htttp://www.proftpd.org
 ``` 
 
-## 脚本安装：(例webmin/OpenOffice)
+## 脚本安装
 
 ```
 tar -xzvf webmin-1.530.tar.gz
