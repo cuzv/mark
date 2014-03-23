@@ -1,4 +1,4 @@
 mark
 ====
 
-mark tips, notes, faqs, techs
+mark tips, notes, faqs, techs, shares
