@@ -3,230 +3,347 @@
 
 navitagion：
 
-[基本命令](#基本命令)  
+- [基本命令](#基本命令)
+- [基本命令](#基本命令)
+- [软件管理](#软件管理)
+- [用户管理](#用户管理)
+- [进程管理](#进程管理)
+- [磁盘管理](#磁盘管理)
 
-[基本命令](#基本命令)
+***
 
-[软件管理](#软件管理)
-
-[用户管理](#用户管理)
-
-[进程管理](#进程管理)
-
-[磁盘管理](#磁盘管理)
-
+# 基本命令
 
 
-*切换用户:su*
-*su cuz*
-*su roo*
+**切换用户**
 
-#基本命令
+`su`
 
-- `关机:shutdown; /usr/sbin/shutdown`
-- `shutdown now`
-- `shutdown -h now`
+```
+su cuz
+su roo
+```
 
-重启：reboot; /usr/sbin/reboot
-*reboo*
+**关机**
 
-查看目录：ls(list);   /bin/ls
+`shutdown`
+
+```
+/usr/sbin/shutdown
+shutdown now
+shutdown -h now
+```
+
+**重启**
+
+```
+reboot; 
+/usr/sbin/reboot
+```
+
+**查看目录**
+
+`ls(list);   /bin/ls`
+
+```
 - ls
 - ls /home
 - ls -a显示所有文件 (查看隐含文件,rm test.c .test.c 设为隐藏)
 - ls -l详细信息显示
 - ls -d查看目录属性
+- ```
 
-改变工作目录：cd(change directory);  shell 内置命令
+**改变工作目录**
+
+`cd(change directory);  shell 内置命令`
+
+```
 - cd /回到根目录
 - cd ..回到上一级目录
 - cd /home/cnsu
+- ```
 
-查看当前目录
+**查看当前目录**
+
 `pwd`
 
-创建空文件 touch
+**创建空文件**
+
 `toouch newfile`
 
-创建新目录：mkdir(make directory); /bin/mkdir
-- `mkdir [option] dir`
-- `mkdir /home/cnsu/testdir`
-- `mkdir -p /home/cnsu/testdir/testdir2（if testdir1 is exist not,mkdir testdir1 first）`
+**创建新目录**
 
-拷贝:cp(copy); /bin/cp
-- cp -R复制目录
-- cp [option] src/dir
-- cp /home/cnsu/ProgDemo/JavaDemo/Demo.java /home/cnsu/ProgDemo
-- cp -r /home/cnsu/ProgDmeo /home
-- cp file1 file2 dir1 将文件file1,file2复制到目录dir1
-- cp -R dir1 dir2     将dir1下的所有文件复制到dir2
+`mkdir(make directory); /bin/mkdir`
 
-移动或者更名：mv(move); /bin/mv
-- `mv /home/cnsu/ProgDmo /home/cnsu/Prog`
-- `mv /home/cnsu/ProgDemo /home/cnsu/docs`
-- `rm -r 删除目录`
-- `rm [option] file/dir`
-- `rm /home/cnsu/ProgDemo/JavaDemo/Demo.java`
-- `rm -r /home/cnsu/ProgDemo`
+```
+mkdir [option] dir
+mkdir /home/cnsu/testdir
+mkdir -p /home/cnsu/testdir/testdir2（if testdir1 is exist not,mkdir testdir1 first）
+```
 
-显示文件内容：cat(conCATenate and display files); /bin/cat
-- `cat /etc/issue`
-- `cat /etc/services`
+**拷贝**
 
-分页显示文件内容：more; /bin/more
-- space or f 显示下一页
-- enter	        显示下一行
-- q				退出
+`cp(copy); /bin/cp`
+
+```
+cp -R复制目录
+cp [option] src/dir
+cp /home/cnsu/ProgDemo/JavaDemo/Demo.java /home/cnsu/ProgDemo
+cp -r /home/cnsu/ProgDmeo /home
+cp file1 file2 dir1 将文件file1,file2复制到目录dir1
+cp -R dir1 dir2     将dir1下的所有文件复制到dir2
+```
+
+**移动或者更名**
+
+`mv(move); /bin/mv`
+
+```
+mv /home/cnsu/ProgDmo /home/cnsu/Prog
+mv /home/cnsu/ProgDemo /home/cnsu/docs
+rm -r 删除目录
+rm [option] file/dir
+rm /home/cnsu/ProgDemo/JavaDemo/Demo.java
+rm -r /home/cnsu/ProgDemo
+```
+
+**显示文件内容**
+
+`cat(conCATenate and display files); /bin/cat`
+
+```
+cat /etc/issue
+cat /etc/services
+```
+
+**分页显示文件内容**
+
+`more; /bin/more`
+
+```
+space or f 显示下一页
+enter	        显示下一行
+q				退出
+```
+
 *more /etc/services*
 
-查看文件的前几行：head; /bin/head
-- `head -num`
-- `head -30 /etc/services`
+**查看文件的前几行**
 
-查看文件的后几行：tail; /bin/tail
-- tail -num
-- tail -f 动态显示文件内容
-- tail -30 /etc/services
+`head; /bin/head`
 
-创建链接：ln(link); /bin/ln
-- ln -s 创建符号链接(软连接，同Windows)
-- ln 创建硬链接(同步更新，不同inode)
+```
+head -num
+head -30 /etc/services
+```
 
-改变访问权限:chmod(CHange the permission MODe of a file); /bin/chmod
-- chomd [who][+|-|=] [mode] filename
-- mode=421
-- chmod [{ugo}{+-=}{rwx}] file or dir
-- who:
-- u:文件所有者
-- g:同组用户
-- o:其他用户
-- a:所有用户，默认
+**查看文件的后几行**
+
+`tail; /bin/tail`
+
+```
+tail -num
+tail -f 动态显示文件内容
+tail -30 /etc/services
+```
+
+**创建链接**
+
+`ln(link); /bin/ln`
+
+```
+ln -s 创建符号链接(软连接，同Windows)
+ln 创建硬链接(同步更新，不同inode)
+```
+
+**改变访问权限**
+`chmod(CHange the permission MODe of a file); /bin/chmod`
+
+```
+chomd [who][+|-|=] [mode] filename
+mode=421
+chmod [{ugo}{+-=}{rwx}] file or dir
+who:
+u:文件所有者
+g:同组用户
+o:其他用户
+a:所有用户，默认
+```
 
 mode:
-- +:添加某个权限
-- -：取消某个权限
-- =：赋予么个权限
-- 1:可执行 2：可写 4：可读
 
-- `chmod g+w hello.c`
-- `chmod 761 hello.c`
+```
++:添加某个权限
+-：取消某个权限
+=：赋予么个权限
+1:可执行 2：可写 4：可读
+```
 
-改变所有者：chown(CHange file WONership); /bin/chown
-- `chown cnsu file1`
+```
+chmod g+w hello.c
+chmod 761 hello.c
+```
 
-改变所属组：chgrp(CHange file GRouP ownership); /bin/chgrp
-- `chgrp cnsu file`
+- 改变所有者：chown(CHange file WONership); /bin/chown
+  `chown cnsu file1`
 
-显示、设置文件缺省权限：umask
-- `uamsk -S 以rex形式显示新建文件或目录缺省权限`
+- 改变所属组：chgrp(CHange file GRouP ownership); /bin/chgrp
+  `chgrp cnsu file`
 
-显示系统命令所在目录：which; /usr/bin/which
-- `which ls`
-- `which cd`
-- `which rm`
+- 显示、设置文件缺省权限：umask
+  uamsk -S 以rex形式显示新建文件或目录缺省权限`
 
-查找文件或目录：find; /usr/bin/find
-- `find 路径 -name '文件名'`
-- `find ./ -name 'co*' 在当前目录及子目录中寻找名为co开头的文件`
-- `find ./ -name 'test'`
-- `find /etc/ -name init 在/etc目录下查找文件init`
-- `find / -size +204800 在根目录下查找大于100MB的文件`
-- `find / -user cnsu 在根目录下查找所有者为cnsu的文件`
-- `find /etc -ctime -l 在/etc下查找24小时内被修改过属性的文件或目录`
-- `find /etc -size +163849 -a -size -204800`
-	- `在/etc 下查找大于80MB小于100MB的文件`
-- `find /etc -name inittab -exec ls -l {} \`
-	- `在/etc下查找inittab文件并显示其详细信息`
+- 显示系统命令所在目录：which; /usr/bin/which
 
+```
+which ls
+which cd
+which rm
+```
+
+**查找文件或目录**
+
+`find; /usr/bin/find`
+
+```
+find 路径 -name '文件名'
+find ./ -name 'co*' 在当前目录及子目录中寻找名为co开头的文件
+find ./ -name 'test'
+find /etc/ -name init 在/etc目录下查找文件init
+find / -size +204800 在根目录下查找大于100MB的文件
+find / -user cnsu 在根目录下查找所有者为cnsu的文件
+find /etc -ctime -l 在/etc下查找24小时内被修改过属性的文件或目录
+find /etc -size +163849 -a -size -204800
+    在/etc 下查找大于80MB小于100MB的文件
+find /etc -name inittab -exec ls -l {} \
+    在/etc下查找inittab文件并显示其详细信息
 寻找文件或目录：locate; /usr/bin/locate
-- `locate file 列出所有跟file相关的文件`
+locate file 列出所有跟file相关的文件
+```
 
-建立整个系统目录文件数据库：updatedb; /usr/bin/updatedb
-*updatedb*
+**建立整个系统目录文件数据库**
 
-在文件中搜寻字符串匹配的行输出：grep; /bin/grep
-- `grep ftp /etc/services`
-- `grep "hello" ./ -rn`
-- `netstat -a | grep tftp`
+`updatedb; /usr/bin/updatedb`
 
-帮助文档：man(manual); /usr/bin/man
-- `man ls`
-- `man services`
+**在文件中搜寻字符串匹配的行输出**
 
-获得帮助信息：info(information); /usr/bin/info
-- `info ls`
+`grep; /bin/grep`
+
+
+```
+grep ftp /etc/services
+grep "hello" ./ -rn
+netstat -a | grep tftp
+```
+
+**帮助文档**
+
+`man(manual);/usr/bin/man`
+
+```
+man ls
+man services
+```
+
+**获得帮助信息**
+`info(information); /usr/bin/info`
+
+```
+info ls
 info serviecs
-- ``
-获得索引简短说明：whatis
-	- `/usr/bin/whatis apropos`
-	- `/usr/sbin/makewhatis`
-- `whatis ls`
-- `whatis fstab 相当于man -k`
+```
 
+**获得索引简短说明**
 
+`whatis`
 
-判断文件类型
-*file*
+```
+/usr/bin/whatis apropos
+/usr/sbin/makewhatis
+whatis ls`\
+whatis fstab 相当于man -k
+```
 
-- 压缩文件：gzip(GNU zip); /bin/gzip
-- 压缩后文件格式*.gz  只能压缩文件，不保留原文件
-- `gzip newfile`
+**判断文件类型**
+
+`file`
+
+- 压缩文件：gzip(GNU zip); /bin/gzip,压缩后文件格式\*.gz  只能压缩文件，不保留原文件
+`gzip newfile`
+
 - 解压缩.gz的压缩文件
-- `gunzip newfile.gz`
-- `gzip -d newfile.gz`
+`gunzip newfile.gz`
+`gzip -d newfile.gz`
 
-压缩文件：bzip2; /usr/bin/bzip2
-压缩后文件格式：*.bz2
-- bzip2 -k 产生压缩文件后保留原文件
-- bzip2 -k file1
-压缩解压：bunzip2; /usr/bin/bunzip2
-- `bunzip2 -k 同上`
-- `bunzip2 -k file1.bz2`
+- 压缩文件：bzip2; /ussr/bin/bzip2,压缩后文件格式：*.bz2
+`bzip2 -k 产生压缩文件后保留原文件`
+`bzip2 -k file1`
+
+- 压缩解压：bunzip2; /usr/bin/bunzip2
+`bunzip2 -k 同上`
+`bunzip2 -k file1.bz2`
+
 
 - 压缩文件或目录：zip; /usr/bin/zip
 - 解压缩：unzip	/usr/bin/unzip
 - zip -r 压缩目录
 - 压缩后文件格式：*.zip
-- `zip services.zip /etc/services 压缩文件`
-- `zip -r test.zip /test 压缩目录`
-- `unzip [option] filename.zip`
-- `unzip test.zip`
+ 
+```
+zip services.zip /etc/services 压缩文件
+zip -r test.zip /test 压缩目录
+unzip [option] filename.zip
+unzip test.zip
+```
 
 - 打包目录与解压:tar； /bin/tar
 - 打包后文件格式：*.tar.gz
-- tar -c产生.tar打包文件
-- tar -v显示详细信息
-- tar -f指定压缩后的文件名/指定压缩文件
-- tar -z打包同时压缩/接压缩
-- tar -x解包.tar文件
 
-- tar -zcvf dir1.tar.gz /home/cnsu/docs
-	- 将目录home/cnsu/docs压缩成一个包并压缩的文件dir1.tar.gz
-- tar -zxvf dir1.tar.gz
+```
+tar -c产生.tar打包文件
+tar -v显示详细信息
+tar -f指定压缩后的文件名/指定压缩文件
+tar -z打包同时压缩/接压缩
+tar -x解包.tar文件
+```
 
-- tar [option] dir/file
-- tar cvf tmp.tar /home/cnsu/ProgDemo（将/home/cnsu/ProgDemo目录下的所有文件打包到tmp.tar）
-- `tar xvf tmp.tar(将打包文件tmp.tar在当前目录下解开)`
-- `tar cvzf tmp.tar.gz /home/cnsu/ProgDemo`
-- `tar xvzf tmp.tar.gz`
+`tar -zcvf dir1.tar.gz /home/cnsu/docs`
+将目录home/cnsu/docs压缩成一个包并压缩的文件dir1.tar.gz
+
+```
+tar -zxvf dir1.tar.gz
+tar [option] dir/file
+tar cvf tmp.tar /home/cnsu/ProgDemo（将/home/cnsu/ProgDemo目录下的所有文件打包到tmp.tar）
+tar xvf tmp.tar(将打包文件tmp.tar在当前目录下解开)
+tar cvzf tmp.tar.gz /home/cnsu/ProgDemo
+tar xvzf tmp.tar.gz
+```
 
 
+**网络通信**
 
-网络通信：write
+`write`
+
 - 向另外一个用户发信息，Ctrl-D作为结束
 - write webmaster
 - wall 广播信息
 - wall Happy New Yer
 
-测试网络连通性：ping; /usr/sbin/ping
-- `ping 192.168.211.3`
+**测试网络连通性**
 
-查案网络设置信息：ifconfig
-- `ifconfig -a 显示所有网络`
+`ping; /usr/sbin/ping`
+`ping 192.168.211.3`
 
-查看网络状态：netstat
+**查案网络设置信息**
 
-## [[bash技巧]]
+`ifconfig`
+`ifconfig -a 显示所有网络`
+
+**查看网络状态**
+
+`netstat`
+
+# bash技巧
 - 命令补全：[TAB]
 - /etc/rc.[TAB]
 - eg：mk[TAB][TAB]
