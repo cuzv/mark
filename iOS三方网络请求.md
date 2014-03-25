@@ -1,60 +1,56 @@
-xmbp:mark cuan$ ls
-FunnyStuffOnGitHub.md     RegularExpression.md      lamp.md
-GitBasicManual.md         TerminalCommand.md        pptpd6.sh
-GitReferenceSummary.md    VPS搭建VPN.md             root@192.243.119.92
-IOS知识点.md              centos搭建lamp.md         untitled.txt
-MarkdownSyntax.md         iOSDevelopmentSites.md    面试和算法心得.md
-README.md                 javascript学习资料.md
-xmbp:mark cuan$ nano iOS三方网络请求.md
+# 三方网络请求
 
+- - -
 
+## 使用ASIHTTPRequest需要导入其依赖库：
 
+- SystemConfiguration.framework
+- MessageUI.framework
+- MobileCoreServices.framework
+- CFNetwork.framework
+- libz.1.2.5.dylib
 
+## NOTE
+- ASIHTTPRequest类用于实现HTTP GET请求，也是作为POST请求的父类
+- ASIHTTPRequest继承于NSOperation，所以即可以直接被执行，也可以加入队列中由队列管理
+- ASIFormDataRequest继承于ASIHTTPRequest，实现了HTTP POST请求，并拥有父类的全部特性
+- ASINetworkQueue继承于NSOperationQueue，提供了网络请求队列功能，管理其内部的所有请求
 
+- - -
 
+##  GDataXMLNode
 
+- 需要导入的依赖库：libxml2.dylib
+- 修改工程配置target -> build setting -> header search path -> ${SDKROOT}/usr/include/libxml2
 
+		- (id)initWithXMLString:(NSString *)str options:(unsigned int)mask error:(NSError `**`)error;
 
+## 节点解析
 
+	- (NSArray *)elementsForName:(NSString *)name;
+	- (NSArray *)children;
 
+## XPath解析
 
+	- (NSArray *)nodesForXPath:(NSString *)xPath error:(NSError `**`)error;
 
+- - - 
 
-
-
-
-
-
-
-
-
-  GNU nano 2.0.6                  File: iOS三方网络请求.md                                Modified  
-
+## SDWebImage 图片异步加载
 
 *SDWebImage是基于ARC的*
 
 依赖库：
 
-        - ImageIO.framework
-        - MapKit.framework
+	- ImageIO.framework
+	- MapKit.framework
 
 ### 图片异步加载方法
 
-        - (void)setImageWithURL:(NSURL *)url placeHolderImage:(UIImage *)placeholder;
-        - (void)setImageWithURL:(NSURL *)rul forState:(UIControlState)state;
+	- (void)setImageWithURL:(NSURL *)url placeHolderImage:(UIImage *)placeholder;
+	- (void)setImageWithURL:(NSURL *)rul forState:(UIControlState)state;
 
 ### 清除图片缓存
 
     [[SDImageCache sharedImageCache] clearDisk];
-    [[SDImageCache sharedImageCache] clearMemory]; 
-
-
-
-
-
-
-
-
-
-^G Get Help     ^O WriteOut     ^R Read File    ^Y Prev Page    ^K Cut Text     ^C Cur Pos
-^X Exit         ^J Justify      ^W Where Is     ^V Next Page    ^U UnCut Text   ^T To Spell
+    [[SDImageCache sharedImageCache] clearMemory];
