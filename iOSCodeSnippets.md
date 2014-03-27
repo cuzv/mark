@@ -1,0 +1,199 @@
+<h3 id="codeSnippets"> codeSnippets </h3>
+
+**appDelegate.m文件各消息作用说明**
+
+	#pragma mark 程序加载完成,自定义界面加载，数据导入，初始化等
+	- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
+	
+	#pragma mark 程序将要失活，保存用户数据，断开网络连接,游戏暂停
+	- (void)applicationWillResignActive:(UIApplication *)application;
+	#pragma mark 程序进入后台,释放界面元素，视频，音频媒体，降低程序的驻留内存开销
+	- (void)applicationDidEnterBackground:(UIApplication *)application;
+	
+	#pragma mark 程序进入前台，恢复界面，数据等
+	- (void)applicationWillEnterForeground:(UIApplication *)application;
+	
+	#pragma mark 程序激活，恢复用户数据，恢复网络连接
+	- (void)applicationDidBecomeActive:(UIApplication *)application;
+	
+	#pragma mark 程序结束
+	- (void)applicationWillTerminate:(UIApplication *)application;
+	
+---
+
+**UIViewController重要消息作用说明**
+
+	// 自定义初始化方法，用于XIB加载控制器界面的时候
+	- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNi
+	
+	// 控制器的视图加载完成
+	- (void)viewDidLoad
+	
+	// 是否支持自动旋转
+	- (NSUInteger)supportedInterfaceOrientations
+	{
+	    return UIInterfaceOrientationMaskAllButUpsideDown;
+	}
+	
+	// 控制器支持设备朝向
+	- (BOOL)shouldAutorotate
+	{
+	    return NO;
+	}
+	
+	// 控制器试图将要旋转到某个朝向，在方法中处理新的界面布局
+	- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration;
+
+---
+
+**切换到下一视图**
+	
+	- (void)showDetail:(UIButton *)sender
+	{
+		DetailViewController *detailViewControl = [[[DetailViewController alloc] init] autorelease];
+		
+		// 设置切换动画效果
+	    detailViewControl.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+	    
+	    // 控制器模态切换
+	    [self presentViewController:detailViewControl animated:YES completion:^{
+	        NSLog(@"Detail View Controller is show. ");
+	    }];
+	}
+	
+	// 导航视图控制器
+	DetailViewController *detailViewController = [[DetailViewController alloc] init];
+	[self.navigationController pushViewController:detailViewController animated:YES];
+    [detailViewController release];
+
+---
+
+**返回上一个视图**
+
+	- (void)back:(UIButton *)sender
+	{
+	    [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
+	        NSLog(@"返回deatail");
+	    }];
+	}
+	
+	// 导航视图控制器
+	[self.navigationController popViewControllerAnimated:YES];	
+	
+---	
+	
+**关闭键盘**
+
+	#pragma mark - <UITextFieldDelegate>
+
+	- (BOOL)textFieldShouldReturn:(UITextField *)textField
+	{
+	    // 关闭键盘
+	    // solution 1
+		//    [textField resignFirstResponder];
+	    
+	    //solution 2
+	    [self.view endEditing:YES];
+	    return YES;
+	}	
+	
+---
+
+**限制长度，过滤输入**
+
+	#pragma mark - <UITextFieldDelegate>
+	#define NUMBER_SET @"0123456789"
+	- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+	{
+	    if (range.location >= 11) {
+	        return NO;
+	    }
+	    
+	    if ([NUMBER_SET rangeOfString:string].location == NSNotFound) {
+	        return NO;
+	    }
+	    
+	    return YES;
+	}
+
+---
+
+**根据文本内容多少获取Rect的size(label大小自适应效果)**
+
+	// Before IOS 7
+	CGSize size = [string sizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(150, 568) lineBreakMode:NSLineBreakByWordWrapping];
+
+	// After IOS 7
+	- (CGSize)sizeWithString:(NSString *)string font:(UIFont *)font constraintSize:(CGSize)constraintSize
+	{
+	    CGRect rect = [string boundingRectWithSize:constraintSize
+	                                       options:NSStringDrawingTruncatesLastVisibleLine |
+	                                                NSStringDrawingUsesFontLeading |
+	                                                NSStringDrawingUsesLineFragmentOrigin
+	                                    attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]}
+	                                       context:nil];
+	    return rect.size;
+	}
+
+---
+
+**键盘弹出和收起的通知**
+
+	// 注册键盘弹出的系统通知
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@(keyboardWillShow) name:UIKeyboardWillShowNotification Object:nil];
+	
+	- (void)keyboardWillShow
+	{
+		[UIView animateWithDuration:0.25 animations:^{
+			_btn.fram = CGRectMake(10, 220, 300, 30);
+		} completion:^(BOOL finished){
+		
+		}];
+	}
+	
+	// 注册键盘收起的系统通知
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@(keyboardWillhide) name:UIKeyboardWillHideNotification Object:nil];
+	
+	- (void)keyboardWillhide
+	{
+		[UIView animateWithDuration:0.25 animations:^{
+			_btn.fram = CGRectMake(10, 400, 300, 30);
+		} completion:^(BOOL finished){
+		
+		}];
+	}
+	
+---
+	
+**在不同IOS版本中更改UINavigationBar背景图片**	
+
+	@implementation UINavigationBar (custom)
+		
+		static UIImage *backgroundImage = nil;
+		- (void)setNavigationBarWithImage:(UIImage *)bgImage
+		{
+			if (backgroundImage != bgImage) {
+				[backgroundImage release];
+				[backgroundImage = bgImag retain];
+				
+			}
+			
+			// IOS 5.x
+			if ([self respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) {
+				[self setBackgroundImage:backgroundImage forBarMetrics:UIBarMetricsDefault];
+				if ([[[UIDevice currentDevice] systemVersion] floatValue] > 6.0) {
+					[UIApplication sharedApplication].statusBarStyle = UIBarStyleBlackOpaque;
+				}
+			}
+			else { // IOS 4.x
+				[self drawRect:self.bounds];
+			}
+		}
+		
+		// 重写drawRect方法，在5.x中该方法被废弃
+		- (void)drawRect:(CGRect)rect
+		{
+			[backgroundImage drawInRect:rect];
+		}
+		
+	@end
