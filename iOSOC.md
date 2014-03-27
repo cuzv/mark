@@ -171,3 +171,269 @@
 
 ---
 
+- 是否相等
+
+		-(BOOL)isEqualToString:(NSString *)str;
+		
+- 比较大小
+
+		-(NSComparisonResult)compare:(NSString *)str;
+
+- 转换大小写
+
+		-(NSString *)uppercaseString;
+		-(NSString *)lowercaseString;
+
+### 类型的转换
+
+	-(double)doubleValue;
+	-(float)floatValue;
+	-(int)intValue;
+	-(NSInteger)integerValue;
+	-(long long)longlongValue;
+	-(BOOL)boolValue;
+	-(double)doubelValue
+	-(id)initWithFormat:(NSString *)format....
+ 
+### 可变字符串
+
+	-(id)initWithCapacity:(NSUInteger)capacity;
+	+(id)stringWithCapacity:(NSUInteger)capacity;
+	-(void)insertString:(NSString *)aString atIndex:(NSUInteger)loc;
+	-(void)deleteCharactersInRang:(NSRange)range;
+	-(void)appendString:(NSString *)aString;
+	-(void)appendFormat:(NSString *)format, ....
+	-(void)setString:(NSString)aString;
+
+---
+
+## NSArray
+
+**初始化**
+
+	+(id)arrayWithObjetcts(id)firstObject, ...
+	+(id)arrayWithArray:(NSArray *)array;
+	-(id)initWithObjects:(id)firstObj, ... NS_REQUIRES_NIL_TERMINATION;
+	-(id)initWithArray:(NSArray *)array;
+
+**数组元素个数**
+
+	int count = [array count]
+
+**获取数组元素**
+
+	[array objectAtIndex:n];
+	[array lastObject];
+	
+**NSArray简化**
+
+	[NSArray array] 简写为@[]
+	[NSArray arrayWithObject:a] 简写为@[a]
+	[NSArray arrayWithObjects:a, b, c, nil] 简写为@[a, b, c]
+	[array objectAtIndex:idx] 简写为array[idx]
+	[array replaceObjectAtIndex:idx withObject:newObj] 简写为array[idx] = newObj;
+	
+**NSMutableArray**
+
+	- (id)initWithCapacity:(NSUInteger)numItems; // 初始化
+	+ (id)arrayWithCapacity:(NSUInteger)numItems;// 初始化
+	- (void)addObject:(id)anObject; // 末尾加入一个元素
+	- (void)insertObject:(id)anObject atIndex:(NSUInteger)index; // 插入一个元素
+	- (void)removeLastObject; // 删除最后一个元素
+	- (void)removeObjectAtIndex:(NSUInteger)index; //删除某一个元素
+	- (void)replaceObjectAtIndex:(NSUInteger)index withObject:(id)anObject; //更改某个位置的元素
+	+ (instancetype)arrayWithObjects:(id)firstObj, ... NS_REQUIRES_NIL_TERMINATION;
+	- (void)addObject:(id)anObject;
+
+---
+
+## NSDictionary
+
+**NSDictionary**
+
+	- (instancetype)initWithObjects:(NSArray *)objects forKeys:(NSArray *)keys; // 用数据数组和key值数据初始化
+	- (instancetype)initWithObjectsAndKeys:(id)firstObject, ... NS_REQUIRES_NIL_TERMINATION; // 用key和value对初始化
+	+ (instancetype)dictionaryWithObject:(id)object forKey:(id <NSCopying>)key; // 用某个对象初始化
+	- (id)objectForKey:(id)akey; // 从key获取value值
+	- (id)valueForKey:(id)aKey; // 从key得到value值
+	- (NSArray *)allkeys; // 获取所有的key
+	- (NSArray *)allVlues; // 获取所有的value值
+	
+	- [NSDictionary dictionary] 简写为 @{}
+	- [NSDictionary dictionaryWithObject:o1 forKey:k1] 简写为 @{k1:o1}
+	- [NSDictionary dictionaryWithObjectsAndKeys:o1, k1, o2, k2, o3, k3, nil] 简写为 @{k1:o1, k2:o2, k3:o3}
+
+**NSMutableDictionary**
+
+	- (void)setObject:(id)anObject forKey:(id)key; // 增加和修改可变字典的内容
+	- (void)setValue:(id)anvlaue forKey:(id<NSCopying>)aKey; // 增加和修改可变字典的内容
+	- (void)removeObjectForkey:(id)aKey; // 删除Key值对应的对象
+	- (void)removeAllObjects; // 删除所有字典内容
+
+**字典与数组的联合使用**
+
+    NSArray *persons = @[
+        @{@"name" : @"jack", @"qq" : @"432423423", @"books": @[@"5分钟突破iOS编程", @"5分钟突破android编程"]},
+        @{@"name" : @"rose", @"qq" : @"767567"},
+        @{@"name" : @"jim", @"qq" : @"423423"},
+        @{@"name" : @"jake", @"qq" : @"123123213"}
+        ];
+    
+    NSString *bookName = persons[0][@"books"][1];
+    NSLog(@"%@", bookName);
+
+---
+
+## NSSet
+ 
+**初始化**
+
+	- (id)initWithObjects:(id)firstObject, ...
+	+ (id)setWithObjects:(id)firstObject, ...
+
+**集的元素个数**
+
+	- (NSUInteger)count;
+	- (id)member:(id)object;
+	- (NSEnumerator *)objectEnumerator;
+
+**获取集中的元素**
+
+	- (NSArray *)allObjects;
+	- (id)anyObject;
+	- (BOOL)containsObject:(id)anObject;
+
+**NSMutableSet**
+
+	- (void)addObject:(id)anObject;
+	- (void)removeObject:(id)object;
+	+ (id)setWithObject:(id)object;
+	+ (id)setWithObjects:(const id *)objects count:(NSUInteger)cnt;
+	+ (id)setWithObjects:(id)firstOject, ...
+
+---
+
+### Singleton
+
+- 典型的单例写法
+
+		static id sharedMyManager;
+		+ (id)sharedThemeManager
+		{
+			if (sharedMyManager == nil) {
+				sharedMyMamager = [[self alloc] init];
+			}
+			return sharedMyManager;
+		}
+
+- 加锁的写法
+
+		+ (id)sharedThemeManager
+		{
+			@synchronized(self) {
+				if (sharedMyManager == nil) {
+					sharedMyMamager = [[self alloc] init];
+				}
+			}
+			return sharedMyManager;
+		}
+	
+- 第一次实例化创建Lock free
+
+		+ (voidq)initialize
+		{
+			static BOOL initialized = NO;
+			if (initialized == NO) {
+				initialized = YES;
+				sharedMyManager = [[self alloc] init];
+			}
+		}	
+
+- GCD写法
+
+		+ (id)sharedManager
+		{
+			static dispatch_once_t once;
+			dispatch_once(&once, ^{
+				sharedMyManager = [[self alloc] init];
+			});
+			return sharedMyManager;
+		}
+
+- 完整写法
+		
+	**重载下列方法**
+		
+		+ (id)allocWithZone:(NSZone *)zone;
+		+ (id)copyWithZone:(NSZone *)zone;
+		+ (id)retain;
+		+ (void)release;
+		+ (void)autorelease;		
+
+---
+
+## NSFileManager
+
+	// 创建一个单例fileManager对象
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	
+	// 显示当前路径下的所有内容
+	NSError *error = nil;
+	// 浅度遍历
+	NSArray *contentArray =  [fileManager contentsOfDirectoryAtPath:@"/Users/cuan" error:&error];
+	NSLog(@"%@", contentArray);
+	
+	// 深度遍历
+	contentArray = [fileManager subpathsOfDirectoryAtPath:@"/Users/cuan/Github" error:&error];
+	NSLog(@"%@", contentArray);
+	
+	// 创建目录, YES补全中间目录
+	[fileManager createDirectoryAtPath:@"/Users/cuan/Desktop/test" withIntermediateDirectories:YES attributes:nil error:&error];
+	
+	// 创建文件
+	[fileManager createFileAtPath:@"/Users/cuan/Desktop/echo.txt" contents:[@"hello,wolrd" dataUsingEncoding:NSUTF8StringEncoding] attributes:nil];
+	
+	// 文件(夹)的删除
+	[fileManager removeItemAtPath:@"/Users/cuan/Desktop/test" error:&error];
+	
+	// 文件(夹)的拷贝
+	[fileManager copyItemAtPath:@"/Users/cuan/Desktop/echo.txt" toPath:@"/Users/cuan/Desktop/echo2.txt" error:&error];
+	
+	// 文件(夹)的移动
+	[fileManager copyItemAtPath:@"/Users/cuan/Desktop/echo.txt" toPath:@"/Users/cuan/Desktop/mv/echo.txt" error:&error];
+
+---
+
+## NSFileHandle
+
+	// NSFileHandle 文件句柄：对文件内容的操作
+
+    #pragma mark 以只读方式打开文件生成文件句柄
+
+    NSFileHandle *fileHandleReadonly = [NSFileHandle fileHandleForReadingAtPath:@"/Users/cuan/Documents/note.txt"];
+
+    // 通过字节数来读取，每次读取通过指针标记上次读取到的位置
+    NSData *context = [fileHandleReadonly readDataOfLength:10]; // 字节数
+    NSString *contextString = [[NSString alloc] initWithData:context encoding:NSUTF8StringEncoding];
+    NSLog(@"%@", contextString);
+
+    // 一次性读完文件(适用于文件内容不多的情况)
+    context = [fileHandleReadonly readDataToEndOfFile];
+    contextString = [[NSString alloc] initWithData:context encoding:NSUTF8StringEncoding];
+    NSLog(@"%@", contextString);
+
+    #pragma mark 以只写的方式打开文件生成文件句柄
+
+    NSFileHandle *fileHandleWriteOnly = [NSFileHandle fileHandleForWritingAtPath:@"/Users/cuan/Documents/note.txt"];
+
+    // 覆盖
+    [fileHandleWriteOnly writeData:[@"hello" dataUsingEncoding:NSUTF8StringEncoding]];
+
+    // 重写
+    //        [fileHandleWriteOnly truncateFileAtOffset:0]; // 将文件内容截断至0字节，清空
+
+    // 追加
+    [fileHandleWriteOnly seekToEndOfFile]; // 将读写文件指针指向文件末尾
+    [fileHandleWriteOnly writeData:[@"xxxxxx" dataUsingEncoding:NSUTF8StringEncoding]];---
+
+---
