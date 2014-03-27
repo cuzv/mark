@@ -1,6 +1,6 @@
 # codeSnippets
 
-navitagion
+navigation
 
 - [appDelegate](#appDelegate)
 - [UIViewController](#UIViewController)
