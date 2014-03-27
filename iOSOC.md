@@ -184,6 +184,295 @@
 		-(NSString *)uppercaseString;
 		-(NSString *)lowercaseString;
 
+
+## retain/release
+
+- `消息涉及到对成员变量操作的时候考虑retain/copy`
+- 哪些方法对成员变量操作？init、setter、类似setter
+- setter/init与dealloc相对应。对象初始化(创建)便retain，对象不需要的时候就release
+- 有一个+1(retain/alloc/new/copy/mutableCopy)就对应一个-1(release)
+- 为什么需要retain/copy？因为当前消息中用到的成员变量在其他方法种也可能需要调用，如果在当前方法中release了，那么-1就可能销毁数据了，其他方法种就出现了访问野指针。所以持有对象+1，对其他方法种不会照成干扰
+
+		void test(Student *stu) 
+		{
+		    Book *book = [[Book alloc] initWithPrice:3.5];
+		
+		    stu.book = book; // 如果没有retain.等效于_book = book;
+	
+		    [book release];
+		}
+		
+		void test1(Student *stu) 
+		{
+		    [stu readBook];
+		}
+		
+		int main(int argc, const char * argv[])
+		{
+			Student *stu = [[Student alloc] initWithAge:10];
+		
+			test(stu); //book:0
+		
+			test1(stu); // 调用book，野指针错误
+		
+			[stu release];
+		
+		    return 0;
+		}
+		
+		Student.m
+		- (void) readBook
+		{
+			NSLog(@"read %@", _book)
+		} 					
+	
+- 创建对象时尽量使用autorelease
+
+	- 创建临时对象时,尽量同时在同一行中 autorelease 掉,而非使用单独的 release 语句
+
+	- 虽然这样会稍微有点慢,但这样可以阻止因为提前 return 或其他意外情况导致的内存泄露。通盘来看这是值得的。如:
+		
+			// 避免这样使用(除非有性能的考虑)
+			MyController* controller = [[MyController alloc] init];
+			// ... 这里的代码可能会提前return ...
+			[controller release];
+			// 这样更好
+			MyController* controller = [[[MyController alloc] init] autorelease];
+
+---
+
+## ARC
+
+**ARC的判断准则：只要没有指针指向对象，就会释放对象**
+
+- 指针分2种：强指针和弱指针
+    - 默认情况下，所有指针都是强指针
+    
+**ARC的特点：**
+
+- 不允许调用release、retain、retainCount方法
+- 允许重写dealloc、但是不允许调用[super dealloc]
+- @property的参数
+    - strong: 相当于retain(适用于OC对象类型)
+    - weak: 相当于assign(适用于OC对象类型)
+    - assign: 适用于非OC对象类型
+    - MRC的retain改为strong(循环引用的时使用：一端用strong，一端用weak)
+
+---
+
+## Cocoa内存管理规则
+
+- 使用alloc、new、copy、mutableCopy生成的对象需要手动释放，这些对象成为堆上的对象
+- 使用以上4种方法以外的方法（遍历初始化）生成的对象，默认retainCount为1，并且设置为自动释放，这些对象可以称作栈上的临时对象，局部变量、方法或者函数传参
+- 使用retain方法持有的对象，需要手动release进行释放，并且保持retain以及release次数想相同
+- 集合类可以持有集合中的对象(retain一次)，当集合对象自身销毁时，会将自身中的所有对象release一次
+- 持有集合类，不会增加内部对象的引用计数值
+- set/init里面retain与dealloc里面release相对应。
+
+---
+
+## 属性的总结
+
+- assign:直接赋值，简单、复杂数据类型、SEL(@selector()) 默认属性 避免循环引用(无法释放对象) --delegate:委托、代理设计模式
+- retain:引用计数值+1，适用于对象对象
+- copy:适用于对象，复制，用于NSString,深度复制，retain不加1，对原值release一次
+- readonly:只生成getter
+- readwrite:默认属性，生成getter,setter
+- noatomic：线程不安全
+- atomic:默认，线程安全
+- strong:ARC，强引用
+- weak:ARC,弱引用
+- __ussafe_unretained:类似于assign
+- getter =:规定getter方法的名称
+- **copy:不可变复制，对可变对象复制是深度复制，其它时候一律浅复制**
+- **mutableCopy:可变深度复制**
+- 不可变的对象 通过 copy 不可变的
+- 不可变的对象 通过 mutablecopy 可变的
+- 可变的对象   通过 mutablecopy 可变的
+- 可变的对象   通过 copy 不可变的
+
+---
+
+## @class
+
+- 在.h文件中用@class来声明类，仅仅是告诉编译器，某个名称是一个类
+- 在.m文件中用#import来包含类的所有内容
+- 两端循环引用解决方案：一端用retain, 一端用assign
+
+---
+
+## category
+
+- 类别声明可以和需要扩展的类写在同一个.h文件中，写在原声明后面，实现文件同理
+- 类别是不能为类声明实例变量的。而只能包含方法。但是，所有类作用域中的实例变量同样也在类别的作用域中。包括类声明的所有实例变量，甚至那些声明为 @private 的。
+- 你可为一个类添加的类别的数量没有限制，但是每个类别名必须是唯一的，并且每个类别应当声明/定义不同的方法。
+- 类扩展就像匿名的类别，除了扩展中声明的方法必须在主 @implementation 块中实现。使用 Clang/LLVM 2.0 编译器时，你还可以在一个类扩展中定义属性以及实例变量。
+- 通常我们用类扩展来声明公有的只读属性和私有的读写属性。
+- 类别可以实现原始类的方法，但不推荐这么做，因为它是直接替换原来的方法，这么做后果是再也无法访问原来的方法
+
+---
+
+## protocol
+
+- 与java的接口类似
+- @protocol与@class有一致的用法，提前声明，实现时，在.h文件中声明，在.m中导入
+- 协议中方法声明关键字：@required(默认)、@optional(可选)
+- 协议可以定义在单独的文件中，也可以定义在某个类中(这个协议只用在这个类中)，类别同理
+
+---
+
+## block
+
+	- 类似于java的匿名内部类
+	
+	int (^sum)(int, int) = ^(int a, int b)
+	{
+		return a + b;
+	}
+	
+	int sum = sum(10, 2);
+	NSLog(@"%i", sum); 
+	typedef int (^mySum)(int, int);
+	void test()
+	{
+		mySum sum = ^(int a, int b) {
+			return a + b;
+		}
+		NSLog(@"%i"， sum(10, 2));
+	}
+	
+- block可以访问外面定义的变量
+- 如果外面的变量用__block声明，就可以在block内部修改
+- block与指针函数的区别于联系
+
+		// 定义了Sum这种Block类型
+		typedef int (^Sum) (int, int);
+	    
+	    // 定义了sump这种指针类型，这种指针是指向函数的
+	    typedef int (*Sump) (int, int);
+	    
+	    // 定义了一个block变量
+	    Sum sum1 = ^(int a, int b) {
+	        return a + b;
+	    };
+	    
+	    int c = sum1(10, 10);
+	    NSLog(@"%i", c);
+	    
+	    // 定义一个指针变量p指向sum函数
+	    Sump p = sum;
+	    // c = (*p)(9, 8);
+	    c = p(9, 8);
+	    NSLog(@"%i", c);
+
+---
+
+## OC数据类型
+
+- NSValue可以用来封装任意数据结构
+
+		(NSValue *)valueWithBytes:(const void *)value objCType:(const char *)type;
+		
+- NSNumber类继承于NSValue，用来封装基本书数据类型，如，int, float等
+
+		+ (NSNumber *)numberWithInt:(int)value;
+		+ (NSNumber *)numberWithFloat:(float)value;
+		+ (NSNumber *)numberWithChar:(char)value;
+		+ (NSNumber *)numberWithBool:(BOOL)value;
+		
+- NSNull用来封装nil值
+
+		+ (NSNull *)null;
+		
+- NSArray、NSSet和NSDictionary等容器只能存储对象，不能存储基本数据类型和结构体，也不能存储nil
+
+- NSString、NSMutableString对字符串封装
+
+- OC特殊数据类型：id, nil, SEL等 
+
+---
+
+## NSString
+
+**NSString对象初始化**
+
+- 创建常量字符串
+
+		NSString *aString = @"This is a String";
+	
+- 创建空字符串
+
+		NSString *aString = [[String alloc] init];
+		aString = @"This is a String";
+		
+- 提升速度的方法
+
+		NSString *aString = [[NSString alloc] initWithString:@"This is a String"];
+		
+- 其他方法
+
+		-(id)initWithFormat:(NSString *)format // 便利构造器
+		-(id)initWithData:(NSData *) encoding:(NSStringEncoding) encoding;
+		-(id)initWithCString(const char *)cString encoding:(NSStringEncoding)encoding; // 通过一个c字符串得到一个新字符串
+		
+- e.g.
+
+        NSString *s1 = @"Jack";
+        NSString *s2 = [[NSString alloc] initWithString:@"Jack"];
+        NSString *s3 = [[NSString alloc] initWithFormat:@"my age is %d", 10];
+        NSString *s4 = [[NSString alloc] initWithUTF8String:"Lucy"]; // c字符串 --> OC字符串
+        NSString *s5 = [[NSString alloc] initWithContentsOfFile:@"/Users/cuan/Desktop/1.txt" encoding:NSUTF8StringEncoding error:nil];
+        NSString *s6 = [[NSString alloc] initWithContentsOfURL:@"file:///Users/cuan/demo.txt" encoding:NSUTF8StringEncoding error:nil];
+    
+**字符串长度获取**
+		
+- 字符串长度获取
+
+		-(NSInteger)length;
+
+**获取字符串的子串**
+
+- 拼接字符串
+		
+		- (NSString *)stringByAppendingString:(NSString *)aString;
+		- (NSString *)stringByAppendingFormat:(NSString *)format....
+
+- 获取字符串的子串
+
+		- (NSString *)substringFromIndex:(NSUInteger)from;
+		- (NSString *)substring;ToIndex:(NSUInteger)to;
+		- (NSString *)substringWithRang:(NSRang)rang;
+
+- 字符串是否包含别的字符串
+
+		-(BOOL)hasPrefix:(NSString *)aString;
+		-(BOOL)hasSuffix:(NSString *)aString;
+		-(NSRang)rangeOfString:(NSString *)aString;
+
+**字符串的导出**
+
+    [@"Hello,world" writeToFile:@"/User/cuan/echo.txt" atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    
+    NSURL *url = [NSURL fileURLWithPath:@"/Users/cuan/echo.txt"];
+    [@"hello, every one" writeToURL:url atomically:YES encoding:NSUTF8StringEncoding error:nil];
+
+**字符串的比较**
+
+- 是否相等
+
+		-(BOOL)isEqualToString:(NSString *)str;
+		
+- 比较大小
+
+		-(NSComparisonResult)compare:(NSString *)str;
+
+- 转换大小写
+
+		-(NSString *)uppercaseString;
+		-(NSString *)lowercaseString;
+
+- - -
+
 ### 类型的转换
 
 	-(double)doubleValue;
@@ -437,7 +726,6 @@
     [fileHandleWriteOnly writeData:[@"xxxxxx" dataUsingEncoding:NSUTF8StringEncoding]];---
 
 ---
-
 
 ## Archiver
 
