@@ -280,10 +280,10 @@ NSDictionary *myDictionary = [[unarchiver decodeObjectForKey:@"Some Key Value"] 
 NSString *jsonStr=[dict JSONRepresentation];  
 ```
 
-- 将NSData转换为JSON数据类型
+- JSON转换为OC对象(数组、字典)
 
 ```
-// NSData -> JSON
+// Create a Foundation object from JSON data
 + (id)JSONObjectWithData:(NSData *)data
 {
     if (!data) {
@@ -294,17 +294,17 @@ NSString *jsonStr=[dict JSONRepresentation];
                                                 options:NSJSONReadingMutableLeaves
                                                   error:&error];
     if (error) {
-        NSLog(@"Deserialized JSON string failed with error message '%@'.", [error localizedDescription]);
-    }
-    
-    return object;
+        NSLog(@"Deserialized JSON string failed with error message '%@'.",
+              [error localizedDescription]);
+    }    
+	return object;
 }
 ```
 
-- 将JSON转换为NSData数据类型
+- OC对象(数组、字典)转换为JSON
 
 ```
-// JSON -> NSData
+// Generate JSON data from a Foundation object
 + (NSData *)dataWithJSONObject:(id)object
 {
     if (!object) {
@@ -315,8 +315,11 @@ NSString *jsonStr=[dict JSONRepresentation];
                                                    options:NSJSONWritingPrettyPrinted
                                                      error:&error];
     if (error) {
-        NSLog(@"Serialized JSON string failed with error message '%@'.", [error localizedDescription]);
+        NSLog(@"Serialized JSON string failed with error message '%@'.",
+              [error localizedDescription]);
     }
     return data;
 }
 ```
+
+* * *
