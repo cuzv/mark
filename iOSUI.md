@@ -53,3 +53,11 @@
 * alpha				透明度
 * contentStech		改变视图内容如何拉伸
 
+**TIPS**
+
+* 屏幕上能够看见的都是UIView
+* 每一个UIView都是容器
+* IBAction === void 能让方法显示到storyboard文件的右键列表
+* IButlet能够让属性显示到storyboard的右键列表
+* bounds的x,y永远为0(以自身左上角为原点)，frame的x,y以父视图的左上角为原点
+
