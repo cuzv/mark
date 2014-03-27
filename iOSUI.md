@@ -72,7 +72,7 @@
 
 **UIView层的操作常用方法**
 
-- (void)removeFromSuperview; // 从父视图中移除
+- (void)removeFromSuperview; // 从父视图中移除
 - (void)addSubview:(UIView *)view; // 添加一个子视图
 - (void)insertSubview:(UIView *)view belowSubview:(UIView *)slibingSubview; // 插入一个view到某个view的下层
 - (void)insertSubview:(UIView *)view aboveSubview:(UIView *)slibingSubview; // 插入一个view到某个view的上层
