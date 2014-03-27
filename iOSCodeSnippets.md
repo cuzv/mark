@@ -14,6 +14,7 @@ navigation
 - [改变导航控制器文本颜色](#改变导航控制器文本颜色)
 - [改变标签控制器颜色](#改变标签控制器颜色)
 - [NSDictionary、NSData、JSON数据类型相互转换](#NSDictionary、NSData、JSON数据类型相互转换)
+- [获取uiview的uiviewcontroller](#获取uiview的uiviewcontroller)
 
 * * *
 
@@ -320,6 +321,29 @@ NSString *jsonStr=[dict JSONRepresentation];
     }
     return data;
 }
+```
+
+* * *
+
+## 获取uiview的uiviewcontroller
+
+```
+@implementation UIView (FindUIViewController)  
+  
+- (UIViewController *)viewController {  
+    /// Finds the view's view controller.  
+      
+    // Traverse responder chain. Return first found view controller, which will be the view's view controller.  
+    UIResponder *responder = self;  
+    while ((responder = [responder nextResponder]))  
+        if ([responder isKindOfClass: [UIViewController class]])  
+            return (UIViewController *)responder;  
+      
+    // If the view controller isn't found, return nil.  
+    return nil;  
+}  
+  
+@end
 ```
 
 * * *
