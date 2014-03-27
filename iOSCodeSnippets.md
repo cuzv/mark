@@ -1,6 +1,22 @@
-<h3 id="codeSnippets"> codeSnippets </h3>
+# codeSnippets
 
-**appDelegate.m文件各消息作用说明**
+navitagion
+
+- appDelegate(#appDelegate)
+- UIViewController(#UIViewController)
+- 切换到下一视图(#切换到下一视图)
+- 返回上一个视图(#返回上一个视图)
+- 关闭键盘(#关闭键盘)
+- 限制长度，过滤输入(#限制长度，过滤输入)
+- 文本内容自适应(#文本内容自适应)
+- 键盘弹出和收起的通知(#键盘弹出和收起的通知)
+- 在不同IOS版本中更改UINavigationBar背景图片(#在不同IOS版本中更改UINavigationBar背景图片)
+- 改变导航控制器文本颜色(#改变导航控制器文本颜色)
+- 改变标签控制器颜色(#改变标签控制器颜色)
+
+* * *
+
+## appDelegate
 
 	#pragma mark 程序加载完成,自定义界面加载，数据导入，初始化等
 	- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
@@ -19,9 +35,9 @@
 	#pragma mark 程序结束
 	- (void)applicationWillTerminate:(UIApplication *)application;
 	
----
+* * *
 
-**UIViewController重要消息作用说明**
+## UIViewController
 
 	// 自定义初始化方法，用于XIB加载控制器界面的时候
 	- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNi
@@ -44,9 +60,9 @@
 	// 控制器试图将要旋转到某个朝向，在方法中处理新的界面布局
 	- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration;
 
----
+* * *
 
-**切换到下一视图**
+## 切换到下一视图
 	
 	- (void)showDetail:(UIButton *)sender
 	{
@@ -66,9 +82,9 @@
 	[self.navigationController pushViewController:detailViewController animated:YES];
     [detailViewController release];
 
----
+* * *
 
-**返回上一个视图**
+## 返回上一个视图
 
 	- (void)back:(UIButton *)sender
 	{
@@ -80,9 +96,9 @@
 	// 导航视图控制器
 	[self.navigationController popViewControllerAnimated:YES];	
 	
----	
-	
-**关闭键盘**
+
+* * *
+## 关闭键盘
 
 	#pragma mark - <UITextFieldDelegate>
 
@@ -97,9 +113,10 @@
 	    return YES;
 	}	
 	
----
 
-**限制长度，过滤输入**
+* * *
+
+## 限制长度，过滤输入
 
 	#pragma mark - <UITextFieldDelegate>
 	#define NUMBER_SET @"0123456789"
@@ -116,9 +133,9 @@
 	    return YES;
 	}
 
----
+* * *
 
-**根据文本内容多少获取Rect的size(label大小自适应效果)**
+## 文本内容自适应
 
 	// Before IOS 7
 	CGSize size = [string sizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(150, 568) lineBreakMode:NSLineBreakByWordWrapping];
@@ -135,9 +152,9 @@
 	    return rect.size;
 	}
 
----
+* * *
 
-**键盘弹出和收起的通知**
+## 键盘弹出和收起的通知
 
 	// 注册键盘弹出的系统通知
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@(keyboardWillShow) name:UIKeyboardWillShowNotification Object:nil];
@@ -163,9 +180,9 @@
 		}];
 	}
 	
----
+* * *
 	
-**在不同IOS版本中更改UINavigationBar背景图片**	
+## 在不同IOS版本中更改UINavigationBar背景图片
 
 	@implementation UINavigationBar (custom)
 		
@@ -197,3 +214,28 @@
 		}
 		
 	@end
+
+* * *
+
+## 改变导航控制器文本颜色
+
+```
+for (UINavigationController *navi in navis) {
+        navi.navigationBar.tintColor = [UIColor whiteColor];
+        [navi.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi"] forBarMetrics:UIBarMetricsDefault];
+        navi.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor],
+                                                   NSFontAttributeName:[UIFont systemFontOfSize:14.0f]};
+    }
+```
+
+* * *
+
+## 改变标签控制器颜色
+
+```
+tabBarController.tabBar.tintColor = [UIColor orangeColor];
+[[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor lightGrayColor], NSFontAttributeName:[UIFont systemFontOfSize:12.0f]} forState:UIControlStateNormal];
+[[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor orangeColor   ], NSFontAttributeName:[UIFont systemFontOfSize:12.0f]} forState:UIControlStateSelected];
+```
+
+* * *
