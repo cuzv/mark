@@ -437,3 +437,117 @@
     [fileHandleWriteOnly writeData:[@"xxxxxx" dataUsingEncoding:NSUTF8StringEncoding]];---
 
 ---
+
+
+## Archiver
+
+**对普通的对象归档的要求**
+
+- 对象必须遵守<NSCoding>协议
+- 必须实现以下两个方法
+
+			- (void)encodeWithCoder:(NSCoder *)aCoder
+			{
+			    [aCoder encodeInteger:_age forKey:@"age"];
+			    [aCoder encodeObject:_name forKey:@"name"];
+			    [aCoder encodeObject:_child forKey:@"child"];
+			}
+			
+			- (id)initWithCoder:(NSCoder *)aDecoder
+			{
+			    if (self = [super init]) {
+			        self.name  = [aDecoder decodeObjectForKey:@"name"];
+			        self.age   = [aDecoder decodeIntegerForKey:@"age"];
+			        self.child = [aDecoder decodeObjectForKey:@"child"];
+			    }
+			    return self;
+			}
+
+**demo**
+
+	// 创建字典并存值
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:@"Lucy", @"name",
+                                @"22", @"age", nil];
+	//        [dictionary  writeToFile:PATH atomically:YES];
+    
+    // 创建数组典并存值
+    NSArray *array = [NSArray arrayWithObjects:@"Lucy", @"22", nil];
+	//        [array writeToFile:PATH atomically:YES];
+    
+    // 创建数据容器
+    NSMutableData *archiverData = [NSMutableData data];
+    // 关联容器与归档管理器
+    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:archiverData];
+    // 通过归档管理器将数据归档
+    [archiver encodeObject:array forKey:@"array"];
+    [archiver encodeObject:dictionary forKey:@"dictionary"];
+    // 完成编码，(这步很重要)
+    [archiver finishEncoding];
+    // 将归档好的数据写入文件
+    [archiverData writeToFile:PATH atomically:YES];
+    
+    [archiver release];
+    
+	#pragma mark 读取归档数据
+    
+    // 创建解档数据容器
+    NSData *unarchiverData = [[NSData alloc] initWithContentsOfFile:PATH]; // 关联解档管理器与数据
+    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:unarchiverData];
+    // 通过解档管理器和key解档数据
+    NSArray *unArray = [unarchiver decodeObjectForKey:@"array"];
+    NSDictionary *unDictionary = [unarchiver decodeObjectForKey:@"dictionary"];
+    NSLog(@"%@\n%@", unArray, unDictionary);
+    
+    [unarchiverData release];
+    [unarchiver release];
+
+	#pragma mark 普通对象的归档与解档
+    
+    Person *father = [[Person alloc] init];
+    Person *son = [[Person alloc] init];
+    
+    father.name = @"Father";
+    father.age = 32;
+    father.child = son;
+    
+    // 获取归档数据
+    NSData *personData = [NSKeyedArchiver archivedDataWithRootObject:father];
+    // 将归档数据写入文件
+    [personData writeToFile:PATH atomically:YES];
+    // 读出归档数据
+    NSData *unPersonDate = [NSData dataWithContentsOfFile:PATH];
+    // 解档数据
+    Person *unPerson = [NSKeyedUnarchiver unarchiveObjectWithData:unPersonDate];
+    NSLog(@"name = %@, age = %ld, child = %@", unPerson.name, unPerson.age, unPerson.child);
+	
+	[father release];
+    [son release];
+
+---
+
+## Sandbox
+
+- 获得home目录
+
+		NSString *homeDirectory = NSHomeDirectory();
+		
+- helloworld.app 目录
+	
+		NSString *appPath = [[NSBundle mainBundle] bundlePath];
+		
+- 获取Documents目录
+	
+		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+		NSString *path = [paths ObjectAtIndex:0];
+
+- 获取Library目录
+		
+		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+		NSString *path = [paths ObjectAtIndex:0];
+
+- 获取Caches目录
+		
+		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+		NSString *path = [paths ObjectAtIndex:0];
+
+- - -
