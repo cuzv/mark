@@ -144,7 +144,7 @@
 	
 ---
 
-##  UILabel(标签)
+##  UILabel
 	
 **UILabel常用属性**
 
@@ -264,7 +264,7 @@
 
 ---
 
-<h3 id="UIPageControl"> UIPageControl(分页控件) </h3>
+## UIPageControl
 
 **常用属性和方法**
 
