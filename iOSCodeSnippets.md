@@ -13,6 +13,7 @@ navigation
 - [在不同IOS版本中更改UINavigationBar背景图片](#在不同IOS版本中更改UINavigationBar背景图片)
 - [改变导航控制器文本颜色](#改变导航控制器文本颜色)
 - [改变标签控制器颜色](#改变标签控制器颜色)
+- [NSDictionary、NSData、JSON数据类型相互转换](#NSDictionary、NSData、JSON数据类型相互转换)
 
 * * *
 
@@ -239,3 +240,83 @@ tabBarController.tabBar.tintColor = [UIColor orangeColor];
 ```
 
 * * *
+
+## NSDictionary、NSData、JSON数据类型相互转换
+
+- NSDictionary类型转换为NSData类型
+
+```
+//NSDictionary -> NSData:  
+NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:  
+                                @"balance", @"key",  
+                               @"remaining balance", @"label",  
+                                @"45", @"value",  
+                                @"USD", @"currencyCode",nil];  
+
+NSMutableData *data = [[NSMutableData alloc] init];  
+NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];  
+[archiver encodeObject:params forKey:@"Some Key Value"];  
+[archiver finishEncoding];
+```
+
+- NSData类型转换为NSDictionary类型
+
+```
+//NSData -> NSDictionary  
+NSData *data = [[NSMutableData alloc] initWithContentsOfFile:[self dataFilePath]];  
+NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];  
+NSDictionary *myDictionary = [[unarchiver decodeObjectForKey:@"Some Key Value"] retain];  
+[unarchiver finishDecoding];  
+[unarchiver release];  
+[data release];  
+```
+
+* * * 
+
+- NSDictionary转换为JSON数据类型
+
+```
+//NSDictionary -> JSON:  
+NSString *jsonStr=[dict JSONRepresentation];  
+```
+
+- 将NSData转换为JSON数据类型
+
+```
+// NSData -> JSON
++ (id)JSONObjectWithData:(NSData *)data
+{
+    if (!data) {
+        return nil;
+    }
+    NSError *error = nil;
+    id object = [NSJSONSerialization JSONObjectWithData:data
+                                                options:NSJSONReadingMutableLeaves
+                                                  error:&error];
+    if (error) {
+        NSLog(@"Deserialized JSON string failed with error message '%@'.", [error localizedDescription]);
+    }
+    
+    return object;
+}
+```
+
+- 将JSON转换为NSData数据类型
+
+```
+// JSON -> NSData
++ (NSData *)dataWithJSONObject:(id)object
+{
+    if (!object) {
+        return nil;
+    }
+    NSError *error = nil;
+    NSData *data = [NSJSONSerialization dataWithJSONObject:object
+                                                   options:NSJSONWritingPrettyPrinted
+                                                     error:&error];
+    if (error) {
+        NSLog(@"Serialized JSON string failed with error message '%@'.", [error localizedDescription]);
+    }
+    return data;
+}
+```
