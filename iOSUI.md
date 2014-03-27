@@ -53,34 +53,3 @@
 * alpha				透明度
 * contentStech		改变视图内容如何拉伸
 
-**TIPS**
-
-* 屏幕上能够看见的都是UIView
-* 每一个UIView都是容器
-* IBAction === void 能让方法显示到storyboard文件的右键列表
-* IButlet能够让属性显示到storyboard的右键列表
-* bounds的x,y永远为0(以自身左上角为原点)，frame的x,y以父视图的左上角为原点
-
-**UIView加载过程**
-
-- 首先访问view属性
-- 如果存在view，加载。若不存在，则UIViewController调用loadView方法
-- loadView方法执行如下操作
-	- 如果覆盖了该方法，必须创建view给UIViewController的view属性
-	- 如果没有复写该方法，UIViewController会默认调用initWithNibName:bundle:方法初始化并加载view
-- 通过viewDidLoad方法来执行一些其他任务
-
-**UIView层的操作常用方法**
-
-- (void)removeFromSuperview; // 从父视图中移除
-- (void)addSubview:(UIView *)view; // 添加一个子视图
-- (void)insertSubview:(UIView *)view belowSubview:(UIView *)slibingSubview; // 插入一个view到某个view的下层
-- (void)insertSubview:(UIView *)view aboveSubview:(UIView *)slibingSubview; // 插入一个view到某个view的上层
-- (void)insertSubview:(UIView *)view atIndex:(NSInteger)index; // 插入一个view到特定层
-- (void)bringSubviewToFront:(UIView *)view; // 将某个view放在最上层
-- (void)sendSubviewToBack:(UIView *)view; // 将某个view放在最下层
-- (BOOL)isDescendantOfView(UIView *)view; // 是否是某个视图的子孙视图
-- (void)exchangeSubviewAtIndex:(NSInteger)index1 withSubviewAtIndex:(NSInteger)index2; // 交换两个层的view
-- (UIView *)viewWithTag:(NSInteger)view; // 取到指定tag值的view  
-
----
