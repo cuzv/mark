@@ -14,7 +14,7 @@ navigation
 - [改变导航控制器文本颜色](#改变导航控制器文本颜色)
 - [改变标签控制器颜色](#改变标签控制器颜色)
 - [NSDictionary、NSData、JSON数据类型相互转换](#NSDictionary、NSData、JSON数据类型相互转换)
-- [获取uiview的uiviewcontroller](#获取uiview的uiviewcontroller)
+- [获取UIView的UIViewcontroller](#获取UIView的UIViewcontroller)
 
 * * *
 
@@ -325,7 +325,7 @@ NSString *jsonStr=[dict JSONRepresentation];
 
 * * *
 
-## 获取uiview的uiviewcontroller
+## 获取UIView的UIViewcontroller
 
 ```
 @implementation UIView (FindUIViewController)  
@@ -347,3 +347,6 @@ NSString *jsonStr=[dict JSONRepresentation];
 ```
 
 * * *
+
+
+
