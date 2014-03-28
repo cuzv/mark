@@ -127,3 +127,13 @@ didMoveToParentViewController:当从一个视图控制容器中添加或者移�
      [toVC didMoveToParentViewController:weakSelf];
  }];
  ```
+ 
+ **animation中可以添加动画**
+ 
+```
+CATransition *animation = [CATransition animation];
+animation.duration = 0.5;
+animation.type = kCATransitionReveal;
+animation.subtype =kCATransitionFromLeft;
+[rootVC.view.layer addAnimation:animation forKey:@"animate"];
+```
