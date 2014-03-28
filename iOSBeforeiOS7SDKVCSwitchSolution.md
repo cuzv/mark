@@ -41,9 +41,9 @@ didMoveToParentViewController:当从一个视图控制容器中添加或者移�
 
 小结一下：
 
-（add%2Bdid）[被加入的子视图控制器 didMoveToParentViewController:父视图控制器];
-（will%2Btransition%2Bdid）[子视图控制器 willMoveToParentViewController:nil]&nbsp;transition&nbsp;[子视图控制器 didMoveToParentViewController:父视图控制器]；
-（will%2Bremove）[被删除的子试图控制器 willMoveToParentViewController:nil];
+*（add + did）\[被加入的子视图控制器 didMoveToParentViewController:父视图控制器\];
+*（will+transition+did）\[子视图控制器 willMoveToParentViewController:nil\] transition \[子视图控制器 didMoveToParentViewController:父视图控制器\]；
+*（will+remove）\[被删除的子试图控制器 willMoveToParentViewController:nil\];
 
 1. 在appDelegate中设置rootviewcontroller为mainVC
 
@@ -103,4 +103,27 @@ didMoveToParentViewController:当从一个视图控制容器中添加或者移�
                                }];
        [[self.childViewControllers objectAtIndex:1]didMoveToParentViewController:self];
     }
+ ```
+ 
+ * * *
+ 
+ **oneV's Den demo**
+ 
+ ```
+ //ContainerVC.m
+
+ [self addChildViewController:toVC];
+ [fromVC willMoveToParentViewController:nil];
+ [self.view addSubview:toVC.view];
+
+ __weak id weakSelf = self;
+ [self transitionFromViewController:fromVC
+                   toViewController:toVC duration:0.3
+                            options:UIViewAnimationOptionTransitionCrossDissolve
+                         animations:^{}
+                         completion:^(BOOL finished) {
+     [fromVC.view removeFromSuperView];
+     [fromVC removeFromParentViewController];
+     [toVC didMoveToParentViewController:weakSelf];
+ }];
  ```
