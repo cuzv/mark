@@ -210,7 +210,7 @@ Navigation
 
 **UIPercentDrivenInteractiveTransition是什么**
 
-这是一个实现了UIViewControllerInteractiveTransitioning接口的类，为我们预先实现和提供了一系列便利的方法，可以用一个百分比来控制交互式切换的过程。一般来说我们更多地会使用某些手势来完成交互式的转移（当然用的高级的话用其他的输入..比如声音，iBeacon距离或者甚至面部微笑来做输入驱动也无不可，毕竟想象无极限嘛..），这样使用这个类（一般是其子类）的话就会非常方便。我们在手势识别中只需要告诉这个类的实例当前的状态百分比如何，系统便根据这个百分比和我们之前设定的迁移方式为我们计算当前应该的UI渲染，十分方便。具体的几个重要方法：
+这是一个实现了UIViewControllerInteractiveTransitioning接口的类，为我们预先实现和提供了一系列便利的方法，可以用一个百分比来控制交互式切换的过程。这样使用这个类（一般是其子类）的话就会非常方便。我们在手势识别中只需要告诉这个类的实例当前的状态百分比如何，系统便根据这个百分比和我们之前设定的迁移方式为我们计算当前应该的UI渲染，十分方便。具体的几个重要方法：
 
 * -(void)updateInteractiveTransition:(CGFloat)percentComplete 更新百分比，一般通过手势识别的长度之类的来计算一个值，然后进行更新。之后的例子里会看到详细的用法
 * -(void)cancelInteractiveTransition 报告交互取消，返回切换前的状态
