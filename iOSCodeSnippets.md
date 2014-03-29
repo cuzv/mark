@@ -15,6 +15,7 @@ navigation
 - [改变标签控制器颜色](#改变标签控制器颜色)
 - [NSDictionary、NSData、JSON数据类型相互转换](#NSDictionary、NSData、JSON数据类型相互转换)
 - [获取uiview的uiviewcontroller](#获取uiview的uiviewcontroller)
+- [检测网络状况](#检测网络状况)
 
 * * *
 
@@ -344,6 +345,35 @@ NSString *jsonStr=[dict JSONRepresentation];
 }  
   
 @end
+```
+
+* * *
+
+## 检测网络状况
+
+*前提：工程添加：SystemConfiguration.framework framework*
+
+```
+-(BOOL) isConnectionAvailable { 
+	   
+    BOOL isExistenceNetwork = YES;  
+    Reachability *reach = [Reachability reachabilityWithHostName:@"www.apple.com"];  
+    switch ([reach currentReachabilityStatus]) {  
+        case NotReachable:  
+            isExistenceNetwork = NO;  
+            // NSLog(@"notReachable");  
+            break;  
+        case ReachableViaWiFi:  
+            isExistenceNetwork = YES;  
+            // NSLog(@"WIFI");  
+            break;  
+        case ReachableViaWWAN:  
+            isExistenceNetwork = YES;  
+            // NSLog(@"3G");  
+            break;  
+    }     
+    return isExistenceNetwork;  
+}  
 ```
 
 * * *
