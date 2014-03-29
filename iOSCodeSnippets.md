@@ -16,6 +16,7 @@ navigation
 - [NSDictionary、NSData、JSON数据类型相互转换](#NSDictionary、NSData、JSON数据类型相互转换)
 - [获取UIView的UIViewcontroller](#获取UIView的UIViewcontroller)
 - [显示警告窗口](#显示警告窗口)
+- [购物车曲线动画](#购物车曲线动画)
 
 * * *
 
@@ -381,6 +382,25 @@ NSString *jsonStr=[dict JSONRepresentation];
 
 * * * 
 
+## 购物车曲线动画
 
+```
+CAKeyframeAnimation *animation=[CAKeyframeAnimation animationWithKeyPath:@"position"];
+    animation.duration = 1.0f;
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:@"easeInEaseOut"];
+    animation.fillMode = kCAFillModeForwards;
+    animation.calculationMode = kCAAnimationCubicPaced;
+    animation.removedOnCompletion = YES;
+    animation.delegate = self;
+    CGMutablePathRef curvedPath = CGPathCreateMutable();
+    CGPathMoveToPoint(curvedPath, NULL, CGRectGetMidX(self.bounds),
+                      CGRectGetMidY(self.bounds) + 100);
+    CGPathAddQuadCurveToPoint(curvedPath, NULL, 30, 100, 40, 700);
+    animation.path = curvedPath;
+    [_imageView.layer addAnimation:animation forKey:nil];
+    CGPathRelease(curvedPath);
+```
+
+* * * 
 
 
