@@ -351,7 +351,10 @@ NSString *jsonStr=[dict JSONRepresentation];
 
 ## 检测网络状况
 
-*前提：工程添加：SystemConfiguration.framework framework*
+*前提*
+
+- 工程添加：`SystemConfiguration.framework` framework
+- `#import "Reachability.h"` 
 
 ```
 -(BOOL) isConnectionAvailable { 
