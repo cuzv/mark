@@ -14,15 +14,12 @@ navigation
 - [改变导航控制器文本颜色](#改变导航控制器文本颜色)
 - [改变标签控制器颜色](#改变标签控制器颜色)
 - [NSDictionary、NSData、JSON数据类型相互转换](#NSDictionary、NSData、JSON数据类型相互转换)
-<<<<<<< HEAD
 - [获取uiview的uiviewcontroller](#获取uiview的uiviewcontroller)
 - [检测网络状况](#检测网络状况)
 - [判断设备](#判断设备)
-=======
 - [获取UIView的UIViewcontroller](#获取UIView的UIViewcontroller)
 - [显示警告窗口](#显示警告窗口)
 - [购物车曲线动画](#购物车曲线动画)
->>>>>>> origin/master
 
 * * *
 
@@ -355,4 +352,158 @@ NSString *jsonStr=[dict JSONRepresentation];
 ```
 
 * * *
+
+
+## 检测网络状况
+
+－　方式一
+
+*前提*
+
+- 工程添加：`SystemConfiguration.framework` framework
+- `#import "Reachability.h"` 
+
+```
+-(BOOL) isConnectionAvailable { 
+	   
+    BOOL isExistenceNetwork = YES;  
+    Reachability *reach = [Reachability reachabilityWithHostName:@"www.apple.com"];  
+    switch ([reach currentReachabilityStatus]) {  
+        case NotReachable:  
+            isExistenceNetwork = NO;  
+            // NSLog(@"notReachable");  
+            break;  
+        case ReachableViaWiFi:  
+            isExistenceNetwork = YES;  
+            // NSLog(@"WIFI");  
+            break;  
+        case ReachableViaWWAN:  
+            isExistenceNetwork = YES;  
+            // NSLog(@"3G");  
+            break;  
+    }     
+    return isExistenceNetwork;  
+}  
+```
+
+- 方式二
+
+`导入SystemConfiguration.framework,并#import<SystemConfiguration/SCNetworkReachability.h>`
+
+```
++ (BOOL)connectedToNetwork {
+    
+    // 创建零地址，0.0.0.0的地址表示查询本机的网络连接状态
+    
+    struct sockaddr_storage zeroAddress;
+    
+    bzero(&zeroAddress, sizeof(zeroAddress));
+    zeroAddress.ss_len = sizeof(zeroAddress);
+    zeroAddress.ss_family = AF_INET;
+    
+    // Recover reachability flags
+    SCNetworkReachabilityRef defaultRouteReachability = SCNetworkReachabilityCreateWithAddress(NULL, (struct sockaddr *)&zeroAddress);
+    SCNetworkReachabilityFlags flags;
+    
+    // 获得连接的标志
+    BOOL didRetrieveFlags = SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags);
+    CFRelease(defaultRouteReachability);
+    
+    // 如果不能获取连接标志，则不能连接网络，直接返回
+    if (!didRetrieveFlags) {
+        return NO;
+    }
+	
+    // 根据获得的连接标志进行判断
+    BOOL isReachable = flags & kSCNetworkFlagsReachable;
+    BOOL needsConnection = flags & kSCNetworkFlagsConnectionRequired;
+    return (isReachable&&!needsConnection) ? YES : NO;
+}
+
+```
+
+* * *
+
+## 判断设备
+
+```
+// 设备名称
+return [UIDevice currentDevice].name;
+
+// 设备型号，只可得到是何设备，无法得到是第几代设备
+return [UIDevice currentDevice].model;
+
+// 系统版本型号,如iPhone OS
+return [UIDevice currentDevice].systemVersion;
+
+//系统版本名称，如6.1.3
+return [UIDevice currentDevice].systemName;
+
+//判断是否为iPhone
+\#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+
+//判断是否为iPad
+\#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+
+//判断是否为ipod
+\#define IS_IPOD ([[[UIDevice currentDevice] model] isEqualToString:@"iPod touch"])
+
+//判断是否为iPhone5
+\#define IS_IPHONE_5_SCREEN [[UIScreen mainScreen] bounds].size.height >= 568.0f && [[UIScreen mainScreen] bounds].size.height < 1024.0f
+```
+
+* * *
+
+## 显示警告窗口
+
+```
+- (void)alertWithMessage:(NSString *)message {
+
+    UIAlertView *alertView = [[UIAlertView alloc]
+                              initWithTitle:@"Alert"
+                              message:message
+                              delegate:nil
+                              cancelButtonTitle:nil
+                              otherButtonTitles:nil];
+    
+    [alertView show];
+    [alertView release];
+    
+    // wait two seconds dismiss
+    NSMethodSignature *signature = [UIAlertView instanceMethodSignatureForSelector:
+                                    @selector(dismissWithClickedButtonIndex:animated:)];
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+    [invocation setTarget:alertView];
+    [invocation setSelector:@selector(dismissWithClickedButtonIndex:animated:)];
+    NSInteger index = 0;
+    [invocation setArgument:&index atIndex:2];
+    BOOL animated = YES;
+    [invocation setArgument:&animated atIndex:3];
+    [invocation retainArguments];
+    [invocation performSelector:@selector(invoke) withObject:nil afterDelay:2];
+}
+```
+
+* * * 
+
+## 购物车曲线动画
+
+```
+CAKeyframeAnimation *animation=[CAKeyframeAnimation animationWithKeyPath:@"position"];
+    animation.duration = 1.0f;
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:@"easeInEaseOut"];
+    animation.fillMode = kCAFillModeForwards;
+    animation.calculationMode = kCAAnimationCubicPaced;
+    animation.removedOnCompletion = YES;
+    animation.delegate = self;
+    CGMutablePathRef curvedPath = CGPathCreateMutable();
+    CGPathMoveToPoint(curvedPath, NULL, CGRectGetMidX(self.bounds),
+                      CGRectGetMidY(self.bounds) + 100);
+    CGPathAddQuadCurveToPoint(curvedPath, NULL, 30, 100, 40, 700);
+    animation.path = curvedPath;
+    [_imageView.layer addAnimation:animation forKey:nil];
+    CGPathRelease(curvedPath);
+```
+
+* * * 
 
