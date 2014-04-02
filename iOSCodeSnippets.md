@@ -16,6 +16,7 @@ navigation
 - [NSDictionary、NSData、JSON数据类型相互转换](#NSDictionary、NSData、JSON数据类型相互转换)
 - [获取uiview的uiviewcontroller](#获取uiview的uiviewcontroller)
 - [检测网络状况](#检测网络状况)
+- [判断设备](#判断设备)
 
 * * *
 
@@ -351,6 +352,8 @@ NSString *jsonStr=[dict JSONRepresentation];
 
 ## 检测网络状况
 
+－　方式一
+
 *前提*
 
 - 工程添加：`SystemConfiguration.framework` framework
@@ -379,4 +382,71 @@ NSString *jsonStr=[dict JSONRepresentation];
 }  
 ```
 
+- 方式二
+
+`导入SystemConfiguration.framework,并#import<SystemConfiguration/SCNetworkReachability.h>`
+
+```
++ (BOOL)connectedToNetwork {
+    
+    // 创建零地址，0.0.0.0的地址表示查询本机的网络连接状态
+    
+    struct sockaddr_storage zeroAddress;
+    
+    bzero(&zeroAddress, sizeof(zeroAddress));
+    zeroAddress.ss_len = sizeof(zeroAddress);
+    zeroAddress.ss_family = AF_INET;
+    
+    // Recover reachability flags
+    SCNetworkReachabilityRef defaultRouteReachability = SCNetworkReachabilityCreateWithAddress(NULL, (struct sockaddr *)&zeroAddress);
+    SCNetworkReachabilityFlags flags;
+    
+    // 获得连接的标志
+    BOOL didRetrieveFlags = SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags);
+    CFRelease(defaultRouteReachability);
+    
+    // 如果不能获取连接标志，则不能连接网络，直接返回
+    if (!didRetrieveFlags) {
+        return NO;
+    }
+	
+    // 根据获得的连接标志进行判断
+    BOOL isReachable = flags & kSCNetworkFlagsReachable;
+    BOOL needsConnection = flags & kSCNetworkFlagsConnectionRequired;
+    return (isReachable&&!needsConnection) ? YES : NO;
+}
+
+```
+
 * * *
+
+## 判断设备
+
+```
+// 设备名称
+return [UIDevice currentDevice].name;
+
+// 设备型号，只可得到是何设备，无法得到是第几代设备
+return [UIDevice currentDevice].model;
+
+// 系统版本型号,如iPhone OS
+return [UIDevice currentDevice].systemVersion;
+
+//系统版本名称，如6.1.3
+return [UIDevice currentDevice].systemName;
+
+//判断是否为iPhone
+\#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+
+//判断是否为iPad
+\#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+
+//判断是否为ipod
+\#define IS_IPOD ([[[UIDevice currentDevice] model] isEqualToString:@"iPod touch"])
+
+//判断是否为iPhone5
+\#define IS_IPHONE_5_SCREEN [[UIScreen mainScreen] bounds].size.height >= 568.0f && [[UIScreen mainScreen] bounds].size.height < 1024.0f
+```
+
+* * *
+
