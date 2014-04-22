@@ -20,6 +20,7 @@ navigation
 - [获取UIView的UIViewcontroller](#获取UIView的UIViewcontroller)
 - [显示警告窗口](#显示警告窗口)
 - [购物车曲线动画](#购物车曲线动画)
+-[UITextView实现PlaceHolder](#UITextView实现PlaceHolder)
 
 * * *
 
@@ -507,3 +508,135 @@ CAKeyframeAnimation *animation=[CAKeyframeAnimation animationWithKeyPath:@"posit
 
 * * * 
 
+## UITextView实现PlaceHolder
+
+```
+//
+//  DDPlaceHolderTextView.h
+//  面试职通车
+//
+//  Created by 萧川 on 14-4-22.
+//  Copyright (c) 2014年 CUAN. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface DDPlaceHolderTextView : UITextView
+
+@property(nonatomic, strong) NSString *placeholder;
+@property(nonatomic, strong) UIColor *placeholderColor;
+
+@end
+```
+
+```
+//
+//  DDPlaceHolderTextView.m
+//  面试职通车
+//
+//  Created by 萧川 on 14-4-22.
+//  Copyright (c) 2014年 CUAN. All rights reserved.
+//
+
+#import "DDPlaceHolderTextView.h"
+
+@interface DDPlaceHolderTextView ()
+
+@property(nonatomic, strong) UILabel *placeHolderLabel;
+
+- (void)initialize;
+- (void)updateShouldDrawPlaceholder;
+- (void)textChanged:(NSNotification *)notification;
+
+@end
+
+@implementation DDPlaceHolderTextView {
+
+    BOOL _shouldDrawPlaceholder;
+}
+
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter]
+        removeObserver:self
+        name:UITextViewTextDidChangeNotification object:self];
+}
+
+- (id)initWithFrame:(CGRect)frame {
+    
+    if ((self = [super initWithFrame:frame])) {
+        [self initialize];
+    }
+    return self;
+}
+
+- (void)setText:(NSString *)string {
+    
+    [super setText:string];
+    [self updateShouldDrawPlaceholder];
+}
+
+
+- (void)setPlaceholder:(NSString *)string {
+    
+    if ([string isEqual:_placeholder]) {
+        return;
+    }
+    
+    _placeholder = string;
+    [self updateShouldDrawPlaceholder];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if ((self = [super initWithCoder:aDecoder])) {
+        
+        [self initialize];
+    }
+    return self;
+}
+
+- (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
+    
+    if (_shouldDrawPlaceholder) {
+        [_placeholderColor set];
+        CGRect drawRect = CGRectMake(8.0f, 8.0f, self.frame.size.width - 16.0f, self.frame.size.height - 16.0f);
+        [_placeholder drawInRect:drawRect
+                  withAttributes:@{NSFontAttributeName:self.font}];
+    }
+}
+
+
+#pragma mark - Private
+
+- (void)initialize {
+    
+    [[NSNotificationCenter defaultCenter]
+        addObserver:self
+        selector:@selector(textChanged:)
+        name:UITextViewTextDidChangeNotification object:self];
+    
+    self.placeholderColor = [UIColor colorWithWhite:0.702f alpha:1.0f];
+    _shouldDrawPlaceholder = NO;
+}
+
+
+- (void)updateShouldDrawPlaceholder {
+    
+    BOOL prev = _shouldDrawPlaceholder;
+    _shouldDrawPlaceholder = self.placeholder && self.placeholderColor && self.text.length == 0;
+    
+    if (prev != _shouldDrawPlaceholder) {
+        [self setNeedsDisplay];
+    }
+}
+
+
+- (void)textChanged:(NSNotification *)notificaiton {
+    
+    [self updateShouldDrawPlaceholder];
+}
+
+@end
+
+```
