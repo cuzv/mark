@@ -21,6 +21,7 @@ navigation
 - [显示警告窗口](#显示警告窗口)
 - [购物车曲线动画](#购物车曲线动画)
 - [UITextView实现PlaceHolder](#UITextView实现PlaceHolder)
+- [UILabel实现顶部对齐](#UILabel实现顶部对齐)
 
 * * *
 
@@ -639,4 +640,79 @@ CAKeyframeAnimation *animation=[CAKeyframeAnimation animationWithKeyPath:@"posit
 
 @end
 
+```
+
+* * *
+
+## UILabel实现顶部对齐
+
+```
+#import <UIKit/UIKit.h>
+
+typedef enum VerticalAlignment {
+    VerticalAlignmentTop,
+    VerticalAlignmentMiddle,
+    VerticalAlignmentBottom,
+} VerticalAlignment;
+
+@interface DDAlignmentLabel : UILabel
+
+@end
+```
+
+```
+
+#import "DDAlignmentLabel.h"
+
+@interface DDAlignmentLabel ()
+
+@property (nonatomic, assign) VerticalAlignment verticalAlignment;
+
+@end
+
+@implementation DDAlignmentLabel
+
+- (id)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        self.verticalAlignment = VerticalAlignmentMiddle;
+    }
+    return self;
+}
+
+- (void)setVerticalAlignment:(VerticalAlignment)verticalAlignment {
+    
+    _verticalAlignment = verticalAlignment;
+    [self setNeedsDisplay];
+}
+
+- (CGRect)textRectForBounds:(CGRect)bounds
+     limitedToNumberOfLines:(NSInteger)numberOfLines {
+    
+    CGRect textRect = [super textRectForBounds:bounds
+                        limitedToNumberOfLines:numberOfLines];
+    switch (self.verticalAlignment) {
+        case VerticalAlignmentTop:
+            textRect.origin.y = bounds.origin.y;
+            break;
+        case VerticalAlignmentBottom:
+            textRect.origin.y = bounds.origin.y +
+                bounds.size.height - textRect.size.height;
+            break;
+        case VerticalAlignmentMiddle:
+            // Fall through.
+        default:
+            textRect.origin.y = bounds.origin.y +
+                (bounds.size.height - textRect.size.height) / 2.0;
+    }
+    return textRect;
+}
+
+-(void)drawTextInRect:(CGRect)requestedRect {
+    
+    CGRect actualRect = [self textRectForBounds:requestedRect
+                         limitedToNumberOfLines:self.numberOfLines];
+    [super drawTextInRect:actualRect];
+}
+
+@end
 ```
