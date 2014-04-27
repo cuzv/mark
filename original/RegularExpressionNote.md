@@ -1,7 +1,7 @@
 # 正则表达式语句以及应用
 
-- [句点](#句点(dot))
-- [字符类](#字符类(character classes)) 
+- [句点](#句点\(dot\))
+- [字符类](#字符类\(character classes\)) 
 
 ## 句点(dot)
 
