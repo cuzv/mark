@@ -1,10 +1,7 @@
-# fisrt things is this will be good
+# iOS多线程编程
 
-
-- [DDD](#DDD)
-
-# DDD
--线程的价值无需赘述，对于App性能和用户体验都有着至关重要的意义，在iOS开发中，Apple提供了不同的技术支持多线程编程，除了跨平台的pthread之外，还提供了NSThread、NSOperationQueue、GCD等多线程技术，从本篇Blog开始介绍这几种多线程技术的细节。
-对于pthread这种跨平台的多线程技术，这本Programming with POSIX Threads做了详细介绍，不再提及。
-NSThread
-- [EEE](#EEE)
+- 启动线程的方式
+    - detachNewThreadSelector:toTarget:withObject:类方法直接生成一个子线程
+    - 创建一个NSThread类实例，然后调用start方法。
+    - 调用NSObject的+performSelectorInBackground:withObject:方法生成子线程。
+    - 创建一个NSThread子类，然后调用子类实例的start方法
