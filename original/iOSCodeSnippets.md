@@ -22,6 +22,7 @@ navigation
 - [购物车曲线动画](#购物车曲线动画)
 - [UITextView实现PlaceHolder](#UITextView实现PlaceHolder)
 - [UILabel实现顶部对齐](#UILabel实现顶部对齐)
+- [Cell编辑按钮颜色](#Cell编辑按钮颜色)
 
 * * *
 
@@ -715,4 +716,18 @@ typedef enum VerticalAlignment {
 }
 
 @end
+```
+
+* * *
+
+## Cell编辑按钮颜色
+
+```
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    MessageListCell *cell= (MessageListCell *)[tableView cellForRowAtIndexPath:indexPath];
+    UIImageView *obj = (UIImageView *)[[[[[cell.subviews firstObject] subviews] lastObject] subviews] firstObject];
+    obj.tintColor = ElementBColor;    
+}
+
 ```
