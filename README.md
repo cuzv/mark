@@ -8,7 +8,7 @@ mark tips, notes, faqs, techs, shares
 	- [APNS](./markdown/1-APNS-1.md)
 - linux[2]
 	- [terminal command](./markdown/2-terminal-command.md)
-	- [install lamp on centos]./markdown/(2-install-lamp-on-CentOs.md)
+	- [install lamp on centos](./markdown/2-install-lamp-on-CentOs.md)
 	- [pptpd shell](2-pptpd6.sh)
 	- [VPS搭建VPN](./markdown/2-VPS搭建VPN.md)
 	- [linux command shelf pdf](./pdf/2-linux_command_shelf_pdf_ver1_1.pdf)
