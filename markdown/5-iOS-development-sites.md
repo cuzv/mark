@@ -5,8 +5,10 @@
 
 - iOS的麦加圣地
   - [iOS Dev Center][1]
+
 - CS193p，视频学习的首选教程
   - [CS193p iPhone Application Development][2]
+
 - 英文学习网站
    - [Google][3] (有问题，找谷歌)
    - [Github][4] (源码，直观且易学)
@@ -15,6 +17,7 @@
    - [objc.io][7] (深度解读Objective-C)
    - [NSHipster][8] (a journal of the overlooked bits in Objective-C and Cocoa.)
    - [Think&amp;Build][9] (Tutorials about OS X,iOS and web development)
+
 - 中文博客(大多为微博大牛的博客)
    - [唐巧的技术博客][10] (拥有深厚功力者,京城iOS一哥@唐巧)
    - [破船之家][11] (iOS文章绝对高产者，据说跑起马拉松也是在程序员中首屈一指@BeyondVincent)
