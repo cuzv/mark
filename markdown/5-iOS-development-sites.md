@@ -15,7 +15,6 @@
    - [objc.io][7] (深度解读Objective-C)  
    - [NSHipster][8] (a journal of the overlooked bits in Objective-C and Cocoa.)  
    - [Think&amp;Build][9] (Tutorials about OS X,iOS and web development)  
-
 - 中文博客(大多为微博大牛的博客)  
    - [唐巧的技术博客][10] (拥有深厚功力者,京城iOS一哥@唐巧)  
    - [破船之家][11] (iOS文章绝对高产者，据说跑起马拉松也是在程序员中首屈一指@BeyondVincent)  
