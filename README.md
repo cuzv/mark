@@ -19,7 +19,7 @@ mark tips, notes, faqs, techs, shares
 	- [git basic manual](./markdown/4-git-basic-manual.md)
 	- [git reference summary](./markdown/4-git-reference-summary.md)
 	- [Google Cpp Style guide](./pdf/4-Google_Cpp_Style_guide_CN.pdf)
-- **via[5]**
+- **material[5]**
 	- [funny stuff on github](./markdown/5-FunnyStuffOnGitHub.md)
 	- [iOS blog cn](./markdown/5-iOS-blog-cn.md)
 	- [iOS development site](./markdown/5-iOS-development-sites.md)
