@@ -7,7 +7,7 @@
 	- 第一步，使用命令`git add` ，注意，可反复多次使用，添加多个文件；
 	- 第二步，使用命令`git commit`，完成。
 
-## 状态` 
+## 状态
 
 - 要随时掌握工作区的状态，使用`git status`命令(`git status -s`)。
 - 如果`git status`告诉你有文件被修改过，用`git diff`可以查看修改内容(`git diff --cached, git diff HEAD`)。
@@ -88,21 +88,23 @@
 收集所有需要登录的用户的公钥，就是他们自己的id_rsa.pub文件，
 把所有公钥导入到/home/git/.ssh/authorized_keys文件里，一行一个。
 
-4.初始化Git仓库
+4. 初始化Git仓库
 
 选定一个目录作为git仓库，假定是/srv/sample.git，在/srv目录下输入：
+
 	`sudo git init --bare sample.git`
 git就会创建一个裸仓库，裸仓库没有工作区，因为服务器上的Git仓库纯粹是为了共享，
 所以不让用户直接登录到服务器上去改工作区，并且服务器上的Git仓库通常都以.git结尾。
 然后，把owner改为git：
 
-`$ sudo chown -R git:git sample.git`
+	`sudo chown -R git:git sample.git`
 
 5. 禁用shell登录
 	- `sudo vipw`
 	- `git:x:1001:1001:,,,:/home/git:/bin/bash` --> `git:x:1001:1001:,,,:/home/git:/usr/bin/git-shell` 
 
 6. 克隆远程仓库
+
 	`$ git clone git@server:/srv/sample.git`
 
 
