@@ -25,7 +25,7 @@ mark tips, notes, faqs, techs, shares
 	- [iOS development site](./markdown/5-iOS-development-sites.md)
 	- [javascript学习资料](./markdown/5-javascript学习资料.md)
 	- [面试和算法心得](./markdown/5-面试和算法心得.md)
-- **6:coding:**
+- **6 coding**
 	- [Google Cpp Style guide](./pdf/6-Google_Cpp_Style_guide_CN.pdf)
 	- [markdown syntax](./markdown/6-MarkdownSyntax.md)
 	- [regular expression](./markdown/6-RegularExpression.md)
