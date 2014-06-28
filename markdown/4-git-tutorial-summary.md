@@ -87,7 +87,6 @@
 
 收集所有需要登录的用户的公钥，就是他们自己的id_rsa.pub文件，
 把所有公钥导入到/home/git/.ssh/authorized_keys文件里，一行一个。
-
 4. 初始化Git仓库
 
 选定一个目录作为git仓库，假定是/srv/sample.git，在/srv目录下输入：
