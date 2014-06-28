@@ -72,5 +72,37 @@
 - `git tag -d tagname-`可以删除一个本地标签；
 - `git push origin :refs/tags/tagname`可以删除一个远程标签。
 
+## 搭建Git服务器
+
+1. 安装git
+
+	`sudo yum install git` or `sudo apt-get install gito`
+
+2. 创建一个git用户，用来运行git服务
+
+	`sudo adduser git`
+	`passwd git`
+
+3. 创建证书登录
+
+收集所有需要登录的用户的公钥，就是他们自己的id_rsa.pub文件，
+把所有公钥导入到/home/git/.ssh/authorized_keys文件里，一行一个。
+
+4.初始化Git仓库
+
+选定一个目录作为git仓库，假定是/srv/sample.git，在/srv目录下输入：
+	`sudo git init --bare sample.git`
+git就会创建一个裸仓库，裸仓库没有工作区，因为服务器上的Git仓库纯粹是为了共享，
+所以不让用户直接登录到服务器上去改工作区，并且服务器上的Git仓库通常都以.git结尾。
+然后，把owner改为git：
+
+`$ sudo chown -R git:git sample.git`
+
+5. 禁用shell登录
+	- `sudo vipw`
+	- `git:x:1001:1001:,,,:/home/git:/bin/bash` --> `git:x:1001:1001:,,,:/home/git:/usr/bin/git-shell` 
+
+6. 克隆远程仓库
+	`$ git clone git@server:/srv/sample.git`
 
 
