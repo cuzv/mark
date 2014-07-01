@@ -32,3 +32,6 @@ mark tips, notes, faqs, techs, shares
 	- [regular expression note](./markdown/6-regular-expression-note.md)
 - **7 java**
 	- [java basic segment](./markdown/7-java-basic-segment.md)
+	- [java collections framework](./markdown/7-java-collections-framework.md)
+	- [java io](./markdown/7-java-io.md)
+	- [java net regular expression reflector class loader](./markdown/7-java-net-regular-expression-reflector-class-loader.md)
