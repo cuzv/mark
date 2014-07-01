@@ -30,3 +30,5 @@ mark tips, notes, faqs, techs, shares
 	- [markdown syntax](./markdown/6-MarkdownSyntax.md)
 	- [regular expression](./markdown/6-RegularExpression.md)
 	- [regular expression note](./markdown/6-regular-expression-note.md)
+- **7 java**
+	- [java basic segment](./markdown/7-java-basic-segment.md)
