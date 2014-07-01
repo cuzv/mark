@@ -38,55 +38,51 @@
 * 该接口中定义了集合框架中最共性的功能。 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 * 最终使用的时候，其实使用的该框架最子类的对象。 &nbsp; &nbsp; &nbsp; &nbsp;
 
-Collection中有哪些方法呢？ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-1，添加方法。 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-boolean add(object e):一次添加一个元素。 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-boolean addAll(Collection):将一个参数容器中的元素添加到当前容器中。 &nbsp;&nbsp; &nbsp;
+Collection中有哪些方法呢？
 
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-2，删除方法。 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-boolean remove(object):删除一个指定对象。 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-boolean removeAll(Collection):删除指定collection中和本Collection中相同的元素。 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-void clear():直接将集合中的元素清空。 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+1. 添加方法。
 
+	boolean add(object e):一次添加一个元素。
+	boolean addAll(Collection):将一个参数容器中的元素添加到当前容器中。
 
-3，判断方法： &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-boolean contains(object):是否包含指定元素。 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-boolean containsAll(Collection):是否包含指定容器中的元素。 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-boolean isEmpty():是否有元素。 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+2. 删除方法。
 
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-4，获取元素个数： &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-int size():获取元素有几个。 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	boolean remove(object):删除一个指定对象。 
+	boolean removeAll(Collection):删除指定collection中和本Collection中相同的元素。
+	void clear():直接将集合中的元素清空。
 
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-5，取交集。 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-boolean retainAll(collection):保留和指定collection集合中相同的元素，不相同的元素会被删除。
+3. 判断方法：
 
+	boolean contains(object):是否包含指定元素。
+	boolean containsAll(Collection):是否包含指定容器中的元素。
+	boolean isEmpty():是否有元素。
 
-6，将集合转成数组。
+4. 获取元素个数： 
 
-7，取出元素的方法：&nbsp;
+	int size():获取元素有几个。
+	
+5. 取交集。
 
-&nbsp; &nbsp; &nbsp;
+	boolean retainAll(collection):保留和指定collection集合中相同的元素，不相同的元素会被删除。
 
-Iterator iterator():&nbsp;
+6. 将集合转成数组。
 
-迭代器：取出集合中元素的方式的一个对象。该对象本身就内置在容器中。
+7. 取出元素的方法：
 
+	Iterator iterator():
+	迭代器：取出集合中元素的方式的一个对象。该对象本身就内置在容器中。
 
-如何获取到集合的迭代器呢？ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+	如何获取到集合的迭代器呢？
 
-
-* 可以通过iterator()方法来完成。该方法返回一个Iterator类型对象。 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-* 迭代器接口出现：将每一个容器中的取出方式进行了封装。并对外暴露。 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-* 这样无论是什么容器或者数据结构，只要内部取出方式实现了Iterator接口， &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-* 都可以通过该接口取出这些容器中的元素。 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-* 它的出现，将容器的取出方式和容器的数据结构相分离，降低了耦合性。 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-* 而取出方式因为直接在访问容器中的元素，并依赖具体的数据结构，所以被定义在了容器中。
-* 通过内部类来实现Iterator接口。 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-* 大型游戏机中抓布娃娃的游戏机中的夹子。就是那个迭代器。 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-* 只要是Collection集合中的容器，迭代器是通用取出方式。 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+		* 可以通过iterator()方法来完成。该方法返回一个Iterator类型对象。
+		* 迭代器接口出现：将每一个容器中的取出方式进行了封装。并对外暴露。
+		* 这样无论是什么容器或者数据结构，只要内部取出方式实现了Iterator接口，
+		* 都可以通过该接口取出这些容器中的元素。
+		* 它的出现，将容器的取出方式和容器的数据结构相分离，降低了耦合性。
+		* 而取出方式因为直接在访问容器中的元素，并依赖具体的数据结构，所以被定义在了容器中。
+		* 通过内部类来实现Iterator接口。 
+		* 大型游戏机中抓布娃娃的游戏机中的夹子。就是那个迭代器。
+		* 只要是Collection集合中的容器，迭代器是通用取出方式。
 
 演示代码如下：
 
@@ -1100,8 +1096,6 @@ for(变量 : Collection集合or数组){
 
 [Source](http://blog.csdn.net/cuzval/article/details/9386279 "Permalink to 黑马程序员_(集合框架(Map，Collections，Arrays)) - cuzval的专栏 - 博客频道")
 
-# 黑马程序员_(集合框架(Map，Collections，Arrays)) - cuzval的专栏 - 博客频道
-
 集合框架中的另一个顶层接口，Map。
 
 * Map:用于存储具备着对应关系的键和值。而且要保证键的唯一性。一次存储一对儿元素。
@@ -1225,8 +1219,11 @@ Colection values();获取map集合中所有的值。&nbsp;
     }
 
 Map体系:
+
 |--Hashtable:底层是哈希表数据结构，是线程同步的，不允许null作为键，null作为值。
+
 |--HashMap：底层是哈希表数据结构，是线程不同步的，允许null作为键，null作为值。替代了Hashtable。
+
 |--TreeMap：可以对Map集合中的键进行指定顺序的排序，默认是使用键的自然顺序。当然也可以使用比较器。
 
 为了成功地在哈希表中存储和获取对象，用作键的对象必须实现`hashCode` 方法和`equals` 方法。
