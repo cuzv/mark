@@ -362,102 +362,110 @@ BufferedWriter
 * 如果是目的并且是纯文本，Writer
 * 到这里，两个明确确定完，就可以确定出要使用哪个体系。
 * 接下来，就应该明确具体这个体系要使用哪个具体的对象。
-3，明确数据所在的设备：
-源设备：
 
+3，明确数据所在的设备：
+
+源设备：
 
 * 键盘(System.in)
 * 硬盘(FileXXX)
 * 内存(数组)
 * 网络(Socket)
-* 目的设备：
+
+目的设备：
+
 * 显示器(控制台System.out)
 * 硬盘(FileXXX)
 * 内存(数组)
 * 网络(Socket)
 * 具体使用哪个对象就可以明确了。
-4，明确是否需要额外功能？
 
+4，明确是否需要额外功能？
 
 * 是否需要高效？缓冲区Buffered
 * 是否需要转换？转换流
 
 实际需求：
-需求1：复制一个文本文件。
-1,明确源和目的：既有源，又有目的。
 
+需求1：复制一个文本文件。
+
+1,明确源和目的：既有源，又有目的。
 
 * 源：InputStream Reader&nbsp;
 * 目的：OutputStream Writer.
-2,明确是否是纯文本？是！
 
+2,明确是否是纯文本？是！
 
 * 源：Reader
 * 目的：Writer
-3,明确具体设备:
 
+3,明确具体设备:
 
 * 源：硬盘(file)
 * 目的：硬盘(file)
 * 源对应的体系Reader中可以操作硬盘设备的对象是 FileReader&nbsp;
 * 目的对应的体系Writer中可以操作硬盘设备的对象是FileWriter
+
 直接明确具体对象并创建。
-FileReader fr = new FileReader("a.txt");
-FileWriter fw = new FileWriter("b.txt");
 
-4,需要额外功能吗？
+	FileReader fr = new FileReader("a.txt");
+	FileWriter fw = new FileWriter("b.txt");
 
+4,需要额外功能吗？需要，高效。 使用缓冲区。
 
-* 需要，高效。 使用缓冲区。
-BufferedReader bufr = new BufferedReader(new FileReader("a.txt"));
-BufferedWriter bufw = new BufferedWriter(new FileWriter("b.txt"));
+	BufferedReader bufr = new BufferedReader(new FileReader("a.txt"));
+	BufferedWriter bufw = new BufferedWriter(new FileWriter("b.txt"));
 
 需求2：复制一个图片
-1,明确源和目的：既有源，又有目的。
 
+1,明确源和目的：既有源，又有目的。
 
 * 源：InputStream Reader&nbsp;
 * 目的：OutputStream Writer.
-2,明确是否是纯文本？不是！
 
+2,明确是否是纯文本？不是！
 
 * 源：InputStream
 * 目的：OutputStream
-3,明确设备：
 
+3,明确设备：
 
 * 源：硬盘
 * 目的：硬盘：
-FileInputStream fis = new FileInputStream("1.jpg");
-FileOutputStream fos = new FileOutputStrema("2.jpg");
+
+		FileInputStream fis = new FileInputStream("1.jpg");
+		FileOutputStream fos = new FileOutputStrema("2.jpg");
 
 需求3：读取键盘录入，存储到一个文件中。
-1,明确源和目的：既有源，又有目的。
 
+1,明确源和目的：既有源，又有目的。
 
 * 源：InputStream Reader&nbsp;
 * 目的：OutputStream Writer.
-2,明确是否是纯文本？一般键盘录入的都是文字，所以是纯文本的。&nbsp;
 
+2,明确是否是纯文本？一般键盘录入的都是文字，所以是纯文本的。&nbsp;
 
 * 源：Reader
 * 目的：Writer
-3,明确设备：
 
+3,明确设备：
 
 * 源：键盘。
 * 目的：硬盘。
 
 具体对象
+
 源是：System.in.
 目的是：FileWriter
 
-InputStream in = System.in;
-FileWriter fw = new FileWriter("a.txt");
+	InputStream in = System.in;
+	FileWriter fw = new FileWriter("a.txt");
+
 对这个读写，应该这样完成，通过键盘录入读取字节数据，先不做写入操作，
 而是将字节数据临时存储，转成字符串，然后在交给fw写入。
 
 发现代码操作的起来很麻烦。有没有已有的功能可以解决这个问题啊？
+
 4,需要额外功能吗？
 
 
@@ -468,62 +476,64 @@ FileWriter fw = new FileWriter("a.txt");
 InputStreamReader isr = new InputStreamReader(System.in);
 FileWriter fw = new FileWriter("a.txt");
 
-还需要其他功能吗？
-需要，高效。
-BufferedReader bufr = new BufferedReader(new InputStreamReader(System.in));
-BufferedWriter bufw = new BufferedWriter(new FileWriter("a.txt"));
+还需要其他功能吗？需要，高效。
+
+	BufferedReader bufr = new BufferedReader(new InputStreamReader(System.in));
+	BufferedWriter bufw = new BufferedWriter(new FileWriter("a.txt"));
 
 需求4：读取一个文本文件，显示到显示器上。
-1,明确源和目的：既有源，又有目的。
 
+1,明确源和目的：既有源，又有目的。
 
 * 源：InputStream Reader&nbsp;
 * 目的：OutputStream Writer.
-2,明确是否是纯文本？是。
 
+2,明确是否是纯文本？是。
 
 * 源：Reader
 * 目的：Writer
-3,明确设备：
 
+3,明确设备：
 
 * 源：硬盘。File
 * 目的：显示器。System.out
 
-FileReader fr = new FileReader("a.txt");
-OutputStream out = System.out;
+		FileReader fr = new FileReader("a.txt");
+		OutputStream out = System.out;
+
 这已经可以完成读写了。
 通过fr读取文本到字符数组，将字符数组转成字符串，然后在将字符串转成字节数组。
 交给out输出。
 
-4,需要额外功能吗？
+4,需要额外功能吗？必须的。转换。需要将已有的字符数据转成字节。字符--&gt;字节的桥梁 OutputStreamWriter
 
-* 必须的。转换。需要将已有的字符数据转成字节。字符--&gt;字节的桥梁 OutputStreamWriter
-FileReader fr = new FileReader("a.txt");
-OutputStreamWriter osw = new OutputStreamWriter(System.out);
+	FileReader fr = new FileReader("a.txt");
+	OutputStreamWriter osw = new OutputStreamWriter(System.out);
 
 需要高效。
-BufferedReader bufr = new BufferedReader(new FileReader("a.txt"));
-BufferedWriter bufw = new BufferedWriter(new OutputStreamWrier(System.out));
+
+	BufferedReader bufr = new BufferedReader(new FileReader("a.txt"));
+	BufferedWriter bufw = new BufferedWriter(new OutputStreamWrier(System.out));
 
 需求5：读取一个文本文件，将文件中文本按照指定的编码表UTF-8写入到另一个文件中。
-1,明确源和目的：既有源，又有目的。
 
+1,明确源和目的：既有源，又有目的。
 
 * 源：InputStream Reader&nbsp;
 * 目的：OutputStream Writer.
-2,明确是否是纯文本？是。
 
+2,明确是否是纯文本？是。
 
 * 源：Reader
 * 目的：Writer
-3,明确设备：
 
+3,明确设备：
 
 * 源：硬盘。File
 * 目的：硬盘。File
-FileReader fr = new FileReader("a.txt");
-FileWriter fw = new FileWriter("b.txt");
+
+		FileReader fr = new FileReader("a.txt");
+		FileWriter fw = new FileWriter("b.txt");
 
 这样做不行，满足不了需求，为什么呢？
 因为这个两个对象在操作文本数据，都是用了默认的编码表。在我的本机中默认码表是GBK.
@@ -531,24 +541,30 @@ FileWriter fw = new FileWriter("b.txt");
 其实这两个对象就是字节流+默认编码表。&nbsp;
 
 源对象不变。
-FileReader fr = new FileReader("a.txt");
+
+	FileReader fr = new FileReader("a.txt");
+
 需要目的为指定编码表。
-这时就要用到转换流。因为转换流中可以指定具体的编码表。 需要往里传递一个字节流，而且要操作文件，FileOutputStream
-OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream("b.txt"),"UTF-8");
+这时就要用到转换流。因为转换流中可以指定具体的编码表。 需要往里传递一个字节流，而且要操作文件，
+
+	FileOutputStream,`OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream("b.txt"),"UTF-8");`
 
 需要高效
-BufferedReader bufr = new BufferedReader(new FileReader("a.txt"));
-BufferedWriter bufw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("b.txt"),"UTF-8"));
+
+	BufferedReader bufr = new BufferedReader(new FileReader("a.txt"));
+	BufferedWriter bufw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("b.txt"),"UTF-8"));
 
 c:\1.txt 源是一个文件也是字节数据，是不是应该使用字节流呢？
-FileInputStream fis = new FileInputStream("c:\1.txt");
-InputStreamReader isr = new InputStreamReader(fis,"gbk");
-isr.read();//字符。
+
+	FileInputStream fis = new FileInputStream("c:\1.txt");
+	InputStreamReader isr = new InputStreamReader(fis,"gbk");
+	isr.read();//字符。
 
 既然是明确操作是文件，而且使用默认编码表。
+
 可以使用InputStreamReader的子类。FileReader
 
-FileReader fr = new FileReader("c:\1.txt");
+	FileReader fr = new FileReader("c:\1.txt");
 
 [1]: http://img.blog.csdn.net/20130729222107296?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY3V6dmFs/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast
   
