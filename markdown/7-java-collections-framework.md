@@ -42,35 +42,35 @@ Collection中有哪些方法呢？
 
 1. 添加方法。
 
-	boolean add(object e):一次添加一个元素。
-	boolean addAll(Collection):将一个参数容器中的元素添加到当前容器中。
+		boolean add(object e):一次添加一个元素。
+		boolean addAll(Collection):将一个参数容器中的元素添加到当前容器中。
 
 2. 删除方法。
 
-	boolean remove(object):删除一个指定对象。 
-	boolean removeAll(Collection):删除指定collection中和本Collection中相同的元素。
-	void clear():直接将集合中的元素清空。
+		boolean remove(object):删除一个指定对象。 
+		boolean removeAll(Collection):删除指定collection中和本Collection中相同的元素。
+		void clear():直接将集合中的元素清空。
 
 3. 判断方法：
 
-	boolean contains(object):是否包含指定元素。
-	boolean containsAll(Collection):是否包含指定容器中的元素。
-	boolean isEmpty():是否有元素。
+		boolean contains(object):是否包含指定元素。
+		boolean containsAll(Collection):是否包含指定容器中的元素。
+		boolean isEmpty():是否有元素。
 
 4. 获取元素个数： 
 
-	int size():获取元素有几个。
+		int size():获取元素有几个。
 	
 5. 取交集。
 
-	boolean retainAll(collection):保留和指定collection集合中相同的元素，不相同的元素会被删除。
+		boolean retainAll(collection):保留和指定collection集合中相同的元素，不相同的元素会被删除。
 
 6. 将集合转成数组。
 
 7. 取出元素的方法：
 
-	Iterator iterator():
-	迭代器：取出集合中元素的方式的一个对象。该对象本身就内置在容器中。
+		Iterator iterator():
+		迭代器：取出集合中元素的方式的一个对象。该对象本身就内置在容器中。
 
 	如何获取到集合的迭代器呢？
 
