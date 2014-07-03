@@ -22,14 +22,14 @@ mark tips, notes, faqs, techs, shares
 	- [Java IO](./java/JavaIOmd)
 	- [Java 网络、正则、反射、类加载器](./java/JavaNet-RegularExpression-Reflector-ClassLoader.md)
 - php
-	- [php.ini](php.ini)
+	- [php.ini](./php/php.ini)
 - usage
 	- [Alfred使用技巧](./usage/Alfred使用技巧.md)
 	- [Git基础手册](./usage/GitBasicManual.md)
 	- [Git手册教程总结](./usage/GitReferenceSummary.md)
 	- [Git教程新手教程总结-荐](./usage/GitTutorialSummary.md)
 - material
-	- [markdown语法](./coding/MarkdownSyntax.md)
+	- [markdown语法](./material/MarkdownSyntax.md)
 	- [Github上有趣的资料](./material/FunnyStuffOnGitHub.md)
 	- [iOS开发中文博客](./material/iOSBlogCN.md)
 	- [iOS开发网站](./material/iOSDevelopmentSites.md)
