@@ -11,6 +11,7 @@ mark tips, notes, faqs, techs, shares
 	- [多线程与网络](./ios/多线程与网络.md)
 	- [APNS](./ios/APNS.md)
 	- [APNS](./ios/APNS-1.md)
+	- [Swift](./ios/Swift.md)
 - linux
 	- [终端相关命令总结-荐](./linux/TerminalCommand.md)
 	- [LinuxCast.net学习笔记](./linux/LinuxCast.net/)
