@@ -16,10 +16,9 @@ mark tips, notes, faqs, techs, shares
 	- [CentOS搭建LAMP](./linux/InstallLampOnCentOS.md)
 	- [PPTP脚本](./linux/pptpd6.sh)
 	- [VPS搭建VPN](./linux/VPS搭建VPN.md)
-	- [linux常用命令](./linux/LinuxCommandShelf.pdf)
 - java
 	- [Java基础](./java/JavaBasicSegment.md)
-	- [Java集合框架](./JavaCollectionsFramework.md)
+	- [Java集合框架](./java/JavaCollectionsFramework.md)
 	- [Java IO](./java/JavaIOmd)
 	- [Java 网络、正则、反射、类加载器](./java/JavaNet-RegularExpression-Reflector-ClassLoader.md)
 - php
@@ -37,6 +36,5 @@ mark tips, notes, faqs, techs, shares
 	- [javascript学习资料](./material/5-javascript学习资料.md)
 	- [面试和算法心得](./material/面试和算法心得.md)
 - coding
-	- [Google C++代码风格指南](./coding/GoogleCppStyleGuideCN.pdf)
 	- [55分钟学会正则表达式](./coding/RegularExpression.md)
-	- [正则表达式学习笔记](./coding/RegularExpressionNote.md)
+	- [正则表达式学习笔记-荐](./coding/RegularExpressionNote.md)
