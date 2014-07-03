@@ -1,0 +1,8 @@
+﻿配置sudo 命令
+visudo
+
+1>、进入超级用户模式。也就是输入"su -",系统会让你输入超级用户密码，输入密码后就进入了超级用户模式。 
+   2>、添加文件的写权限。也就是输入命令"chmod u+w /etc/sudoers"。 
+   3>、编辑/etc/sudoers文件。也就是输入命令"vim /etc/sudoers",输入"i"进入编辑模式，找到这一行："root ALL=(ALL) ALL"在起下面添加"xxx ALL=(ALL) ALL"(这里的xxx是你的用户名)，然后保存（就是先摁一下Esc键，然后输入":wq"）退出。 
+   4>、撤销文件的写权限。也就是输入命令"chmod u-w /etc/sudoers"。 
+   至此，用户可以使用sudo命令了

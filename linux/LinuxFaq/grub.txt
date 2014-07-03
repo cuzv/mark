@@ -1,0 +1,5 @@
+ sudo mount /dev/sda7 /mnt
+ sudo grub-install --root-directory=/mnt/ /dev/sda
+
+sudo update-grub
+sudo grub-install /dev/sda

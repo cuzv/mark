@@ -1,0 +1,31 @@
+﻿查看当前的locale
+[talen@fedora ~]$ locale
+LANG=zh_CN.utf8
+LC_CTYPE="zh_CN.utf8"
+LC_NUMERIC="zh_CN.utf8"
+LC_TIME="zh_CN.utf8"
+LC_COLLATE="zh_CN.utf8"
+LC_MONETARY="zh_CN.utf8"
+LC_MESSAGES="zh_CN.utf8"
+LC_PAPER="zh_CN.utf8"
+LC_NAME="zh_CN.utf8"
+LC_ADDRESS="zh_CN.utf8"
+LC_TELEPHONE="zh_CN.utf8"
+LC_MEASUREMENT="zh_CN.utf8"
+LC_IDENTIFICATION="zh_CN.utf8"
+LC_ALL=
+[talen@fedora ~]$
+
+查看vim的菜单配置
+
+[talen@fedora ~]$ ls /usr/share/vim/vim73/lang/ |grep menu_zh_cn
+menu_zh_cn.18030.vim
+menu_zh_cn.cp936.vim
+menu_zh_cn.gb2312.vim
+menu_zh_cn.gbk.vim
+menu_zh_cn.utf-8.vim
+没有utf8,只有utf-8，只要创建一个软链接就可以了
+[talen@fedora ~]$ cd /usr/share/vim/vim73/lang/
+[talen@fedora lang]$ sudo ln -s menu_zh_cn.utf-8.vim menu_zh_cn.utf8.vim
+
+重新打开gvim，清爽的菜单。

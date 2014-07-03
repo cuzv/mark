@@ -1,0 +1,157 @@
+﻿命令行模式/插入模式/底行模式
+
+set ts=4
+set nu
+
+vi hello.c
+键入i进入插入模式
+编辑
+esc
+:wq(write quit)
+
+命令行模式功能键：
+yy:复制当前光标所在行
+[n]yy:n为数字，复制当前光标开始的n行
+p:粘贴复制的内容到光标所在行
+dd:删除当前光标所在行
+[n]dd：删除当前光标所在行开始的n行
+/name:查找光标之后名为"name"的字符串
+G：光标移动到文件末尾
+u：取消前一个动作
+
+
+底行模式功能键：
+：w 保存
+:1 退出
+:q! 强行退出
+:wq 保存退出
+：w [filename] 另存为filename的文件
+:set nu 显示行号
+:set nonu 取消显示行号
+
+
+
+
+cw 				--chang word
+w    			--word
+b 				--back
+C-B				--page back
+C-F				--page follow
+a/i/o			--insert
+u				--undo
+C-R				--redo
+C-T,C-o			--ctags
+C-]				--定位
+%				--跳到对应匹配括号
+gd				--跳转到局部变量定义处(go define)
+''				--跳转到光标上次停靠的位置(two ')
+m[a-z]			--设置书签
+`[a-z]			--跳到书签
+'[a-z]			--跳到书签
+<[n]			--减少缩进
+>[n]			--增加缩进
+
+
+
+
+1.move cursor
+h j k l
+
+2.vim in and out
+:q!
+:wq
+
+3.delete
+x,X
+dw
+dd
+d2d, dd2
+d2w, dw2
+dj,dk
+dl,dh
+d$
+de
+shift+j
+
+4.insert
+i
+o
+a
+
+5.undo
+u
+U
+C-R
+
+6.paste
+p(delete will auto copy)
+
+7.replace
+r (replace char)
+R
+
+8.change
+cw change word
+c2w, cw2
+c$
+ce
+
+9.location
+C-G
+S-G
+
+10.serach
+/	/string
+?
+n
+/ignore
+:set ic
+:set hls is
+
+11.match
+%
+
+12.fix error
+:s/old/new
+:s/old/new/g
+:ln,lns/old/new/g 	(line number)
+:s/old/new/gc		(all content replace)
+
+12.outer command
+:!
+:!ls
+
+13.save
+:wq
+:q!
+:q
+:ln,ln w filename
+
+14.cat
+:r tmp
+
+
+配置文件信息：
+set ts=4
+set sw=4
+set nu
+let &termencoding=&encoding  
+set fileencodings=utf-8,gbk,gb2312 
+set autoindent
+set shiftwidth=4
+set foldmethod=indent
+
+代码折叠
+indent:
+zc		--折叠
+zC		--所有范围折叠
+zo		--展开折叠
+zO		--所有范围展开折叠
+[z		--当前折叠开始处
+]z		--当前折叠末尾处
+zj		--向下移动
+zk		--向上移动
+
+
+
+

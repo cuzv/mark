@@ -1,0 +1,31 @@
+软链接  ln -s
+	相当于 windows的快捷方式  符号链接
+	和源文件使用不同一inode
+	删除源文件，链接无效
+	可跨文件系统(相当于Windows可以跨分区)
+
+硬链接	ln
+	相当于复制和同步更新 
+	和源文件使用相同 inode 
+	删除源文件，链接任然有效
+	不可跨文件系统
+# 1 1.hln 1.sln
+This is source file 1
+Now, I write this source file, what will happend?
+Now, I write the hln file,what will happend?
+Now, I write the sln file,what will happend?
+Ok, We found,up change the three file content is same.
+The next,We run /ls -l >> 1
+总计 28
+-rw-r--r-- 2 root root 240 01-26 07:04 1
+-rw-r--r-- 2 root root 240 01-26 07:04 1.hln
+lrwxrwxrwx 1 root root   1 01-26 07:00 1.sln -> 1
+We found sln file block is "1"
+hln and src file block is "240",equal
+
+Well,now,We remove 1
+we found : 1.sln is empty  1.hln is not change anything,
+	just like the copy of 1
+we move 1 to other dir,1.sln is wrong,but 1.hln is not
+and finally,we are sure that:1 and 1.hln is always the same
+whenever them is.let us say:1 is 1.hln, 1.hln is 1

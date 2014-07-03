@@ -1,0 +1,6 @@
+for i in ~/savings/FAQ/*.md
+do
+	mv $i ${i/md/txt}   
+	git rm -f *.txt
+	git add .
+done

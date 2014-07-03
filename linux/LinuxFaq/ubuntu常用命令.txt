@@ -1,0 +1,122 @@
+﻿我将常用命令分为四类：
+
+文件管理命令
+
+文件操作
+增——touch filename   创建新文件
+删——rm 文件名
+查——find 文件名    直接在硬盘里寻找
+           locate 文件名  文件名的部分匹配
+           whereis 文件名 从linux文件数据库（/var/lib/slocate/slocate.db）寻找
+比较——diff file1 file2   比较两个文件的区别     
+移动——mv  相对路径文件 绝对路径文件
+改名——mv 原文件名 新文件名
+复制——cp  /路径/文件 ./   将绝对路径的文件复制到当前路径
+
+文件目录
+查看——pwd   查看当前路径
+创建——mkdir 目录名
+              -p  如果给出的路径中父目录不存在,则同时创建父目录
+删除——rm 目录名-r(rmdir:删除一个空目录(此命令个人认为没啥用,可以用rm -r替代))
+              -f -不提示不存在的文件，直接跳过
+               -i -每个删除动作都提示
+               -r和R -删除该目录下的所有
+               -v -显示每个文件的删除动作(建议用)
+切换——cd 路径 -切换到所对应的路径
+               cd ..   -返回上一级目录
+                cd ~    -切换到home目录
+
+文件权限
+查看权限——ls -l
+            如(-rwxr-xr--) r：读 w：写 x：执行
+            rwx:表示文件所有者的权限           二进制表示：111=7
+            r-x:表示同一群组中其他用户权限     二进制表示：101=5
+            r--:表示其他用户的权限             二进制表示：100=4
+            权限可以表示为：754
+
+更改权限——chmod 权限 文件名
+            chmod 777 a.txt ===chmod a+rwx a.txt
+            chmod u-w file   给当前用户减去写权限
+            chmod g+r file   为file的属组加上读权限        
+            chmod o+w file   为file的其它用户加上写权限        
+            chmod a-x file   为file的所有用户减去执行权限
+             
+            chown root /home   把/home的属主改成root用户     
+            chgrp root /home   把/home的属组改成root组          
+
+文件显示
+列表显示——ls
+            -lh 显示文件的详细信息
+            -s  显示文件大小
+查看内容——cat 文件名  一屏显示文件所有内容
+        ——more 文件名 分页查看文件内容 
+        ——less 文件名 可控分页查看文件内容      
+        ——head 文件名 显示文件的开始部分
+        ——tail 文件名 显示文件的结尾部分
+
+软件管理命令
+
+软件安装
+在线安装——sudo apt-get install packagename    安装packagename
+            sudo apt-get remove  packagename    卸载packagename
+            sudo apt-get update                 更新软件包
+
+离线安装——下载软件包（解压）
+            tar [-cxtzjvfpPN] 文件与目录 ...
+            -c 创建包 -x释放包 -t查看包里面的文件
+            -v 显示命令过程  z-压缩包 f-使用档名
+            tar -zcvf abc.tar /mydoc/a.iso  将/mydoc/a.iso目录打包
+            tar -ztvf abc.tar               查看abc.tar中文件
+            tar -zxvf abc.tar               解压abc.tar包到当前目录
+           
+编译安装——./configure --prefix=/usr/local/     编译前配置
+            make                                 编译
+            make install                         安装编译好的源码包
+
+查看安装
+查询是否安装软件——dpkg -l|grep 软件名
+软件被安装的位置——type  软件名                
+
+用户管理命令
+查看——id
+增加——Useradd                               创建新用户
+        Groupadd                              创建新的组
+修改——Usermod                               修改用户账号
+        usermod -l 新用户名 老用户名
+删除——Userdel–r 用户名                     删除用户一切        
+密码——passwd 
+        passwd -S                             查询账号状态
+
+
+系统管理命令 
+
+操作
+查看系统运行级——runlevel
+关机——shutdown -h now /Halt init 0
+重启——reboot /init 6
+环境变量——env
+            echo $path
+            set
+进程
+查看系统进程——top动态  ps-aux静态  pstree进程树
+调度——fg                                  把后台进程调回前台
+               bg
+终止——kill PID                            终止某个pid进程
+定时——at 5pm+3 days /bin/ls               指定三天后下午5:00执行/bin/ls
+自动周期性任务——crontab 
+                  -e     用VI形式编辑自动周期性任务 
+                  Service crond <start|stop|restart|status>   马上启动自动周期性服务     
+网络
+ifconfig——
+            ifconfig eth1 192.168.1.10 netmask 255.255.255.0 //设置网卡子网及ip
+
+磁盘
+查看——
+        df               报告文件系统的总容量使用量剩余量
+        du -b /home      查看目前/HOME目录的容量(k)及子目录的容量(k)    
+        fdisk -l         查看系统分区信息 
+配置——
+        fdisk /dev/sdb   为一块新的SCSI硬盘进行分区     
+        mkfs.ext3 /dev/sdb1   为第一块SCSI硬盘的第一主分区格式化成ext3的文件系统 
+   
+由于linux命令参数繁多，我们不可能全部记住各种参数的作用。幸运的是，我们可以通过“man+命令名”查看各种命令的各种参数以及作用。常用的指令我们熟能生巧，将会大大提高我们的效率！

@@ -1,0 +1,5 @@
+﻿设置root密码
+sudo passwd root
+cn.pw:chinou
+切换root用户
+su - 

@@ -1,0 +1,11 @@
+﻿1.使用记录-回放<Normal Mode>
+qa ^ i // <ESC> q
+qu ^ ll i <BS><BS> <ESC> q
+
+2.使用缩写<Insert Mode>
+:iab #a /*******************
+:iab #u  *******************/
+
+使用:map<Normal Mode>
+:map \t ^i//<Esc>
+:map \m ^lli<BS><BS><Esc>

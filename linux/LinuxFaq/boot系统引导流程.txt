@@ -1,0 +1,52 @@
+固件 fireware(CMOS/BIOS)		----> POST加电自检  
+    l  
+自举程序BootLoader(GRUB/ntldr)	----->载入内核  
+    l  
+     载入内核kernel			----->驱动硬件  
+    l  
+      启动进程init			  
+    l  
+读取配置文件/etc/inittab	id:runlevels:action:process  
+    l  
+        initdefalut		  
+    l  
+        /etc/rc.d/rc.sysinit		--系统启动都会执行，开机自启动可以加在后面  
+    l			   (如加上:alisa vi='vim')				
+        /etc/rc.d/rc  
+    l  
+        /etc/rc.d/rcN.d 	N=0-6  
+    l  
+           username    
+    l  
+           password  
+
+## CoentOS  
+查看配置文件   
+- `cat /boot/grub/grub.conf`  
+- `root (hd0,6)`  
+- `kernel /vmlinuz-2.6.18-194.e15 ro root=/dev/VolGroup00/LogVo100 rhgb quiet`  
+- `initrd /initrd-2.6.18-194.e15.img`  
+- `boot`  
+
+## ubuntu  
+- `cat /boot/grub/grub.cfg`  
+- `set root=(hd0,6)`  
+- `linux /isolinux/vmlinuz`  
+- `initrd /isolinux/initrd.img`  
+- `boot`  
+
+root密码忘记：改变运行级别，进入单用户模式(不需要密码)  
+开机进入GRUB界面。按e进入编辑模式，选中kernel行，再  
+按e，在新的界面最后一行输入1 或者s，进入单用户模式  
+然后更改root密码  
+
+## 设置GRUN密码  
+1. 使用自带的grub-md5-crpyt命令  
+grub-md5-crypt  
+or :  
+在grub交互命令行界面中使用md5crypt命令
+grub>md5crypt  
+
+2. vim /etc/grub/grub.conf  
+在title 前，hiddenmenu后面加上：  
+passwd --md5 加密后的密码  

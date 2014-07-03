@@ -1,0 +1,30 @@
+﻿" 配置文件路径
+" 全局(golbal) /usr/share/vim/vimrc
+" 用户(personal) /home/cnsu/.vimrc
+
+syntax enable
+syntax on
+set ts=4
+set sw=4
+set nu
+" 设置字符集
+set &termencoding=&encoding
+set fileencodings=utf-8,gbk,gb2312
+set encoding=utf-8
+set autoindent
+set shiftwidth=4
+" 折叠模式
+set foldmethod=indent
+" set foldmethod=marker
+set helplang=cn
+set hls
+set showcmd
+set showmode
+set sessionoptions+=unix,slash  
+:set showmatch
+:set matchtime=15	"15=1.5min
+map mm ^i//<Esc>
+map mn ^lli<BS><BS><Esc>
+"no beep, visualbell
+set vb
+set guifont=Courier\ 10\ Pitch\ 12

@@ -1,0 +1,4 @@
+title Install Fedora 15
+kernel (hd0,7)/isolinux/vmlinuz
+initrd (hd0,7)/isolinux/initrd.img
+boot

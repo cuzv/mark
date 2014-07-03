@@ -1,0 +1,2 @@
+CentOS:
+/etc/sysconfig/network-scropts/ifcfg-eth0

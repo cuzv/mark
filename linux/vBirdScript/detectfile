@@ -1,0 +1,25 @@
+#!/bin/bash
+# Program:
+#	User input a filename, program will check the flowing:
+#	1.) exist? 2.) file/directory? 3.) file permissions 
+# History:
+# 2005/08/25	VBird	First release
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
+export PATH
+
+# 1. ÈÃÊ¹ÓÃÕßÊäÈëµµÃû£¬²¢ÇÒÅĞ¶ÏÊ¹ÓÃÕßÊÇ·ñÕæçš????ÊäÈë×Ö´®£¿
+echo -e "Please input a filename, I will check the filename's type and \
+permission. \n\n"
+read -p "Input a filename : " filename
+test -z $filename && echo "You MUST input a filename." && exit 0
+# 2. ÅĞ¶ÏÎÄ¼şÊÇ·ñ´æÔÚ£¿Èô²»´æÔÚå??ÏÔÊ¾ĞÅÏ¢²¢½áÊø½Å±¾
+test ! -e $filename && echo "The filename '$filename' DO NOT exist" && exit 0
+# 3. ¿ªÊ¼ÅĞ¶ÏÎÄ¼şÀàĞÍÓëå±????
+test -f $filename && filetype="regulare file"
+test -d $filename && filetype="directory"
+test -r $filename && perm="readable"
+test -w $filename && perm="$perm writable"
+test -x $filename && perm="$perm executable"
+# 4. ¿ªÊ¼Êä³ö×ÊÑ¶£¡
+echo "The filename: $filename is a $filetype"
+echo "And the permissions are : $perm"

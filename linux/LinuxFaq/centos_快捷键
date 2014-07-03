@@ -1,0 +1,32 @@
+linux下图行界面快捷键
+        ALT+F1      打开linux 下gnome 的应用程序
+        ALT+F2      打开一个小型的运行应用程序
+        ALT＋F4     关闭窗口
+        ALT＋F5     取消最大窗口
+        ALT＋F7     移动窗口
+        ATL＋F8     改变大小
+        ALT＋F9     最小化当前窗口
+        ALT＋F10    最大化当前窗
+        ALT+鼠标左   移动窗口
+        ALT+TAB     切换打开程序
+        ALT+Print   当前窗口抓图
+        ALT+CTRL+L  启动屏幕保护程序
+        ATL+CTRL+D  显示桌面
+        CRL＋SHIFT＋N 新建文件夹
+        CTRL＋T        把选中的文件放入回收站
+        CTRL＋ALT＋（F1－F6）切换终端
+        CTRL＋ATL＋F7 切换到图行界面
+        CTRL＋R       刷新
+        CTRL＋N       新建
+        CTRL＋X       剪切
+        CTRL＋C       复制
+        CTRL＋V       粘贴
+        CRTL＋Z       撤销
+             linux 下终端的快捷键
+        CTRL＋U    删除光标左边的所有字符
+        CTRL＋K    删除光标右边的所有字符
+        CTRL＋A    把光标移动到字符之首
+        CTRL＋E    把光标移动到字符尾部
+        CTRL＋W    删除光标左边的单词
+        CTRL＋D    删除光标后的单个字符
+        CTRL＋H    删除光标前的一个字符 

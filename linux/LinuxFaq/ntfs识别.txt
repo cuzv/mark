@@ -1,0 +1,19 @@
+﻿redhat6.0无法识别ntfs分区的解决方法
+ 
+问题现象：
+ 
+ 企图打开ntfs分区时，报错：
+ Error mounting: mount: unknown filesystem type 'ntfs'
+注意：
+ 我的redhat 内核版本是 2.6.32-71.el6.i686
+ 
+解决方法：  www.2cto.com  
+ google下载两个包：
+ kernel-module-ntfs-2.6.18-128.el5-2.1.27-0.rr.10.11.i686.rpm
+ ntfs-3g-2011.4.12-3.el6.i686.rpm
+ 
+ 然后，用下面的命令安装：
+ rpm -ivh *.rpm
+ 
+如此即可双击打开ntfs格式的盘。
+ 

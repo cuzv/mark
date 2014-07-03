@@ -1,0 +1,24 @@
+linux内核定制：
+1.清除临时文件，中间文件和配置文件
+make clean
+	remove most generated files but keep the config
+make mrproper
+	remove all generated files + config files
+make distclean
+	mrproper + remove editor backup and patch files
+
+2.确定目标系统的软硬件配置情况，如CPU类型、网卡型号、所需
+	支持的网络协议等
+
+3.使用如下命令之一配置内核：
+ make config
+	基于文本模式的交互配置
+make menuconfig
+	基于文本模式的菜单型配置
+make oldconfig
+	使用已有的配置文件(.config)，但是会询问新增的配置选项
+make xconfig
+	图形化的配置 (需要图形化系统支持)
+
+
+

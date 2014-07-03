@@ -1,0 +1,229 @@
+一、安装（以root的身份登入系统，不需要输入前边的sudo （指的是super user do））
+1. 首先安装SSH
+sudo apt-get install ssh
+
+2.安装Apache
+sudo apt-get install apache2
+然后运行Apache：sudo /etc/init.d/apache2 restart
+Apache在安装期间会新建一个目录：/var/www，该目录是该服务器中存放文档的根目录。只要在浏览器的地址栏输入http://localhost/或机器的IP地址就能访问放置在此目录中的所有文档。
+
+3.安装MySQL(虽然现在最新版为5.1，但是还只能装5.0版本)
+sudo apt-get install mysql-server-5.0 mysql-client-5.0
+在安装的最后会提示输入mysql的root密码
+
+4.安装PHP
+sudo apt-get install php5 libapache2-mod-php5
+重启Apache，让它加载PHP模块
+sudo /etc/init.d/apache2 restart
+
+5.安装phpMyAdmin
+sudo apt-get install phpmyadmin
+安装时会提示新建一个数据库，可以选是也可以不安装，取决于你自己的意愿
+phpmyadmin需要php-mcrypt拓展，在大部分情况下不需要独立安装，如果登入
+phpmyadmin之后网页底部显示警告，请按以下步骤解决：
+在终端中运行：
+代码：sudo apt-get install php5-mcrypt
+提示如果没有安装则会自动安装，如果提示已经安装，进行下一步：
+编辑php配置文件，在终端中运行：
+代码：sudo gedit /etc/php5/apache2/php.ini
+在弹出的界面中找到extension的帮助文档和语法，在其后边加上：
+代码：extension=php5-mcrypt.so
+
+另一种方法：安装LAMP
+在新立得软件包管理器中选择系统-- 编辑--使用任务分组标记软件包
+在打开的窗口中，勾选 LAMP SERVER 然后确定
+在主窗口中点击红钯的对号 应用 按钮
+好了，接下来就是等新立得自动下载完毕并安装完成。
+中间会有一次提示输入mysql的root用户密码。
+
+二、配置
+
+1＞apache的配置文件路径 /etc/apache2/apache2.conf
+2＞php.ini路径 /etc/php5/apache2/php5.ini
+3＞mysql配置文件路径 /etc/mysql/my.cnf
+4＞phpmyadmin 配置文件路径 /etc/phpmyadmin/apache.conf
+5＞网站根目录 /var/www
+
+1、配置Apache
+sudo gedit /etc/apache2/apache2.conf在文档的最后，
+添加文件类型支持：AddType application/x-httpd-php .php .html .htm
+(根据自己需要)默认字符集：AddDefaultCharset UFT-8
+服务器地址：ServerName LocalHost（出现提示apache2: Could not determine the server’s fully qualified domain name, using 127.0.0.1 for ServerName时,可加这句或加到sudo gedit /etc/apache2/conf.d/fqdn这个文件中）
+（根据需要）添加首页文件 三个的顺序可以换 前面的访问优先 （当然你也可以加别的 比如default.php）：
+<IfModule dir_module>
+DirectoryIndex index.htm index.html index.php
+</IfModule>
+完成后重启apache配置生效：sudo /etc/init.d/apache2 restart
+
+2、配置PHP5
+sudo gedit /etc/php5/apache2/php.ini
+根据自己需要，下面是默认时区
+;date.timezone=  换成
+date.timezone = PRC（去掉前面的分号，表示中华人民共和国就是GMT+8时区）
+
+2、配置mysql
+sudo gedit /etc/mysql/my.cnf
+这里有一个地主要注意，因为默认是只允许本地访问数据库的，如果有需要可以打开
+bind-address 127.0.0.1
+这一句是限制只允许本地访问的，如呆有需要其他机器访问，把这句话用＃号注释掉
+
+3、配置phpmyadmin
+phpmyadmin 默认并不是安装在/var/www下面的，而是在/usr/share/phpmyadmin，你可以把phpmyadmin复制到/var/www
+代码：sudo cp /usr/share/phpmyadmin /var/www/phpmyadmin，或者，网上有人说可以创建一个链接，然后把链接复制过去,
+代码:cd /var/www
+sudo ln -s /usr/share/phpmyadmin
+然后在终端里运行：
+sudo gedit /etc/phpmyadmin/apache.conf
+把下面两句中的/usr/share/phpmyadmin路径改为 /var/www/phpmyadmin
+Alias /phpmyadmin /usr/share/phpmyadmin
+<Directory /usr/share/phpmyadmin>
+
+4. ubuntu中修改Apache的网站根目录DocumentRoot
+在/etc/apache2/sites-enabled/目录下看到一个 000-default
+打开有这么一句
+DocumentRoot /var/www
+在apache2里，默认的文件夹为/var/www
+此文件夹为超级用户拥有，普通用户不能写入，可以把此文件夹的权限修改
+代码:
+sudo chmod -R 777 /var/www
+或将路径改变（若改后即无法使用http://localhost/）
+重启Apache2服务即可。
+
+三、测试
+1. 测试Apache
+输入：http://localhost/看是否出现It works字样
+
+2. 测试MySQL
+输入：sudo netstat -tap | grep mysql
+可以看到类似下面的行：
+tcp 0 0 localhost.localdomain:mysql *:* LISTEN -
+如果服务器不能正常运行，您可以通过下列命令启动它： sudo /etc/init.d/mysql restart
+
+3. 测试PHP
+Ubuntu Apache的根目录位于/var/www中
+在里面添加一个测试文件test.php文件，touch test.php
+或sudo gedit /var/www/phpinfo.php
+内容为：
+<?php
+phpinfo();
+?>
+浏览器重输入http://localhost/test.php ，如果出现了一个显示PHP运行参数的页面，那就说明 PHP已经正常运行了。但是如果没有显示出页面，而是提示你下载文件，这就说明Apaceh没有正确加载PHP模块，这时解决的方法是，在/etc /apache2/apache2.conf 或 /etc/apache2/mods-enabled/php5.conf文件里加入下面的一行命令：
+    AddType application/x-httpd-php .php .htm .php3 .html
+在加入上面的命令后，再通过下面的命令重启Apaceh就能解决问题了:
+    sudo /etc/init.d/apache2 restart
+
+4. 测试phpmyadmin
+在浏览器中输入http://localhost/phpmyadmin 可以访问说明配置好了，然后以root为用户名，以安装phpmyadmin途中输入的密码为密码（不会忘了吧？=。=）登入phpmyadmin，这个时候，就可以自由创建数据库和数据库用户啦，创建了用户，别忘了把用户添加到数据库中！
+    
+至此，LAMP环境配置成功。
+
+
+附：在ubuntu里安装LAMP一向很顺利
+在新立得里选择“编辑” “使用任务分组标记软件包”
+勾选“LAMP SERVER”
+等待…….
+下载…….
+提示输入mysql的密码
+按照ubuntu中文wiki里设置，一般都没有问题。
+后来重装过一次系统，再次配置LAMP，问题就频频发生了….也许是因为之前的配置没有清理干净吧
+趁着这次假期，终于把本地服务器架设起来了，参考了ubuntu官方的help，发现国内的一些教程和国外的有一些不一样，把这些不一样的总结出来：
+一 准备工作
+如果之前系统里没有安装过LAMP，执行
+代码:
+sudo apt-get update
+
+如果之前系统里安装过LAMP 要保证系统里有关apache2，php5,mysql都彻底删除干净，在新立得软件包管理器里分别搜索php5，apache2,mysql把安装的软件包以及依赖包彻底删除
+也可以用命令行
+代码:
+sudo apt-get remove –purge apache2 apache2-mpm-prefork apache2-utils apache2.2-common libapache2-mod-php5 libapr1 libaprutil1 libdbd-mysql-perl libdbi-perl libmysqlclient15off libnet-daemon-perl libplrpc-perl libpq5 mysql-client-5.0 mysql-common mysql-server mysql-server-5.0 php5-common php5-mysql
+sudo rm -R /etc/php5
+
+执行：
+代码:
+sudo apt-get autoremove
+sudo apt-get autoclean
+
+二 安装LAMP
+可以在新立得里勾选 LAMP SERVER 也可以分步安装
+代码:
+sudo apt-get install apache2
+sudo apt-get install php5
+sudo apt-get install mysql-server libapache2-mod-auth-mysql php5-mysql
+
+三 疑难解决
+1. apache2: Could not determine the server’s fully qualified domain name, using 127.0.0.1 for ServerName
+代码:
+sudo gedit /etc/apache2/conf.d/fqdn
+在这个文件中加入：
+代码:
+ServerName localhost
+保存，退出，执行命令：
+或代码:
+echo “ServerName localhost” | sudo tee /etc/apache2/conf.d/fqdn
+终端显示：
+代码:
+ServerName localhost
+表明设置成功
+
+2. 设置其他文件夹到本地服务器中
+在apache2里，默认的文件夹为/var/www
+此文件夹为超级用户拥有，普通用户不能写入，可以把此文件夹的权限修改
+代码:
+sudo chmod -R 777 /var/www
+也可以重新设置一个文件夹:
+代码:
+sudo cp /etc/apache2/sites-available/default /etc/apache2/sites-available/mysite
+编辑配置文件
+代码:
+sudo gedit /etc/apache2/sites-available/mysite
+把配置文件里的DocumentRoot 修改为你需要的新位置，比如： /home/username/www/
+保存，退出
+执行:
+代码:
+sudo a2dissite default && sudo a2ensite mysite
+重启apache2
+代码:
+sudo /etc/init.d/apache2 restart
+在浏览器里输入http://localhost
+
+3. 无法解析php文件，浏览器提示下载所要打开的php文件
+执行：
+代码:
+sudo apt-get install libapache2-mod-php5
+sudo a2enmod php5
+如果显示为： 代码:
+This module does not exist!
+那就要彻底删除libapache2-mod-php5，然后重新安装它
+代码:
+sudo apt-get remove –purge libapache2-mod-php5
+sudo apt-get install libapache2-mod-php5
+重启apache2
+代码:
+sudo /etc/init.d/apache2 restart
+清除浏览器缓存，然后输入http://localhost
+
+4. 安装phpmyadmin
+建议不要从源里安装
+在phpmyadmin网站上下载软件包，解压缩到本地目录/var/www/phpmyadmin（/home/user/www/phpmyadmin）
+在终端下执行：
+代码:
+sudo cp /var/www/phpmyadmin/config.sample.inc.php /var/www/phpmyadmin/config.inc.php
+sudo gedit /var/www/phpmyadmin/config.inc.php
+找到“blowfish_secret”在后面填上任意字母
+$cfg['Servers'][$i]['auth_type']=’cookie’;
+$cfg['Servers'][$i]['host']=’localhost’;
+$cfg['Servers'][$i]['connect_type']=’tcp’;
+$cfg['Servers'][$i]['compress']=’false’;
+$cfg['Servers'][$i]['extension']=’mysql’;
+保存，退出
+安装php5-mcrypt
+代码:
+sudo apt-get install php5-mcrypt
+编辑php配置文件
+代码:
+sudo gedit /etc/php5/apache2/php.ini
+在extension下面加上
+代码:
+extension=php5-mcrypt.so
+保存，重启apache2
+在浏览器里输入http://localhost/phpmyadmin 

@@ -1,0 +1,186 @@
+﻿Normal Mode:
+a(append)
+p(put)
+y(copy,c,o,p已用,yanking)
+
+J				--连接两行
+:e!				--放弃修改并重新装载
+e				--移到下一个单词词末
+ge				--移到前一个单词词末
+fx(^:Fx)		--向前查找(find)本行中的字符x
+*				--正向查找光标处字符串
+#				--反向查找光标处字符串
+/the\>			--只匹配末尾
+/\<the/>		--匹配
+the"
+g*,g#			--部分匹配
+:scriptnames	--配置文件路径
+:set hls is 	--high light search ignore ...
+:nohls			--取消高亮显示
+CTRL-O(old),CTRL-I(i挨着o),CTRL-T(tags)
+
+
+user_04.txt
+cc				--修改一整行*****
+
+x  dl
+X  dh
+D  d$
+C  c$
+s  cl
+S  cc
+
+.				--重复任何除"u","CTRL-R",":"外的命令*****
+xp				--交换字符顺序*****
+daw				--delete a word(光标在单词任意位置)
+diw				--delete inner word(不包括空格)
+cis				--change inner sentence
+ciw				--change inner word*****
+dgg				--删除到文件首
+dG				--删除到文件末
+I				--移动到行首第一个非空字符并启动插入模式
+A				--移动到行末并启动插入模式
+
+Visual Mode
+vl..ld(c)			--删除选区
+CTRL-v j..jd(c)		--删除选区
+o(other end)		--可视模式下，选择光标跳到另一端****
+
+
+user_05.txt
+set list			--显示TAB
+
+usr_07.txt
+hide edit foo.txt
+vi 1.c 2.c 3.c 
+:wnext
+:args
+:previous
+:wprevious
+:last
+:first
+:set autowrite
+"fyy			--"f(first)使用寄存器
+"fp				--貌似测试没有成功，寄存器必须在同一个vim窗口中使用	
+CTRL-R f		--插入模式下粘贴
+
+usr_08.txt
+:split new.c
+:new test.c
+:close
+:vnew test.c		(vertical)
+:quall
+:wall
+:wqall
+vimdiff main.c main.c~		--控制台命令*****
+:tabedit new.c				*****
+:tab split new.c			***** the same as up 
+gt(goto table)				--切换tab*****
+"*yy						--剪贴板复制*****
+"*P(p)						--剪贴板粘贴*****
+
+usr_10.txt
+read nano.c
+gUU
+guu
+g~~
+
+使用记录-回放
+ qa                     启动记录，并使用寄存器 a
+^                       移到行首
+i#include "<Esc>        在行首输入 #include "
+$                       移到行末
+a"<Esc>                 在行末加上双引号 (")
+j                       移到下一行
+q                       结束记录
+@a						回放记录
+
+q:							--命令行历史*****
+CTRL-Z						--挂起
+fg							--回到vim*****
+'0							--回到最后编辑的文件*****
+:browse oldfiles q
+:mksession vimbook.vim		--创建会话
+:source vimbook.vim			--启动还原会话 
+vim -S vimbook.vim			--启动还原指定会话(Terminal)
+edit .						
+vsplit ~/     o(open) v(view)	*****
+gf							--打开源文件*****
+:buffers(:ls)				--缓冲区列表
+:bnext
+:bfirst
+:blast
+:bprevious
+:bdelete
+
+usr_23.txt
+gf,CTRL-W f					--打开链接
+vim -x encryption.txt		--加密编辑
+set key=					--撤销加密*****
+:X<CR>						--加密文本*****
+vim -x -n file.txt			--不使用交换文件
+:setlocal noswapfile		--不使用交换文件
+vim -b nano					--编辑二进制文件
+:%!xxd						--转换为十六进制
+:%!xxd -r					--转换为二进制
+
+usr_24.txt*****
+Insert Mode:
+CTRL-w						--更正光标前一单词*****
+CTRL-u						--更正光标前行内容*****
+CTRL-a						--重复上次插入
+CTRL-y						--插入光标上方字符
+CTRL-e						--插入光标下方字符
+
+
+CTRL-x						--自动补全选项
+CTRL-X CTRL-F         		--文件名
+CTRL-X CTRL-L          		--整行
+CTRL-X CTRL-D          		--宏定义 (包括包含文件里的)
+CTRL-X CTRL-I          	    --当前文件以及所包含的文件
+CTRL-X CTRL-K          	    --字典文件内的单词
+CTRL-X CTRL-T          	    --同义词词典文件内的单词
+CTRL-X CTRL-]          	    --标签
+CTRL-X CTRL-V          	    --Vim 命令行
+CTRL-X CTRL-O				--全能(omni) 
+CTRL-X CTRL-N				--next
+CTRL-X CTRL-P				--previous
+
+:set showmatch				--匹配括号
+:iab[brev] ad advertisement	--设置缩写	
+:digraphs					--二合字母
+
+usr_25.txt
+g0
+g^
+gm
+g$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

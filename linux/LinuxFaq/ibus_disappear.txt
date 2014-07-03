@@ -1,0 +1,2 @@
+killall ibus-daemon(结束进程)
+ibus-daemon -d(重启iubs)

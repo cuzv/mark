@@ -1,0 +1,21 @@
+﻿进入 Ubuntu 修复光盘之后，进入命令行
+
+sudo -i
+fdisk -l
+mount /dev/sda3 /mnt
+grub-install --root-directory=/mnt /dev/sda
+update-grub2
+reboot
+
+重启后执行
+	sudo update-grub2
+
+如果重启后黑屏，在上面的基础上执行
+	mount --bind /proc /mnt/proc
+	mount --bind /dev /mnt/dev
+	mount --bind /sys /mnt/sys
+	chroot /mnt update-grub
+	umount /mnt/sys
+	umount /mnt/dev
+	umount /mnt/proc
+	reboot

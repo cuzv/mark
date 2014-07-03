@@ -1,0 +1,51 @@
+1、在 http://www.eclipse.org/downloads/download.php?file=/technology/epp /downloads/release/helios/SR1/eclipse-php-helios-SR1-linux-gtk.tar.gz上下载一个eclipse-php-helios-SR1-linux-gtk.tar.gz 
+ 
+  
+2、sudo tar -zxv -f eclipse-php-helios-SR1-linux-gtk.tar.gz -C /opt/    将压缩包解压到/opt/目录下 
+  
+3、安装jre/jdk    因为在Ubuntu 10.10中没有jdk，所以在源中加入deb http://archive.canonical.com/ lucid partner 
+sudo gedit /etc/apt/sources.list,然后加入deb http://archive.canonical.com/ lucid partner 
+sudo apt-get update  
+sudo apt-get upgrade  
+sudo apt-get install sun-java6-jdk  
+  
+4、安装桌面快捷方式  
+sudo gedit /usr/share/applications/eclipse.desktop  
+在里面加入：  
+[Desktop Entry]  
+Encoding=UTF-8  
+Name=Eclipse  
+Comment=Eclipse IDE  
+Exec=/opt/eclipse/eclipse    
+Icon=/opt/eclipse/icon.xpm  
+Terminal=false  
+StartupNotify=true  
+Type=Application  
+Categories=Application;Development;    
+  
+右击桌面，创建启动器，名称填写EclipsePHP，命令：/opt/eclipse/eclipse，注释填写：/opt/eclipse/icon.xpm,确定  
+  
+5、打开EclipsePHP，创建工作空间  
+可能会提示Workspace in use or cannot be created.  
+此时更改/var/www的权限为755，所有者为普通用户，重新启动EclipsePHP创建工作空间即可。
+
+
+6、增加 xdebug
+参考文章后面介绍：http://blog.csdn.net/liangguohuan/article/details/6854935 
+6、加快启动速度
+在 eclipse.ini 最后添加如下内容:
+
+-Xms512m
+-Xmx1024m
+-XX:PermSize=96m
+-Xmn168m 
+-XX:+DisableExplicitGC 
+-XX:+PrintGCTimeStamps 
+-XX:+PrintGCDetails 
+-verbose:gc 
+-Xloggc:gc.log 
+
+7、额外处理
+
+Preferences=>Valiadation 通过这里设置，去年左边菜单栏红叉
+Project=>Build Automatically  设置为False，Java项目重要，PHP来用没多大必要

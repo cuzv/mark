@@ -1,0 +1,75 @@
+1.move cursor
+h j k l
+
+2.vim in and out
+:q!
+:wq
+
+3.delete
+x,X
+dw
+dd
+d2d, dd2
+d2w, dw2
+dj,dk
+dl,dh
+d$
+de
+shift+j
+
+4.insert
+i
+o
+a
+
+5.undo
+u
+U
+C-R
+
+6.paste
+p(delete will auto copy)
+
+7.replace
+r (replace char)
+R
+
+8.change
+cw change word
+c2w, cw2
+c$
+ce
+
+9.location
+C-G
+S-G
+
+10.serach
+/	/string
+?
+n
+/ignore
+:set ic
+:set hls is
+
+11.match
+%
+
+12.fix error
+:s/old/new
+:s/old/new/g
+:ln,lns/old/new/g 	(line number)
+:s/old/new/gc		(all content replace)
+
+12.outer command
+:!
+:!ls
+
+13.save
+:wq
+:q!
+:q
+:ln,ln w filename
+
+14.cat
+:r tmp

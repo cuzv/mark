@@ -1,0 +1,60 @@
+##  lnux下使用Mplayer播放各种格式的电影，这个步骤需要使用linva仓库。  
+　　使用root执行命令。  
+`　　yum install mplayer mplayer-gui mplayerplug-in mplayer-doc mplayer-fonts`  
+　　安装结束后mplayer就安装成功了。  
+　　使用普通用户执行mplayer会出现如下信息：  
+      [jzhenyon@dhcp-0-151 scsi]$ mplayer  
+MPlayer 1.0rc2-4.1.2 (C) 2000-2007 MPlayer Team  
+CPU: Intel(R) Core(TM)2 CPU T7200 @ 2.00GHz (Family: 6, Model: 15, Stepping: 6)  
+CPUflags: MMX: 1 MMX2: 1 3DNow: 0 3DNow2: 0 SSE: 1 SSE2: 1  
+Compiled with runtime CPU detection.  
+Usage: mplayer [options] [url|path/]filename  
+.......  
+ 
+
+　　也可以执行gmplayer，会出现一个图形对话框。  
+　　接下来需要安装解码器。  
+　　从下面的网页下载一个最新的解码器。  
+`　　http://www1.mplayerhq.hu/MPlayer/releases/codecs/`  
+　　并且把其中的文件解压之后放入/usr/lib/codecs目录下。  
+　　tar xvjf all-20061022.tar.bz2 -C /tmp  
+　　cp /tmp/all-20061022/* /usr/lib/codecs  
+
+　　然后找一个rmvb文件测试。  
+　　执行如下命令  
+`　　mplayer test.rmvb`  
+　　或  
+`　　gmplaer test.rmvb`  
+　　都可以播放这个电影。  
+　　firefox可以使用mplayerplug-in来作为插件来播放网页中的视频。  
+
+
+## gmpyer有声音没有图像
+今天把mplayer编译安装了一遍，  
+发现播放视频文件时有声音没有图像。  
+然后加源安装，问题依旧。  
+
+10.2系统中是没有这个问题的。  
+在网上找到了解决方案。步骤如下：  
+
+更改视频输出配置  
+`1.打开 /etc/mplayer/mplayer.conf ,`  
+`2.定位到视频输出行（以"vo="开始）,`  
+`3.删除XVideo设置（"xv" ) ,`  
+`4.保存文件 ,`  
+
+例如，有一行包括如下内容：  
+`vo=xv,x11`  
+应该被更改为：  
+`vo=x11`  
+MPlayer将会使用x11驱动代替XVideo驱动来输出视频。  
+
+第二个问题是用鼠标调整图像边框时，  
+里面的画面竟然不会跟着自己调整大小。  
+后来在配置文件里启用了一个开关：  
+`zoom=yes`  
+问题搞定。  
+
+## 图像倒着的  
+右键,preference --video -- flip image upside down  
+重新打开gmplayer

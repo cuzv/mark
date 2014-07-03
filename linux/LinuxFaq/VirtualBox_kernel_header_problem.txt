@@ -1,0 +1,82 @@
+http://http://www.tecmint.com/install-virtualbox-on-redhat-centos-fedora/
+
+
+```
+yum install kernel-devel-`uname -r`
+yum update kernel
+/etc/init.d/vboxdrv setup
+```
+
+
+# Adding VirtualBox Repository
+
+## Fedora 18,17,16,15,14,13,12 ##
+```
+# cd /etc/yum.repos.d/
+# wget http://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repoor RHEL/CentOS 6.4-5.9
+```
+
+## RHEL 6.4/6.3/6.2/6.1/6.0/5.9/5.8/5.6 and CentOS 6.4/6.3/6.2/6.1/6.0/5.9/5.8/5.6 ##
+```
+# cd /etc/yum.repos.d/
+# wget http://download.virtualbox.org/virtualbox/rpm/rhel/virtualbox.repo
+```
+
+## RHEL 5 and CentOS 5 ##
+```
+# wget http://dl.fedoraproject.org/pub/epel/5/i386/epel-release-5-4.noarch.rpm
+# rpm -Uvh epel-release-5-4.noarch.rpm
+```
+
+## Fedora 18,17,16,15,14,13,12 ##
+```
+# cd /etc/yum.repos.d/
+# wget http://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
+```
+
+
+# Install Dependency Packages for VirtualBox
+`# yum install VirtualBox-4.2`
+
+
+# Rebuild Kernel Modules for VirtualBox 4.2.10
+```
+# /etc/init.d/vboxdrv setup
+OR 
+# service vboxdrv setup
+```
+
+# OTHERS STEPS
+
+```
+# VirtualBox
+
+
+## RHEL / CentOS / Fedora ##
+KERN_DIR=/usr/src/kernels/2.6.18-194.11.1.el5-x86_64
+
+## Export KERN_DIR ##
+export KERN_DIR
+
+
+# yum update VirtualBox-4.2
+
+
+
+# cd /etc/yum.repos.d/
+# rm -rf virtualbox.repo
+# yum remove VirtualBox-4.2
+```
+
+
+
+
+
+
+
+
+
+
+
+
+

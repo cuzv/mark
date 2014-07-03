@@ -1,0 +1,87 @@
+﻿规则：用于说明如何生成一个或多个目标文件，规则格式如下：
+
+targets:prerequisites
+	command
+	
+目标：依赖 命令
+
+main.o:main.c
+	gcc -c main.c
+
+目标？依赖？命令？
+
+$^:所有依赖文件
+$@:目标
+$<:第一个依赖文件
+
+Makefile 中"#"表示注释
+@ 取消回显  
+
+egg:(current dir: linkedlist.c linkedlist.h main.c makefile)
+
+makefile content:
+
+main:main.o linkedlist.o
+	gcc main.o linkedlist.o -o main
+main.o:main.c
+	gcc -c main.c
+linkedlist.o:linkedlist.c
+	gcc -c linkedlist.c
+.PHONY:clean
+clean:
+	rm -f main.o linkedlist.o
+	
+make命令默认在当前目录下寻找名字为GNUmakefile或者makefile或者Makefile的工程
+文件当这三个文件都不存在时：
+make -f filename	
+指定文件名
+	
+obj = main.o linkedlist.o
+main:$(obj)	
+	gcc $(obj) -o main
+	
+main:main.o linkedlist.o
+	gcc $^ -o $@	
+	
+	
+	
+version2:(@取消回显)
+    
+obj = main.o linkedlist.o
+main:$(obj)
+	@gcc $^ -o $@
+main.o:main.c
+	@gcc -c main.c
+linkedlist.o:linkedlist.c
+	@gcc -c linkedlist.c
+.PHONY:clean clear
+clean:
+	@rm -f $(obj) main
+clear:
+	@rm $(obj)
+	
+verison = version3:(自动推断依赖，并生成相应.o文件。隐含规则)
+obj = main.o linkedlist.o
+main:$(obj)
+	@gcc $^ -o $@
+.PHONY:clean clear
+clean:
+	@rm -f $(obj) main
+clear:
+	@rm $(obj)	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

@@ -1,0 +1,37 @@
+﻿经过一天的努力，尝试过各种方法，终于在Ubuntu 12.04下成功地添加了开机图片。总结起来，并不像网上好多人说的那样繁琐，可能也是可行的方法，本人也尝试过都没有成功，也许是自己的能力有限，现在向大家推荐一种简单的方法，如下：
+
+在终端中输入下面的命令：
+
+sudo gedit /usr/lib/grub/grub-mkconfig_lib
+
+打开文件grub-mkconfig_lib 后，在文件最后的位置添加以下代码：
+
+# this allows desktop-base to override our settings
+
+f=/usr/share/desktop-base/grub_background.sh
+
+if test -e ${f} ; then
+
+source ${f}
+
+else
+
+WALLPAPER="/boot/desktop.png"
+
+COLOR_NORMAL="black/white"
+
+COLOR_HIGHLIGHT="magenta/green"
+
+fi
+
+这里会自动搜索背景图片,
+
+然后在终端中输入命令：
+
+sudo update-grub
+
+会出现如下：
+
+Generating grub.cfg ...
+
+Found background image: desktop.png 

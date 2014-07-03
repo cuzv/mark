@@ -1,0 +1,32 @@
+**CentOS6 分辨率不能最大解决办法**
+由于CentOS默认用的是nouveau驱动，所以不行，安装nvidia驱动即可
+
+  第一步：把Nouveau驱动加入黑名单
+                修改/etc/modprobe.d/blacklist.conf文件，在里面加入blacklist nouveau
+   第二步：重新建立initramfs image文件
+                $ mv /boot/initramfs-$(uname -r).img /boot/initramfs-$(uname -r).img.bak
+                $ dracut -v /boot/initramfs-$(uname -r).img $(uname -r)  
+    第三步：进入init 3安装Nvidia官方驱动
+                修改/etc/inittab，使系统开机进入init 3文本模式
+                重启后，可以看到在init 3文本模式下字体明显变大，应该就是禁用nouveau了。
+           可以使用lsmod | grep nouveau确认一下
+                确认没有加载nouveau，运行官方驱动根据提示安装即可。
+ 
+就可以安装，但是一般都有缺少包的问题， 
+我的是缺gcc和kernel-devel, 
+联网模式用yum就可以了， 
+#yum -y install gcc 
+#yum -y install kernel*  
+装的kernel包可能有多余的，有人说是kernel-devel,kernel-headers就可以，但我的还不行，就把
+所有的都装了。
+ 
+ 注意下载下来的驱动是.run文件，.run是一个脚本，可以用如下几个命令安装：
+chmod 751  nvidia*.run
+./nvidia*.run(或sh nvidia*.run)
+ 
+第四步：修改/etc/inittab，使系统开机进入init 5图形界面模式
+ vi  /etc/inittab
+ 按i进入编辑模式，修改3为5，然后:wq 退出。
+reboot
+                在系统 - 首选项里可以看到NVIDIA X Server Settings，可以查看基本信息及进行一些设置.
+                或者用命令glxinfo或者glxgears检测是否成功安装即可

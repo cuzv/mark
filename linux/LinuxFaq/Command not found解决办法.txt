@@ -1,0 +1,19 @@
+例子：
+whereis ifconfig
+
+echo $PATH
+
+export PATH=$PATH:/sbin
+
+
+
+su 进入 root
+vim /etc/profile
+PATH=$PATH:/sbin
+export PATH=$PATH:/sbin
+退出
+source /etc/profile
+
+
+
+vim ~/.bash_profile 将/sbin加进去

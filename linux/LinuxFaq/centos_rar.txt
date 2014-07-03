@@ -1,0 +1,20 @@
+﻿由于centos上没有解压rar压缩格式的命令，所以需要重新安装，过程如下：
+wget http://www.rarsoft.com/rar/rarlinux-3.9.3.tar.gz
+tar -xvf rarlinux-3.9.3.tar.gz
+cd rar
+make
+
+出现
+
+mkdir -p /usr/local/bin
+mkdir -p /usr/local/lib
+cp rar unrar /usr/local/bin
+cp rarfiles.lst /etc
+cp default.sfx /usr/local/lib
+
+但是使用rar命令时，出现以下提示：
+rar: /lib/i686/nosegneg/libc.so.6: version `GLIBC_2.7' not found (required by rar)
+
+Google下,解决办法是
+cp rar_static /usr/local/bin/rar
+

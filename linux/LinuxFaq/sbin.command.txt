@@ -1,0 +1,279 @@
+ 共277条命令
+总计 37384
+-rwxr-xr-x 1 root root        7660 2009-02-27 accton
+-rwxr-xr-x 1 root root        5796 2010-01-20 addpart
+-rwxr-xr-x 1 root root       10497 2007-01-07 adsl-connect
+-rwxr-xr-x 1 root root       12886 2007-01-07 adsl-setup
+-rwxr-xr-x 1 root root        6441 2007-01-07 adsl-start
+-rwxr-xr-x 1 root root        2689 2007-01-07 adsl-status
+-rwxr-xr-x 1 root root        3369 2007-01-07 adsl-stop
+-rwxr-xr-x 1 root root       20340 2010-01-20 agetty
+-rwxr-xr-x 1 root root       53136 2009-01-21 alsactl
+-rwxr-xr-x 1 root root       52848 2010-01-27 arp
+-rwxr-xr-x 1 root root       14896 2009-09-27 arping
+-rwxr-x--- 1 root root       87736 2010-03-31 audispd
+-rwxr-x--- 1 root root      113240 2010-03-31 auditctl
+-rwxr-x--- 1 root root      165872 2010-03-31 auditd
+-rwxr-xr-x 1 root root      134564 2010-03-31 aureport
+-rwxr-xr-x 1 root root      148964 2010-03-31 ausearch
+-rwxr-x--- 1 root root       88364 2010-03-31 autrace
+-rwxr-x--- 1 root root       15888 2009-09-20 avmcapictrl
+-rwxr-xr-x 1 root root       20604 2009-09-04 badblocks
+-rwxr-xr-x 1 root root       10008 2009-09-04 blkid
+-rwxr-xr-x 1 root root       12188 2010-01-20 blockdev
+-rwxr-xr-x 1 root root     2090944 2009-09-04 busybox
+-rwxr-xr-x 1 root root       30992 2009-09-20 capiinit
+-rwxr-xr-x 1 root root       33558 2010-01-27 cbq
+-rwxr-xr-x 1 root root        7736 2010-03-31 cciss_id
+-rwxr-xr-x 1 root root        6024 2009-01-21 change_console
+-rwxr-xr-x 1 root root       46256 2010-01-27 chkconfig
+lrwxrwxrwx 1 root root           7 09-03 23:08 clock -> hwclock
+-rwxr-xr-x 1 root root        5180 2009-09-29 consoletype
+-rwxr-xr-x 1 root root     1232356 2009-09-03 cryptsetup
+-rwxr-xr-x 1 root root        5732 2010-01-20 ctrlaltdel
+-rwxr-xr-x 1 root root       75332 2009-09-04 debugfs
+-rwxr-xr-x 1 root root        5664 2010-01-20 delpart
+-rwxr-xr-x 1 root root      106552 2010-03-31 depmod
+-rwxr-xr-x 1 root root      462100 2010-04-03 dhclient
+-rwxr-xr-x 1 root root       18780 2010-04-03 dhclient-script
+-rwxr-x--- 1 root root      161124 2010-03-31 dhcp6c
+-rwxr-xr-x 2 root root        8552 2010-03-31 dm_dso_reg_tool
+-r-xr-xr-x 1 root root       26668 2010-03-31 dmeventd
+-rwxr-xr-x 2 root root        8552 2010-03-31 dmevent_tool
+-rwxr-xr-x 1 root root       19196 2010-03-31 dmraid
+-rwxr-xr-x 1 root root     1075172 2010-03-31 dmraid.static
+-r-xr-xr-x 1 root root       56304 2010-03-31 dmsetup
+-r-xr-xr-x 1 root root      951420 2010-03-31 dmsetup.static
+-rwxr-xr-x 3 root root       52568 2010-01-27 dosfsck
+-rwxr-xr-x 1 root root       50612 2010-01-27 dosfslabel
+-rwxr-xr-x 1 root root     1150244 2009-09-22 dump
+-rwxr-xr-x 1 root root       13216 2009-09-04 dumpe2fs
+lrwxrwxrwx 1 root root           4 09-03 23:03 dump.static -> dump
+-rwxr-xr-x 3 root root     1077248 2009-09-04 e2fsck
+-rwxr-xr-x 1 root root       15972 2009-09-04 e2image
+-rwxr-xr-x 3 root root       25416 2009-09-04 e2label
+-rwxr-xr-x 1 root root       12692 2010-01-27 ether-wake
+-rwxr-xr-x 1 root root      119912 2010-04-03 ethtool
+-rwxr-xr-x 1 root root       21672 2007-01-09 extlinux
+-rwxr-xr-x 1 root root       96148 2010-01-20 fdisk
+-rwxr-xr-x 3 root root       25416 2009-09-04 findfs
+-rwxr-xr-x 1 root root        5820 2009-09-04 firmware_helper
+-rwxr-xr-x 1 root root        6083 2010-04-03 fixfiles
+-rwxr-xr-x 1 root root       22160 2009-09-04 fsck
+-rwxr-xr-x 1 root root        9472 2010-01-20 fsck.cramfs
+-rwxr-xr-x 3 root root     1077248 2009-09-04 fsck.ext2
+-rwxr-xr-x 3 root root     1077248 2009-09-04 fsck.ext3
+-rwxr-xr-x 3 root root       52568 2010-01-27 fsck.msdos
+-rwxr-xr-x 3 root root       52568 2010-01-27 fsck.vfat
+-rwxr-xr-x 1 root root        5616 2009-09-29 fstab-decode
+-rwxr-xr-x 1 root root       23696 2009-09-27 fuser
+-rwxr-xr-x 1 root root        8723 2010-03-31 generate-modprobe.conf
+-rwxr-xr-x 1 root root        5260 2009-09-29 genhostid
+-rwxr-xr-x 1 root root       28204 2009-09-29 getkey
+-rwxr-xr-x 1 root root      295472 2009-09-03 grub
+-rwxr-xr-x 1 root root      754584 2010-03-31 grubby
+-rwxr-xr-x 1 root root       18519 2009-09-03 grub-install
+-rwxr-xr-x 1 root root        2293 2009-09-03 grub-md5-crypt
+-rwxr-xr-x 1 root root        2473 2009-09-03 grub-terminfo
+-rwxr-xr-x 1 root root       12308 2009-01-21 halt
+-rwxr-xr-x 1 root root       57488 2007-01-06 hdparm
+-rwxr-x--- 1 root root        6816 2009-09-20 hisaxctrl
+-rwxr-xr-x 1 root root       34096 2010-01-20 hwclock
+-rwxr-xr-x 1 root root       16656 2009-09-20 ibod
+-rwxr-x--- 1 root root        9680 2009-09-20 icnctrl
+-rwxr-xr-x 1 root root        3057 2010-01-27 ifcfg
+-rwxr-xr-x 1 root root       71528 2010-01-27 ifconfig
+-rwxr-xr-x 1 root root         924 2009-07-04 ifdown
+-rwxr-xr-x 1 root root       19124 2009-09-27 ifenslave
+-rwxr-xr-x 1 root root       28684 2007-03-15 ifrename
+-rwxr-xr-x 1 root root        3844 2009-07-04 ifup
+-rwxr-xr-x 1 root root       38652 2009-01-21 init
+-rwxr-xr-x 1 root root       38252 2009-09-29 initlog
+-rwxr-xr-x 1 root root        6916 2010-03-31 insmod
+-rwxr-xr-x 1 root root      476292 2010-03-31 insmod.static
+-rwxr-xr-x 1 root root       27948 2007-03-15 install-info
+-rwxr-xr-x 1 root root        1790 2010-03-31 installkernel
+-rwxr-xr-x 1 root root      180780 2010-01-27 ip
+-rwxr-xr-x 1 root root       57548 2009-11-02 ip6tables
+-rwxr-xr-x 1 root root       63104 2009-11-02 ip6tables-restore
+-rwxr-xr-x 1 root root       61000 2009-11-02 ip6tables-save
+-rwxr-xr-x 1 root root       14496 2010-01-27 ipmaddr
+-rwxr-xr-x 1 root root       10728 2009-09-20 ipppstats
+-rwxr-x--- 1 root root        7760 2009-09-20 iprofd
+-rwxr-xr-x 1 root root       57376 2009-11-02 iptables
+-rwxr-xr-x 1 root root       62080 2009-11-02 iptables-restore
+-rwxr-xr-x 1 root root       60564 2009-11-02 iptables-save
+-rwxr-xr-x 1 root root       19084 2010-01-27 iptunnel
+-rwxr-x--- 1 root root       69928 2009-09-20 isdnctrl
+-rwxr-xr-x 1 root root      283896 2009-09-20 isdnlog
+-rwxr-xr-x 1 root root       23828 2007-03-15 iwconfig
+-rwxr-xr-x 1 root root       14256 2007-03-15 iwevent
+-rwxr-xr-x 1 root root       10016 2007-03-15 iwgetid
+-rwxr-xr-x 1 root root       24972 2007-03-15 iwlist
+-rwxr-xr-x 1 root root       13764 2007-03-15 iwpriv
+-rwxr-xr-x 1 root root       10516 2007-03-15 iwspy
+-r-xr-xr-x 1 root root        8296 2010-03-31 kdump
+-r-xr-xr-x 1 root root      204212 2010-03-31 kexec
+-rwxr-xr-x 1 root root       13252 2009-01-21 killall5
+-rwxr-xr-x 1 root root       24104 2010-04-03 klogd
+-rwxr-xr-x 1 root root       34512 2010-03-31 kpartx
+-rwxr-xr-x 1 root root      862468 2010-03-31 kpartx.static
+-rwxr-xr-x 1 root root      149096 2010-04-05 kudzu
+-rwxr-xr-x 1 root root      638240 2010-04-02 ldconfig
+-rwxr-xr-x 1 root root        8248 2009-09-04 logsave
+-rwxr-x--- 1 root root        7520 2009-09-20 loopctrl
+-rwxr-xr-x 1 root root       14524 2010-01-20 losetup
+-rwxr-xr-x 1 root root        6272 2010-03-31 lsmod
+-rwxr-xr-x 1 root root       71456 2009-11-18 lspci
+lrwxrwxrwx 1 root root           9 09-03 23:19 lspcmcia -> pccardctl
+-rwxr-xr-x 1 root root       60660 2007-01-07 lsusb
+lrwxrwxrwx 1 root root          10 09-03 23:07 lvm -> lvm.static
+-r-xr-xr-x 1 root root     1615624 2010-04-03 lvm.static
+-rwxr-xr-x 1 root root       28400 2007-01-07 MAKEDEV
+-rwxr-xr-x 1 root root      745124 2010-03-31 makedumpfile
+-rwxr-xr-x 1 root root       18288 2009-01-21 mcstransd
+-rwxr-xr-x 1 root root      215356 2010-01-27 mdadm
+-rwxr-xr-x 1 root root      806692 2010-01-27 mdadm.static
+-rwxr-xr-x 1 root root      659368 2010-01-27 mdassemble.static
+-rwxr-xr-x 1 root root       15496 2010-01-27 mdmpd
+-rwx------ 1 root root       94496 2007-01-07 mgetty
+-rwxr-xr-x 1 root root       11792 2010-03-31 microcode_ctl
+-rwxr-xr-x 1 root root       17492 2010-01-27 mii-diag
+-rwxr-xr-x 1 root root       14108 2010-01-27 mii-tool
+-rwxr-xr-x 1 root root       13124 2007-01-06 mingetty
+-rwxr-xr-x 1 root root        6407 2007-01-07 mkbootdisk
+-rwxr-xr-x 3 root root       29880 2010-01-27 mkdosfs
+-rwxr-xr-x 1 root root       70202 2010-03-31 mkdumprd
+-rwxr-xr-x 3 root root       47312 2009-09-04 mke2fs
+-rwxr-xr-x 1 root root        7140 2010-01-20 mkfs
+-rwxr-xr-x 1 root root       18148 2010-01-20 mkfs.cramfs
+-rwxr-xr-x 3 root root       47312 2009-09-04 mkfs.ext2
+-rwxr-xr-x 3 root root       47312 2009-09-04 mkfs.ext3
+-rwxr-xr-x 3 root root       29880 2010-01-27 mkfs.msdos
+-rwxr-xr-x 3 root root       29880 2010-01-27 mkfs.vfat
+-rwxr-xr-x 1 root root       55593 2010-03-31 mkinitrd
+-rwxr-xr-x 1 root root       15228 2010-01-20 mkswap
+-rwxr-x--- 1 root root       15572 2009-09-20 mkzonedb
+-rwxr-xr-x 1 root root       72204 2010-03-31 modinfo
+-rwxr-xr-x 1 root root       89052 2010-03-31 modprobe
+-rwxr-xr-x 1 root root       27768 2010-03-31 mount.cifs
+-rwxr-xr-x 1 root root       22376 2009-09-04 mount.ecryptfs
+-rwsr-x--- 1 root ecryptfs   12000 2009-09-04 mount.ecryptfs_private
+-rwsr-xr-x 1 root root       71156 2010-04-05 mount.nfs
+-rwsr-xr-x 1 root root       71160 2010-04-05 mount.nfs4
+-rwxr-xr-x 1 root root      503168 2010-03-31 mpath_ctl
+lrwxrwxrwx 1 root root          22 09-03 23:07 mpath_prio_alua -> mpath_prio_alua.static
+-rwxr-xr-x 1 root root      513424 2010-03-31 mpath_prio_alua.static
+lrwxrwxrwx 1 root root          21 09-03 23:07 mpath_prio_emc -> mpath_prio_emc.static
+-rwxr-xr-x 1 root root      474348 2010-03-31 mpath_prio_emc.static
+lrwxrwxrwx 1 root root          29 09-03 23:07 mpath_prio_hds_modular -> mpath_prio_hds_modular.static
+-rwxr-xr-x 1 root root      476916 2010-03-31 mpath_prio_hds_modular.static
+lrwxrwxrwx 1 root root          23 09-03 23:07 mpath_prio_hp_sw -> mpath_prio_hp_sw.static
+-rwxr-xr-x 1 root root      474352 2010-03-31 mpath_prio_hp_sw.static
+lrwxrwxrwx 1 root root          23 09-03 23:07 mpath_prio_intel -> mpath_prio_intel.static
+-rwxr-xr-x 1 root root      513456 2010-03-31 mpath_prio_intel.static
+lrwxrwxrwx 1 root root          23 09-03 23:07 mpath_prio_netapp -> mpath_prio_ontap.static
+lrwxrwxrwx 1 root root          23 09-03 23:07 mpath_prio_netapp.static -> mpath_prio_ontap.static
+lrwxrwxrwx 1 root root          23 09-03 23:07 mpath_prio_ontap -> mpath_prio_ontap.static
+-rwxr-xr-x 1 root root      476816 2010-03-31 mpath_prio_ontap.static
+lrwxrwxrwx 1 root root          22 09-03 23:07 mpath_prio_rdac -> mpath_prio_rdac.static
+-rwxr-xr-x 1 root root      474352 2010-03-31 mpath_prio_rdac.static
+lrwxrwxrwx 1 root root          21 09-03 23:07 mpath_prio_tpc -> mpath_prio_tpc.static
+-rwxr-xr-x 1 root root      474348 2010-03-31 mpath_prio_tpc.static
+lrwxrwxrwx 1 root root          26 09-03 23:07 mpath_prio_weighted -> mpath_prio_weighted.static
+-rwxr-xr-x 1 root root      575316 2010-03-31 mpath_prio_weighted.static
+-rwxr-xr-x 1 root root         366 2010-03-31 mpath_wait
+-rwxr-xr-x 1 root root      186760 2010-03-31 multipath
+-rwxr-xr-x 1 root root      230396 2010-03-31 multipathd
+-rwxr-xr-x 1 root root      938056 2010-03-31 multipath.static
+-rwxr-xr-x 1 root root       12184 2010-01-27 nameif
+-rwxr-xr-x 1 root root     2427036 2010-03-31 nash
+-rwxr-xr-x 1 root root       23728 2010-01-27 netplugd
+-rwxr-sr-x 1 root root        5920 2009-09-29 netreport
+-rwxr-xr-x 1 root root       11896 2010-03-31 new-kernel-pkg
+-rwxr-xr-x 1 root root        5120 2010-01-20 nologin
+-rwxr-xr-x 1 root root       36332 2010-03-12 pam_console_apply
+-rwxr-xr-x 1 root root       10064 2010-03-12 pam_tally
+-rwxr-xr-x 1 root root       11912 2010-03-12 pam_tally2
+-rwsr-xr-x 1 root root       12248 2010-03-12 pam_timestamp_check
+-rwxr-xr-x 1 root root       76048 2010-03-31 parted
+-rwxr-xr-x 1 root root        7432 2010-03-31 partprobe
+-rwxr-xr-x 1 root root       19628 2010-01-20 partx
+-rwxr-x--- 1 root root       12472 2009-09-20 pcbitctl
+-rwxr-xr-x 1 root root       24496 2007-01-07 pccardctl
+-rwxr-xr-x 1 root root        9192 2007-01-07 pcmcia-check-broken-cis
+-rwxr-xr-x 1 root root       28776 2007-01-07 pcmcia-socket-startup
+lrwxrwxrwx 1 root root           8 09-03 23:07 pidof -> killall5
+-rwxr-xr-x 1 root root        5088 2010-01-20 pivot_root
+-rwxr-xr-x 1 root root        7684 2010-01-27 plipconfig
+-rwxr-xr-x 1 root root       35564 2007-01-06 portmap
+lrwxrwxrwx 1 root root           4 09-03 23:07 poweroff -> halt
+-rwxr-xr-x 1 root root       33296 2007-01-07 pppoe
+-rwxr-xr-x 1 root root       31892 2007-01-07 pppoe-relay
+-rwxr-xr-x 1 root root       50228 2007-01-07 pppoe-server
+-rwxr-xr-x 1 root root       16300 2007-01-07 pppoe-sniff
+-rwxr-xr-x 1 root root       22932 2009-09-29 ppp-watch
+lrwxrwxrwx 1 root root          10 09-03 23:07 pvscan -> lvm.static
+-rwxr-xr-x 1 root root       99328 2009-02-27 quotacheck
+lrwxrwxrwx 1 root root           7 09-03 23:09 quotaoff -> quotaon
+-rwxr-xr-x 1 root root       71436 2009-02-27 quotaon
+-rwxr-xr-x 1 root root       22628 2009-09-27 rdisc
+lrwxrwxrwx 1 root root           4 09-03 23:03 rdump -> dump
+lrwxrwxrwx 1 root root           4 09-03 23:03 rdump.static -> dump
+lrwxrwxrwx 1 root root           4 09-03 23:07 reboot -> halt
+-rwxr-xr-x 1 root root       16524 2007-01-06 request-key
+-rwxr-xr-x 1 root root       31708 2009-09-04 resize2fs
+-rwxr-xr-x 1 root root     1092944 2009-09-22 restore
+-rwxr-xr-x 1 root root       13852 2010-04-03 restorecon
+lrwxrwxrwx 1 root root           7 09-03 23:03 restore.static -> restore
+-rwxr-xr-x 1 root root       10240 2010-03-31 rmmod
+-rwxr-xr-x 1 root root      482684 2009-09-22 rmt
+-rwxr-xr-x 1 root root       10976 2007-01-07 rngd
+-rwxr-xr-x 1 root root       54060 2010-01-27 route
+-rwxr-xr-x 1 root root        4332 2010-04-05 rpc.lockd
+-rwxr-xr-x 1 root root       47640 2010-04-05 rpc.statd
+lrwxrwxrwx 1 root root           7 09-03 23:03 rrestore -> restore
+lrwxrwxrwx 1 root root           7 09-03 23:03 rrestore.static -> restore
+-rwxr-xr-x 1 root root       26808 2010-01-27 rtmon
+-rwxr-xr-x 1 root root        5264 2009-01-21 runlevel
+-rwxr-xr-x 1 root root       27684 2010-03-01 runuser
+-rwxr-xr-x 1 root root        7624 2009-01-21 salsa
+lrwxrwxrwx 1 root root          17 09-03 23:08 scsi_id -> /lib/udev/scsi_id
+-rwxr-xr-x 1 root root        1744 2009-09-29 service
+-rwxr-xr-x 1 root root       17996 2010-04-03 setfiles
+-rwxr-xr-x 1 root root       90168 2009-05-19 setkey
+-rwxr-xr-x 1 root root       38276 2009-11-18 setpci
+-rwxr-xr-x 1 root root         841 2009-09-29 setsysfont
+-rwxr-xr-x 1 root root       57656 2010-01-20 sfdisk
+-rwxr-xr-x 1 root root       16360 2009-02-26 sgpio
+-rwxr-xr-x 1 root root       21304 2009-01-21 shutdown
+-rwxr-xr-x 1 root root       33624 2010-01-27 slattach
+-rwxr-xr-x 1 root root      541673 2010-04-02 sln
+-rwxr-xr-x 1 root root        4456 2009-09-04 start_udev
+-rwxr-xr-x 1 root root       19696 2009-01-21 sulogin
+lrwxrwxrwx 1 root root           6 09-03 23:08 swapoff -> swapon
+-rwxr-xr-x 1 root root       14868 2010-01-20 swapon
+-r-xr-xr-x 1 root root       12336 2010-03-31 sysctl
+-rwxr-xr-x 1 root root       35832 2010-04-03 syslogd
+-rwxr-xr-x 1 root root      220440 2010-01-27 tc
+lrwxrwxrwx 1 root root           4 09-03 23:07 telinit -> init
+-rwxr-xr-x 3 root root       25416 2009-09-04 tune2fs
+-rwxr-xr-x 1 root root       10808 2009-09-04 udevcontrol
+-rwxr-xr-x 1 root root       71924 2009-09-04 udevd
+-rwxr-xr-x 1 root root      848324 2009-09-04 udevd.static
+-rwxr-xr-x 1 root root       22424 2009-09-04 udevsettle
+-rwxr-xr-x 1 root root       24736 2009-09-04 udevtrigger
+-rwxr-xr-x 1 root root       12336 2010-03-31 umount.cifs
+-rwxr-xr-x 1 root root        8912 2009-09-04 umount.ecryptfs
+lrwxrwxrwx 1 root root          22 09-03 23:12 umount.ecryptfs_private -> mount.ecryptfs_private
+-rwsr-xr-x 1 root root       71160 2010-04-05 umount.nfs
+-rwsr-xr-x 1 root root       71160 2010-04-05 umount.nfs4
+-rwsr-xr-x 1 root root       19184 2010-03-12 unix_chkpwd
+-rwx------ 1 root root       26508 2010-03-12 unix_update
+-rwxr-xr-x 1 root root        1114 2009-11-18 update-pciids
+-rwxr-x--- 1 root root       25748 2009-09-20 vboxd
+-rwxr-xr-x 1 root root       10696 2009-11-13 vconfig
+lrwxrwxrwx 1 root root          10 09-03 23:07 vgchange -> lvm.static
+lrwxrwxrwx 1 root root          10 09-03 23:07 vgscan -> lvm.static
+-rwxr-xr-x 1 root root       16490 2010-03-31 weak-modules
+-r-xr-xr-x 1 root root       38020 2009-09-22 ypbind

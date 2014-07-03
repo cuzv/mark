@@ -1,0 +1,6 @@
+VLC media player是Linux系统里一个很受欢迎的视频播放器，在Ubuntu软件中心里，这款播放器的下载量非常巨大，可见其受欢迎的程度。下面是在CentOS6.3系统安装VLC media player的过程。
+
+su - root
+cd /etc/yum.repos.d/
+wget http://pkgrepo.linuxtech.net/el6/release/linuxtech.repo
+yum --enablerepo=linuxtech-testing install vlc

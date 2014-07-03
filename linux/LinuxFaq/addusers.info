@@ -1,0 +1,5 @@
+addusers01::1001:3::/home/addusers01:/bin/bash
+addusers02::1002:3::/home/addusers02:/bin/bash
+addusers03::1003:3::/home/addusers03:/bin/bash
+addusers04::1004:3::/home/addusers04:/bin/bash
+addusers05::1005:3::/home/addusers05:/bin/bash

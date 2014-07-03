@@ -1,0 +1,74 @@
+#!/bin/bash
+#
+# ÕâÖ§³ÌĞòÖ÷ÒªÔÚ°ïÄú´´½¨´óÁ¿µÄÕËºÅÖ®ÓÃ£¬¸ü¶àµÄÊ¹ÓÃ·½·¨Çë²Î¿¼£º
+# http://vbird.dic.ksu.edu.tw/linux_basic/0410accountmanager.php#manual_amount
+#
+# ±¾³ÌĞòÎªÄñ¸ç×ÔĞĞ¿ª·¢£¬ÔÚ CentOS 5.x ÉÏÊ¹ÓÃÃ»ÓĞÎÊÌâ£¬
+# µ«²»±£Ö¤¾ø²»»á·¢Éú´íÎó£¡Ê¹ÓÃÊ±£¬Çë×ÔĞĞ¸ºµ£·çÏÕ¡«
+#
+# History:
+# 2005/09/05    VBird   ¸Õ¸Õ²ÅĞ´Íê£¬Ê¹ÓÃ¿´¿´ÏÈ¡«
+# 2009/03/04    VBird   ¼ÓÈëÒ»Ğ©Óïç??µÄĞŞ¸ÄÓëËµÃ÷£¬ĞŞ¸Ä¿ÚÁî²úÉú·½Ê½ (ÓÃ openssl)
+export LANG=zh_CN.UTF-8
+export PATH=/sbin:/usr/sbin:/bin:/usr/bin
+accountfile="user.passwd"
+
+# 1. ½øĞĞÕËºÅÏà¹ØµÄÊäÈëÏÈ£¡
+echo ""
+echo "ÀıÈçÎÒÃÇÀ¥É½ËÄæŠ????Ñ§ºÅÎª£º 4960c001 µ½ 4960c060 £¬ÄÇÃ´£º"
+echo "ÕËºÅ¿ªÍ·´úÂëä¸??        £º4"
+echo "ÕËºÅ²ã¼¶»òÄê¼¶Îª       £º960c"
+echo "ºÅÂëæ•????Î»ÊıÎª(001~060)£º3"
+echo "ÕËºÅ¿ªÊ¼ºÅÂëÎª         £º1"
+echo "ÕËºÅÊıÁ¿Îª             £º60"
+echo ""
+read -p "ÕËºÅ¿ªÍ·´úÂë ( Input title name, ex> std )======> " username_start
+read -p "ÕËå??²ã¼¶»òÄê¼¶ ( Input degree, ex> 1 or enter )=> " username_degree
+read -p "ºÅÂë²¿·ÖµÄÊı×ÖÎ»Êı ( Input \# of digital )======> " nu_nu
+read -p "ÆğÊ¼ºÅÂë ( Input start number, ex> 520 )========> " nu_start
+read -p "ÕËºÅÊıÁ¿ ( Input amount of users, ex> 100 )=====> " nu_amount
+read -p "¿ÚÁî±ê×¼ 1) ÓëÕËºÅÏàÍ¬ 2)Ëæ»úÊıè??¶¨Òå ==============> " pwm
+if [ "$username_start" == "" ]; then
+        echo "Ã»ÓĞÊäÈë¿ªÍ·µÄ´úÂë£¬²»¸øÄãÔËĞĞÁ¨£¡" ; exit 1
+fi
+# ÅĞ¶ÏÊı×ÖÏµÍ³
+testing0=$(echo $nu_nu     | grep '[^0-9]' )
+testing1=$(echo $nu_amount | grep '[^0-9]' )
+testing2=$(echo $nu_start  | grep '[^0-9]' )
+if [ "$testing0" != "" -o "$testing1" != "" -o "$testing2" != "" ]; then
+        echo "ÊäÈëµÄºÅÂë²»å??À²£¡ÓĞ·ÇÎªÊı×ÖµÄÄÚÈİ£¡" ; exit 1
+fi
+if [ "$pwm" != "1" ]; then
+        pwm="2"
+fi
+
+# 2. ¿ªÊ¼Êä³öÕËºÅÓë¿ÚÁîÎÄ¼ş£¡
+[ -f "$accountfile" ] && mv $accountfile "$accountfile"$(date +%Y%m%d)
+nu_end=$(($nu_start+$nu_amount-1))
+for (( i=$nu_start; i<=$nu_end; i++ ))
+do
+        nu_len=${#i}
+        if [ $nu_nu -lt $nu_len ]; then
+                echo "ÊıÖµµÄÎ»Êı($i->$nu_len)ÒÑ¾­±ÈÄãé??ÖÃµÄÎ»Êı($nu_nu)»¹´ó£¡"
+                echo "³ÌĞòÎŞ·¨¼ÌĞø"
+                exit 1
+        fi
+        nu_diff=$(( $nu_nu - $nu_len ))
+        if [ "$nu_diff" != "0" ]; then
+                nu_nn=0000000000
+                nu_nn=${nu_nn:1:$nu_diff}
+        fi
+        account=${username_start}${username_degree}${nu_nn}${i}
+        if [ "$pwm" == "1" ]; then
+                password="$account"
+        else
+                password=$(openssl rand -base64 6)
+        fi
+        echo "$account":"$password" | tee -a "$accountfile"
+done
+
+# 3. ¿ªÊ¼´´½¨ÕËºÅÓë¿ÚÁî£¡
+cat "$accountfile" | cut -d':' -f1 | xargs -n 1 useradd -m
+chpasswd < "$accountfile"
+pwconv
+echo "OK£¡´´½¨Íê³É£¡"

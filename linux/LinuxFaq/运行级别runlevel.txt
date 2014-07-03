@@ -1,0 +1,13 @@
+/etc/inittab
+
+ Default runlevel. The runlevels used by RHS are:
+    0 - halt (Do NOT set initdefault to this)
+    1 - Single user mode
+    2 - Multiuser, without NFS (The same as 3, if you do not have networking)
+    3 - Full multiuser mode
+    4 - unused
+    5 - X11
+    6 - reboot (Do NOT set initdefault to this)
+
+显示运行级别：runlevel
+切换运行级别：init n(0-6)

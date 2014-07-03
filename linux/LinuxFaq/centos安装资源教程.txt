@@ -1,0 +1,26 @@
+﻿http://wenku.baidu.com/view/c3ba7568af1ffc4ffe47ac80.html
+
+
+http://my.oschina.net/qibing/blog/55711
+http://yafei.iteye.com/blog/744473
+http://www.google.com.hk/search?hl=zh-CN&newwindow=1&safe=strict&client=browser-ubuntu&hs=pkQ&channel=fe&q=centos+%E7%A1%AC%E7%9B%98%E5%90%AF%E5%8A%A8%E5%AE%89%E8%A3%85&btnG=Google+%E6%90%9C%E7%B4%A2
+
+
+启动安装程序。在Grub菜单下按c键进入命令模式。输入命令：
+set root=(hd0,13)
+linux /isolinux/vmlinuz
+initrd /isolinux/initrd.img
+boot 
+
+7.安装完后提示重启，重启后的Grub菜单依然是原来的，按c键，输入下列命令。
+  ls (hd0,9) #（hd0,9)是挂载根目录的分区，这条命令显示了(hd0,9)的基本信息
+  set root=(hd0,8) # (hd0,8)是/boot的挂载分区，里面有内核和initramfs文件。
+  linux /vmlinuz-2.6.32-220.el6.x86_64 ro root=UUID=………………………………
+  #root=UUID=…………………………是指定根目录分区，是(hd0,9),省略号处填ls (hd0,9)中显示的该分区的UUID
+  initrd /initramfs-2.6.32-220.el6.x86_64.img
+  boot
+  启动CentOS成功。
+
+8.安装完成之后，添加Grub启动菜单。我的电脑的Grub的配置文件在(hd0,12)，这是安装Ubuntu的分区，路径是/boot/grub/grub.cfg。用root用户编辑该文件，添加menuentry，menuentry中的内容就是第7步中的set，linux，initrd的三条命令。
+
+9.重启后就能看到Grub菜单中出现CentOS的选项。Done。 

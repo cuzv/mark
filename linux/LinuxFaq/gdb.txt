@@ -1,0 +1,60 @@
+﻿
+1.编译生成可执行文件：
+gcc -g test.c -o test
+
+注意：编译时一定要加上-g选项，不然会出现错误：Single stepping until exit from function main,which has no line number information.
+
+2.启动gbb
+gdb test
+
+3.在main函数处设置断点
+break main
+
+4.运行程序
+run
+
+5.单步运行
+next
+
+6.继续运行
+continue
+
+
+
+
+启动gbd调试
+gdb test
+
+or:
+file 调试程序名
+
+
+ gdb命令
+ 
+ list(l) : 查看程序
+ break(b) 函数名 ：在某函数入口添加断点
+ break(b) 行号 ： 在指定行号添加断点
+ break(b) 文件名 ： 在指定文件的指定行添加断点
+ break(b) 行号 if 条件 : 条件为真时，指定行处断点生效 
+ info break ：查看所有设置的断点
+ delete 断点编号 ： 删除断点
+ run(r) : 开始运行程序
+ next(n) ： 单步运行程序(不进入子函数)
+ step(s) : 单步运行程序(进入子函数)
+ continue（c） : 继续运行程序
+ print(p) 变量名 ： 查看指定变量值
+ finish ：运行程序，知道当前函数结束
+ watch 变量名 ： 对指定变量进行监控
+ quit(q) : 退出gdb
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

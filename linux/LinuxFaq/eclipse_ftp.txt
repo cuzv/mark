@@ -1,0 +1,7 @@
+ftp://ftp.cn.debian.org/
+
+ftp://ftp.cn.debian.org/debian/pool/main/e/
+
+http://downloads.zend.com/pdt/all-in-one/helios/
+
+http://blog.csdn.net/neverfailor/article/details/7213375

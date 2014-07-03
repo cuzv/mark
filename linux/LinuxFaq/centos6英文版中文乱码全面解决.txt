@@ -1,0 +1,41 @@
+在图形界面下，通过点击文本，如果出现乱码，可使用以下方法： 
+方法一： 
+1.打开Applications-->Accessories-->gedit Text editer2.在编辑器里打开：File-->open 
+3.点击下面的：Character Encoding-->Add or Remove 
+4.添加中文GBK，然后打开文件即可显示中文。 
+注：一般只留GB18030和utf-8就行了，把别的删了，需要时候再加。 
+这是一种临时的使用方法，在不需要安装其他包的情况下应该会有效，适合于主要以中文界面为主，临时切换到英文界面下使用 
+
+
+方法二： 
+首先安装gconf-editor（yum install gconf-editor） 
+
+按下 Alt-F2，打开“运行应用程序”对话框。 
+在文本框中键入“gconf-editor”，并按下回车键，打开“配置编辑器”。 
+展开左边的树节点，找到 /apps/gedit-2/preferences/encodings 节点并单击它。 
+双击右边的 auto_detected 键，打开“编辑键”对话框。 
+单击列表右边的“添加”按钮，输入“GBK”，单击确定按钮。 
+列表的最底部新增加了一个“GBK”（其他中文编码也行，例如：gb2312）。单击选中它，并单击右边的 “向上” 按钮直到 “GBK” 位于列表的顶部为止。 
+单击确定按钮，关闭配置编辑器。 
+（如果缺少gbk或gb2312编码字符集，可以安装zhcon包） 
+
+office里面出现乱码呢，则可以通过调整设置来解决： 
+1.菜单Tools -->Options -->Language Settings -->Aslian Layout --> Frist and last characters 
+2. 设置其中的Language选项为Chinese(simplified)或Chinese(Hong Kong)等中文字符集。 
+3.   打开菜单Tools -->Options -->Load/Save-->Microsoft Office,然后勾选里面的所以第一排选项，有必要时可以勾选第二排。 
+
+gedit命令在终端中使用显示乱码的解决 
+一般情况下，通过上述安装gconf-editor及zhcon问题可以得到解决，如果仍没解决，就需要手动指定字符集 
+你可以在使用gedit命令时，加上encoding参数 
+一般格式如下：gedit encoding=字符集代号 filename 
+例如：我们要以中文打开文件c语言笔记，我们可以在终端下输入：gedit encoding=GBK ‘c语言笔记’ 
+由此受到启发，我们可以结合alias命令一劳永逸的解决这个问题 
+
+方法1：终端下： alias gedit=‘gedit encoding=GBK’ 
+（当然GBK可以换成其他字符集，如gb2312等，这种方法，只在本次登录有效，电脑关机或重启后会失去作用，为此，我们可以将alias gedit=‘gedit encoding=GBK’放到相关配置文件中，也就是方法2） 
+
+方法2：将alias gedit=‘gedit encoding=GBK’放到bashrc配置文件中 
+系统中一般有多个bashrc配置文件，有多少个登录用户就有多少个bashrc文件（此处包括root帐号） 
+root账户的配置文件在/etc里面，其他的用户都在各自的家目录~/.bashrc下 
+换种说法就是：环境变量的配置文件 /etc/bashrc和~/.bashrc 区别就在于一个是设置给全系统一个是设置给单用户使用 
+我们只需要打开bashrc配置文件（vim /etc/bahsrc或vim  ~/etc/.bashrc），将alias gedit=‘gedit encoding=GBK’放入最后一行就行 

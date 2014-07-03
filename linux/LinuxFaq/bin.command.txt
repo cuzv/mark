@@ -1,0 +1,112 @@
+共110条命令
+总计 7940
+-rwxr-xr-x 1 root root       6276 2009-01-21 alsacard
+-rwxr-xr-x 1 root root      18784 2009-01-21 alsaunmute
+-rwxr-xr-x 1 root root       4988 2010-01-20 arch
+lrwxrwxrwx 1 root root          4 09-03 23:04 awk -> gawk
+-rwxr-xr-x 1 root root      18484 2010-03-01 basename
+-rwxr-xr-x 1 root root     735004 2009-01-22 bash
+-rwxr-xr-x 1 root root      23132 2010-03-01 cat
+-rwxr-xr-x 1 root root      41828 2010-03-01 chgrp
+-rwxr-xr-x 1 root root      38564 2010-03-01 chmod
+-rwxr-xr-x 1 root root      44020 2010-03-01 chown
+-rwxr-xr-x 1 root root      71524 2010-03-01 cp
+-rwxr-xr-x 1 root root     107924 2010-03-16 cpio
+lrwxrwxrwx 1 root root          4 09-03 23:07 csh -> tcsh
+-rwxr-xr-x 1 root root      34408 2010-03-01 cut
+-rwxr-xr-x 1 root root      54680 2010-03-01 date
+-rwxr-xr-x 1 root root       9524 2010-03-31 dbus-cleanup-sockets
+-rwxr-xr-x 1 root root     326032 2010-03-31 dbus-daemon
+-rwxr-xr-x 1 root root      12980 2010-03-31 dbus-monitor
+-rwxr-xr-x 1 root root      16828 2010-03-31 dbus-send
+-rwxr-xr-x 1 root root       7084 2010-03-31 dbus-uuidgen
+-rwxr-xr-x 1 root root      47000 2010-03-01 dd
+-rwxr-xr-x 1 root root      44584 2010-03-01 df
+-rwxr-xr-x 1 root root       6672 2010-01-20 dmesg
+lrwxrwxrwx 1 root root          8 09-03 23:07 dnsdomainname -> hostname
+-rwxr-xr-x 1 root root       4696 2009-09-29 doexec
+lrwxrwxrwx 1 root root          8 09-03 23:07 domainname -> hostname
+-rwxr-xr-x 1 root root      58740 2009-01-21 dumpkeys
+-rwxr-xr-x 1 root root      19852 2010-03-01 echo
+-rwxr-xr-x 1 root root      43752 2008-10-24 ed
+lrwxrwxrwx 1 root root          4 09-03 23:04 egrep -> grep
+-rwxr-xr-x 1 root root      18284 2010-03-01 env
+lrwxrwxrwx 1 root root          2 09-03 23:08 ex -> vi
+-rwxr-xr-x 1 root root      16964 2010-03-01 false
+lrwxrwxrwx 1 root root          4 09-03 23:04 fgrep -> grep
+-rwxr-xr-x 1 root root     320416 2007-03-14 gawk
+-rwxr-xr-x 1 root root      11836 2007-03-22 gettext
+-rwxr-xr-x 1 root root      85060 2009-09-27 grep
+lrwxrwxrwx 1 root root          3 09-03 23:06 gtar -> tar
+-rwxr-xr-x 3 root root      62228 2010-01-21 gunzip
+-rwxr-xr-x 3 root root      62228 2010-01-21 gzip
+-rwxr-xr-x 1 root root      12152 2010-01-27 hostname
+-rwxr-xr-x 1 root root       3089 2007-03-14 igawk
+-rwxr-xr-x 1 root root      32936 2009-09-29 ipcalc
+-rwxr-xr-x 1 root root       7736 2009-01-21 kbd_mode
+-rwxr-xr-x 1 root root      23820 2007-01-06 keyctl
+-rwxr-xr-x 1 root root      11168 2010-01-20 kill
+lrwxrwxrwx 1 root root         21 09-03 23:09 ksh -> /etc/alternatives/ksh
+-rwxr-xr-x 1 root root    1213412 2010-03-31 ksh93
+-rwxr-xr-x 1 root root      18192 2010-03-01 link
+-rwxr-xr-x 1 root root      29872 2010-03-01 ln
+-rwxr-xr-x 1 root root      79412 2009-01-21 loadkeys
+-rwxr-xr-x 1 root root     583048 2009-01-21 loadkeys.static
+-rwxr-xr-x 1 root root      10440 2010-01-20 logger
+-rwxr-xr-x 1 root root      24560 2010-01-20 login
+-rwxr-xr-x 1 root root      95116 2010-03-01 ls
+-rwxr-xr-x 1 root mail      82996 2007-01-07 mail
+lrwxrwxrwx 1 root root          4 09-03 23:19 mailx -> mail
+-rwxr-xr-x 1 root root      29852 2010-03-01 mkdir
+-rwxr-xr-x 1 root root      24020 2010-03-01 mknod
+-r-xr-xr-x 1 root root       9424 2007-01-07 mktemp
+-rwxr-xr-x 1 root root      32144 2010-01-20 more
+-rwsr-xr-x 1 root root      58324 2010-01-20 mount
+-rwxr-xr-x 1 root root       7096 2009-01-21 mountpoint
+-rwxr-xr-x 1 root root      80128 2010-03-01 mv
+-rwxr-xr-x 1 root root     121300 2010-01-27 netstat
+-rwxr-xr-x 1 root root      20856 2010-03-01 nice
+lrwxrwxrwx 1 root root          8 09-03 23:07 nisdomainname -> hostname
+-rwxr-xr-x 1 root root     321216 2007-03-14 pgawk
+-rwsr-xr-x 1 root root      35832 2009-09-27 ping
+-rwsr-xr-x 1 root root      31244 2009-09-27 ping6
+-r-xr-xr-x 1 root root      79004 2010-03-31 ps
+-rwxr-xr-x 1 root root      23084 2010-03-01 pwd
+-rwxr-xr-x 1 root root       8008 2010-01-20 raw
+lrwxrwxrwx 1 root root          2 09-03 23:05 red -> ed
+-rwxr-xr-x 1 root root        576 2007-11-10 redhat_lsb_init
+-rwxr-xr-x 1 root root      44008 2010-03-01 rm
+-rwxr-xr-x 1 root root      18764 2010-03-01 rmdir
+-rwxr-xr-x 1 root root      89440 2009-09-04 rpm
+lrwxrwxrwx 1 root root          2 09-03 23:08 rvi -> vi
+lrwxrwxrwx 1 root root          2 09-03 23:08 rview -> vi
+-rwxr-xr-x 1 root root      51764 2007-01-10 sed
+-rwxr-xr-x 1 root root      36232 2009-01-21 setfont
+-rwxr-xr-x 1 root root      20688 2007-01-10 setserial
+lrwxrwxrwx 1 root root          4 09-03 23:04 sh -> bash
+-rwxr-xr-x 1 root root      19564 2010-03-01 sleep
+-rwxr-xr-x 1 root root      57348 2010-03-01 sort
+-rwxr-xr-x 1 root root      47004 2010-03-01 stty
+-r-sr-x--- 1 root sugroup   23960 2010-03-01 su
+-rwxr-xr-x 1 root root      17520 2010-03-01 sync
+-rwxr-xr-x 1 root root     229652 2010-03-31 tar
+-rwxr-xr-x 1 root root      10200 2010-01-20 taskset
+lrwxrwxrwx 1 root root         10 09-03 23:05 tcptraceroute -> traceroute
+-rwxr-xr-x 1 root root     346628 2010-03-31 tcsh
+-rwxr-xr-x 1 root root      42284 2010-03-01 touch
+-rwxr-xr-x 1 root root       9988 2009-09-27 tracepath
+-rwxr-xr-x 1 root root       9996 2009-09-27 tracepath6
+-rwxr-xr-x 1 root root      37264 2009-02-27 traceroute
+lrwxrwxrwx 1 root root         10 09-03 23:05 traceroute6 -> traceroute
+lrwxrwxrwx 1 root root         10 09-03 23:05 tracert -> traceroute
+-rwxr-xr-x 1 root root      16964 2010-03-01 true
+-rwsr-xr-x 1 root root      38936 2010-01-20 umount
+-rwxr-xr-x 1 root root      20024 2010-03-01 uname
+-rwxr-xr-x 1 root root       1273 2009-01-21 unicode_start
+-rwxr-xr-x 1 root root         79 2009-01-21 unicode_stop
+-rwxr-xr-x 1 root root      18040 2010-03-01 unlink
+-rwxr-xr-x 1 root root      26752 2009-09-29 usleep
+-rwxr-xr-x 1 root root     594740 2009-09-20 vi
+lrwxrwxrwx 1 root root          2 09-03 23:08 view -> vi
+lrwxrwxrwx 1 root root          8 09-03 23:07 ypdomainname -> hostname
+-rwxr-xr-x 3 root root      62228 2010-01-21 zcat

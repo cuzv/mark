@@ -1,0 +1,94 @@
+﻿1 、JDK 安装配置
+
+选用最新的版本6.0.
+
+打开终端，执行以下命令：
+
+		sudo apt-get install sun-java6-jdk
+
+
+	
+
+按照提示做就是了。
+
+配置 JAVA 环境变量 :
+
+		sudo gedit /etc/environment
+
+在其中添加如下两行：
+
+		CLASSPATH=.:/usr/lib/jvm/java-6-sun/lib
+
+
+		JAVA_HOME=/usr/lib/jvm/java-6-sun
+
+
+	
+
+执行命令：sudo gedit /etc/jvm
+
+，在最前面加入：
+
+/usr/lib/jvm/java-6-sun
+2 、Tomcat 安装配置
+
+还是喜欢经典的Tomcat5.5, 到http://tomcat.apache.org 去下载。
+
+文件为：apache-tomcat-5.5.28.zip
+
+解压缩：
+
+unzip /home/zhengxq/ 下载/apache-tomcat-5.5.28.zip -d $HOME/java
+3 、Eclipse 安装配置
+
+下载最新的版本，并解压缩：
+
+zhengxq@zhengxq-desktop:~$ tar zxf $HOME/ 下载/eclipse-java-galileo-SR1-linux-gtk.tar.gz -C $HOME/java
+
+此时直接通过$HOME/java/eclipse/eclipse 即可启动。
+
+Tomcat 插件是必须的，下载并解压缩到eclipse/plugins 下，重启eclipse 即可。
+
+下面是“高级篇“：）。为了建立更方便的导航，可以这样：
+
+1 、在/usr/bin 目录下创建一个启动脚本eclipse ：
+
+sudo gedit /usr/bin/eclipse
+
+然后在该文件中添加以下内容：
+
+#!/bin/sh
+export MOZILLA_FIVE_HOME="/usr/lib/mozilla/"
+export ECLIPSE_HOME="/home/zhengxq/java/eclipse"
+$ECLIPSE_HOME/eclipse $*
+
+2 、让修改该脚本的权限，让它变成可执行：
+
+sudo chmod +x /usr/bin/eclipse
+
+3 、在桌面或者gnome 菜单中添加eclipse 启动图标
+（1 ）在桌面或者启动面板上添加图标：
+在桌面（右键单击桌面-> 创建启动器）或面板（右键单击面板-> 添加到面板 -> 定制应用程序启动器）上创建一个新的启动器，然后添加下列数据：
+名称：Eclipse Platform
+命令：eclipse
+图标： /home/zhengxq/java/eclipse/icon.xpm
+（2 ）在Applications （应用程序）菜单上添加一个图标
+用文本编辑器在/usr/share/applications 目录里新建一个名为eclipse.desktop 的启动器，如下面的命令:
+sudo gedit /usr/share/applications/eclipse.desktop
+然后在文件中添加下列内容：
+
+    [Desktop Entry]
+    Encoding=UTF-8
+    Name=Eclipse Platform
+    Comment=Eclipse IDE
+    Exec=eclipse
+    Icon=/home/zhengxq/java/eclipse/icon.xpm
+    Terminal=false
+    StartupNotify=true
+    Type=Application
+    Categories=Application;Development;
+
+保存文件，此时即可通过双击桌面eclipse 的图标来运行eclipse 。
+
+注意： Type=Application 后面绝对不能有空格，否则出不来可别抓狂。
+

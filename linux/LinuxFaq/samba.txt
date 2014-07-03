@@ -1,0 +1,54 @@
+samba简介
+samba有两个守护进程： 
+	smdb-----监听139 TCP端口，处理SMB请求包，负责用户验证和文件共享
+	nmdb-----监听137 和 138 UDP端口，处理浏览共享和计算机名称解析 
+
+启动服务：
+	/etc/rc.d/init.d/smb start
+
+samba配置文件应存在：
+	/etc/samba/smb.conf
+	包括四级设置段：
+	[global]		全局环境选项
+	[homes]			用户宿主目录共享
+	[printers]		打印机共享
+	[sharefiles]	设置文件共享	
+; or # 表示注释
+
+[global]
+	workgroup = 指定工作组或域
+	server string = 描述
+	security = 安全模式
+	hosts allow = 限定主机访问
+	log file = 指定日志文件存放位置
+	max log size = 指定日志文件大小
+
+
+sam应用：
+	允许用户通过Windows客户端访问自己的宿主目录
+	1.安装samba，不需要修改配置文件即可实现该功能
+		如果启用了DELinux，需要先执行
+		//getsebool -a | grep samba
+		setsebool -P samba_enable_home_dirs on
+		setsebool -P use_samba_home_dirs on
+		关闭防火墙：
+			iptables -L
+			vim /etc/selinux/config    -->		SELINUX=disabled 
+	2.设置用户cnsu验证密码
+		smbpasswd -a cnsu
+	3.启动samba服务
+		/etc/rc.d/init.d/smb start
+		pgrep smb
+		pgrep nmb
+	4.windows 客户端访问samba服务器共享资源
+		开始-运行 ，输入\\samba服务器地址
+	5.samba服务器端查看访问的客户信息
+		#smbstatus
+	
+
+
+
+
+
+
+

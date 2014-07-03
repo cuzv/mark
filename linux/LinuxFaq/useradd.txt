@@ -1,0 +1,2 @@
+sudo useradd -d /home/mango -m mango
+sudo passwd mango

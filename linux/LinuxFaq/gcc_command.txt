@@ -1,0 +1,26 @@
+// 查看大小
+ll
+
+gcc test.c // 编译
+./a.out //打印结果
+
+// 指定别名
+gcc -o test test.c
+./test
+
+//优化程序
+gcc test.c -o test
+time ./test
+
+gcc -O test.c -o test
+time ./test
+
+// 装载库
+gcc foo.c -L /home/lib -Ifoo -o foo
+
+// 不生产警告
+gcc -w test.c -o test
+
+
+ 
+ 

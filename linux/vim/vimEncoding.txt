@@ -1,0 +1,4 @@
+中文乱码解决办法
+et fileencodings=gb2312,gb18030,utf-8
+set termencoding=utf-8
+set encoding=prc 

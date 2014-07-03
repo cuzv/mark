@@ -1,0 +1,100 @@
+ls
+	-a
+	-l
+	-d
+cd
+pwd
+touch
+mkdir
+cp
+	-R
+rm 
+	-r
+mv
+cat
+more
+head
+tail
+ln
+	-s 软连接
+
+file:
+	r -cat,more,head,tail
+	w -echo,vi
+	x -命令，脚本
+dir:
+	r -ls
+	w -touch,rm,mkdir
+	x -cd
+
+chomd
+chown -change file owner
+umask
+which
+whereis
+whatis
+find
+
+* 匹配任意字符
+? 匹配单个字符
+
+天 ctime atime mtime
+分钟 cmin amin mmin 
+c-change 文件的属性被修改过，所有者，所属组，权限
+a-access 访问
+m-modify 内容被修改过
+
+1.链接符 -a(nd) 逻辑与 -o(r)逻辑或
+2.链接符 find 路径 -exec 命令 {} \; 
+				   -ok(询问确认)
+
+find . inum 15
+
+updatedb
+locate filename
+grep ftp /etc/services
+
+man ls
+
+gzip
+1.只能压缩文件
+
+tar
+	-c 产生.tar打包文件
+	-v显示详细信息
+	-f指定压缩后的文件名
+	-z打包同时压缩
+tar 
+tar -zxvf file3.tar.gz
+
+:r !date
+当前日期: 2012-09-09 星期日 
+输入新日期: (年月日) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

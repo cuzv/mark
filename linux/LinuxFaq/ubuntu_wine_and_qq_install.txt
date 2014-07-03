@@ -1,0 +1,129 @@
+ubuntu(linux) wine QQ 使用
+2012-01-11 14:27
+
+    前段时间，心血来潮，突然想感受一下linux的魅力。于是在找了一台电脑，准备装一下linux。同事有用fedroa的，也有用ubuntu的，各说各的好，都极力推荐使用。但是手头现有ubuntu 11.10的安装盘，就拿来装上了。
+
+弄了好长时间，终于收拾好了。但是QQ的问题着实让人头疼。webQQ吧，打心里排斥，说不上原因，就是感觉巨不爽。有先后在ubuntu11.10上用来empathy，pidgin，都不尽人意。google了好几天，最后终于决定搞一下wine QQ。从开始搞到能够使用，差不多搞了6个小时。现在将步骤记录下来，希望对正在对此烦恼的人有所帮助。
+
+1.安装wine
+
+    这个对我来说比较容易，ubuntu在软件中心就有wine。google说不要使用ubuntu软件中心的wine，要从官方下载然后安装，但是我比较懒，还是直接装上了软件中心的wine，版本是1.3.
+
+2.安装winetricks
+
+这个也是从ubuntu软件中心安装的。
+
+(如果以上两个步骤在软件中心不顺利，也可以通过先面方式解决)
+
+/******************************************************************
+
+安装wine
+
+sudo add-apt-repository ppa:ubuntu-wine/ppa
+sudo apt-get update
+sudo apt-get install wine1.3
+winecfg
+
+安装winetricks
+
+wget http://www.kegel.com/wine/winetricks
+
+sudo chmod +x winetricks
+
+*****************************************************/
+
+
+3.安装QQ运行所依赖的库和资源。
+
+winetricks msxml3 gdiplus riched20 riched30 ie6 vcrun6 vcrun2005sp1 vcrun6sp6 flash
+
+其中flash不是必须的。
+
+在安装msxml3的时候可能不成功，直接从提示的网站上下载msxml3.msi然后运行winetricks msxml3.msi
+
+在安装ie6的时候，也可能不成功，我的就提示下载ie60.exe失败，原有的网站链接失效了，于是就把winetricks
+
+中的ie60中的默认链接给改一下，vim /usr/bin/winetricks，找到ie60链接所在的行，我的是7350行，默认链接是：
+
+http://browsers-us.mirrors.zensoft.net/ie/win32/6.0/ie60.exe
+
+把他该为google出来的http://www.mirrorservice.org/sites/browsers.evolt.org/browsers/ie/win32/6.0/ie60.exe。这个链接下载好慢的。
+
+我花了2个小时才下载完。
+
+3.设置字体。
+
+首先把windowns的 windows/fonts/simsun.ttc 这个宋体复制到 ~/.wine/dosdevice/c:/windows/Fonts 下面。并把下面这段话复制到新创建
+
+的zh.reg文件中(文件名可以任意起的)
+
+ 
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes]
+"Arial"="simsun"
+"Arial CE,238"="simsun"
+"Arial CYR,204"="simsun"
+"Arial Greek,161"="simsun"
+"Arial TUR,162"="simsun"
+"Courier New"="simsun"
+"Courier New CE,238"="simsun"
+"Courier New CYR,204"="simsun"
+"Courier New Greek,161"="simsun"
+"Courier New TUR,162"="simsun"
+"FixedSys"="simsun"
+"Helv"="simsun"
+"Helvetica"="simsun"
+"MS Sans Serif"="simsun"
+"MS Shell Dlg"="simsun"
+"MS Shell Dlg 2"="simsun"
+"System"="simsun"
+"Tahoma"="simsun"
+"Times"="simsun"
+"Times New Roman CE,238"="simsun"
+"Times New Roman CYR,204"="simsun"
+"Times New Roman Greek,161"="simsun"
+"Times New Roman TUR,162"="simsun"
+
+"Tms Rmn"="simsun"
+
+然后用regedit zh.reg 导入注册表。
+
+4. 安装QQ
+
+我先后安装了好几个版本的QQ，2011版本的老是提示文件损坏，不能登陆。2009，可以登陆，但是不能显示备注名称和个人信息。最后选用了
+
+TM2009，这个版本还可以。
+
+从这里下载QQ http://dl_dir.qq.com/qqfile/tm/TM2009Beta_chs.exe
+
+wine TM2009Beta.exe，在安装的时候 个人文件选择保存到"我的文档“。
+
+安装完成以后，不要立即运行，原因是运行的话会造成QQ版本升级，升级完成以后，就无法正常登陆了，我开始的时候就吃亏了。
+
+将TM2009 这个目录打包为TM2009.tar.gz。
+
+创建一个文件 比如说QQ2009，把下面的代码复制到里面：
+
+cd ~/.wine/drive_c/users/你的用户名/Application\ Data/Tencent
+rm-rf TM
+cd ~/.wine/drive_c/Program\ Files/Tencent
+rm-rf TM2009
+tar-zxvf TM2009.tar.gz
+
+wine "C:\\Program Files\\Tencent\\TM2009\\Bin\\TM.exe"
+
+建好后chmod 777 QQ2009，更改执行权限。
+
+然后创建桌面启动程序。可以把安装TM2009的时候桌面的快捷方式更改一下，把命令的路径改一下，改为你刚才创建的QQ2009，我的是放到
+
+/usr/bin/下面的，所以命令为/usr/bin/QQ2009
+
+然后就可以使用了。
+
+在使用过程中，GOOGLE上说在输入密码的时候，如果把光标放到秘密框，QQ就会崩溃，所以在使用秘密框提供的虚拟键盘输入，并且选择记住
+
+密码和自动登陆，但是我在登陆的时候是手动从键盘输入的秘密，也没有发生什么错误。
+
+QQ是可以使用了，但是不能进入QQ空间，邮箱等，原因是winebrowser.exe 这个文件发生错误，所以无法调用ie。如果显摆ie打开，则可以进入
+
+但是，会很容易崩溃。这个有时间再查把。
