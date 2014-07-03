@@ -133,9 +133,9 @@ ios开发相关知识整理
 	- [cell编辑按钮颜色](#cell编辑按钮颜色)
 - [UITableViewController](#UITableViewController)
 	- [UITableViewController常用属性](#UITableViewController常用属性)
-	- [定制单元格:向contentView添加子视图](#定制单元格:向contentView添加子视图)
-	- [定义单元格第二种方式:xib定义单元格](#定义单元格第二种方式:xib定义单元格)
-	- [定制单元格第三种方式:子类化定制](#定制单元格第三种方式:子类化定制)
+	- [定制单元格:向contentView添加子视图](#定制单元格 向contentView添加子视图)
+	- [定义单元格第二种方式:xib定义单元格](#定义单元格第二种方式 xib定义单元格)
+	- [定制单元格第三种方式:子类化定制](#定制单元格第三种方式 子类化定制)
 	- [表视图的编辑](#表视图的编辑)
 	- [编辑模式数据源方法](#编辑模式数据源方法)
 	- [过滤表格内容](#过滤表格内容)
@@ -2224,7 +2224,7 @@ UIScrollView能很简单的使用捏手势来进行缩放,可以缩小或者放�
 	      self.imageView.frame = CGRectMake(260, 30, 50, 10);
 	  }
 
-<h2 id="定制单元格:向contentView添加子视图"> 定制单元格:向contentView添加子视图 </h2>
+<h2 id="定制单元格 向contentView添加子视图"> 定制单元格:向contentView添加子视图 </h2>
 
 	if (cell == nil) {
 	    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
@@ -2239,7 +2239,7 @@ UIScrollView能很简单的使用捏手势来进行缩放,可以缩小或者放�
 	}
 	UILabel *titleLab = (UILabel *)[cell.contentView viewWithTag:100]; titleLab.text = @"label内容";
 
-<h2 id="定义单元格第二种方式:xib定义单元格"> 定义单元格第二种方式:xib定义单元格 </h2>
+<h2 id="定义单元格第二种方式 xib定义单元格"> 定义单元格第二种方式:xib定义单元格 </h2>
 	
 	if (cell == nil) {
 	    NSBundle *bundle = [NSBundle mainBundle];
@@ -2250,7 +2250,7 @@ UIScrollView能很简单的使用捏手势来进行缩放,可以缩小或者放�
 	}
 	UILabel *titleLab = (UILabel *)[cell.contentView viewWithTag:100]; titleLab.text = @"label内容";
 
-<h2 id="定制单元格第三种方式:子类化定制"> 定制单元格第三种方式:子类化定制 </h2>
+<h2 id="定制单元格第三种方式 子类化定制"> 定制单元格第三种方式:子类化定制 </h2>
 
 	- (void)_initViews {
 	    _titleLab = [[UILabel alloc] initWithFrame:CGRectZero];

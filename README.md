@@ -3,7 +3,7 @@
 mark tips, notes, faqs, techs, shares
 
 - iOS
-	- [objc](./ios/Objc.md)
+	- [objc学习笔记](./ios/Objc.md)
 	- [APNS](./ios/APNS.md)
 	- [APNS](./ios/APNS-1.md)
 - linux
@@ -29,7 +29,7 @@ mark tips, notes, faqs, techs, shares
 	- [Git教程新手教程总结-荐](./usage/GitTutorialSummary.md)
 	- [Git基础手册](./usage/GitBasicManual.md)
 	- [Alfred使用技巧](./usage/Alfred使用技巧.md)
-- coding
+- coding unclassified
 	- [55分钟学会正则表达式](./coding/RegularExpression.md)
 	- [正则表达式学习笔记-荐](./coding/RegularExpressionNote.md)
 - material
