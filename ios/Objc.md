@@ -59,7 +59,7 @@ ios开发相关知识整理
 	- [JSON转换为OC对象](#JSON转换为OC对象)
 	- [OC对象转换为JSON](#OC对象转换为JSON)
 - [集NSSet](#集)
-- [单例Singleton](#singleton)
+- [单例Singleton](#单例Singleton)
 	- [典型的单例写法](#典型的单例写法)
 	- [加锁的写法](#加锁的写法)
 	- [第一次实例化创建](#第一次实例化创建)
