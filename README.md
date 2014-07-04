@@ -4,7 +4,6 @@ mark tips, notes, faqs, techs, shares
 
 - iOS
 	- [objc学习笔记汇总](./ios/Objc.md)
-	- [oc语法](./ios/oc语法.md)
 	- [APNS](./ios/APNS.md)
 	- [APNS](./ios/APNS-1.md)
 	- [Swift](./ios/Swift.md)
