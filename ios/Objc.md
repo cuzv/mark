@@ -241,24 +241,29 @@ ios开发相关知识整理
 
 ***
 
+<a name="代码规范"></a>
 <h1 id="代码规范"> 代码规范 </h1>
 
+<a name="变量"></a>
 <h2 id="变量"> 变量 </h2>
 
 - 变量的命令应尽量做到自描述。除了在for()循环语句中，单字母的变量应该避免使用（如i,j,k等）。一般循环语句的当前对象的命名前缀包括“one”、“a/an”。对于简单的单个对象使用“item”命名.
 
 - 尽量的使用属性而非实例变量。除了在初始化方法（init，initWithCoder：等）、dealloc方法以及自定义setter与getter方法中访问属性合成的实例变量，其他的情况使用属性进行访问。
 
+<a name="命名"></a>
 <h2 id="命名"> 命名 </h2>
 
 - 对于NSString、NSArray、NSNumber或BOOL类型，变量的命名一般不需要表明其类型。
 - 如果变量不是以上基本常用类型，则变量的命名就应该反映出自身的类型。但有时仅需要某些类的一个实例的情况下，那么只需要基于类名进行命名。
 - 大部分情况下，NSArray或NSSet类型的变量只需要使用单词复数形式（比如mailboxes），不必在命名中包含“mutable”。如果复数变量不是NSArray或NSSet类型，则需要指定其类型。
 
+<a name="init与dealloc"></a>
 <h2 id="init与dealloc"> init与dealloc </h2>
 
 - dealloc方法应该被放置在实现方法的顶部，直接在@synthesize或@dynamic语句之后。init方法应该被放置在dealloc方法的下面。
 
+<a name="字面值"></a>
 <h2 id="字面值"> 字面值 </h2>
 
 对于NSString，NSDictionary，NSArray和NSNumber类，当需要创建这些类的不可变实例时，应该使用这些类的字面值表示形式。使用字面值表示的时候nil不需要传入NSArray和NSDictionary中作为字面值。这些种语法兼容老的iOS版本，因此可以在iOS5或者更老的版本中使用它。
@@ -281,6 +286,7 @@ ios开发相关知识整理
 
 ***
 
+<a name="方法命名"></a>
 <h2 id="方法命名"> 方法命名 </h2>
 
 - 一个方法的命名首先描述返回什么，接着是什么情况下被返回。方法签名中冒号的前面描述传入参数的类型。以下类方法和实例方法命名的格式语法：
@@ -333,6 +339,7 @@ ios开发相关知识整理
 
 ***
 
+<a name="引用计数"></a>
 <h1 id="引用计数"> 引用计数 </h1>
 
 - `消息涉及到对成员变量操作的时候考虑retain/copy`
@@ -379,6 +386,7 @@ ios开发相关知识整理
 
 ***
 
+<a name="自动引用计数"></a>
 <h1 id="自动引用计数"> 自动引用计数 </h1>
 
 **ARC的判断准则：只要没有指针指向对象，就会释放对象**
@@ -396,10 +404,12 @@ ios开发相关知识整理
     - assign: 适用于非OC对象类型
     - MRC的retain改为strong(循环引用的时使用：一端用strong，一端用weak)
 
+<a name="MRC总结"></a>
 <h2 id="MRC总结"> MRC总结 </h2>
 
 > 如果需要持有一个对象，那么对其发送`retain` 如果之后不再使用该对象，那么需要对其发送`release`（或者`autorealse`） 每一次对`retain`,`alloc`或者`new`的调用，需要对应一次`release`或`autorealse`调用
 
+<a name="ARC的基本规则"></a>
 <h2 id="ARC的基本规则"> ARC的基本规则 </h2>
 
 > **只要某个对象被任一`strong`指针指向，那么它将不会被销毁。如果对象没有被任何strong指针指向，那么就将被销毁。**
@@ -429,6 +439,7 @@ dealloc:
 - 对于添加的observer可以在这里remove，schedule的timer在这里invalidate
 - [super dealloc]这个消息也不再需要发了，ARC会自动帮你搞定。
 
+<a name="property的关键字类型"></a>
 <h2 id="property的关键字类型"> property的关键字类型 </h2>
 
 - strong 和原来的retain比较相似，strong的property将对应__strong的指针，它将持有所指向的对象
@@ -440,11 +451,13 @@ dealloc:
 
 当在涉及CF层的东西时，如果函数名中有含有Create, Copy, 或者Retain之一，就表示返回的对象的retainCount+1了，对于这样的对象，最安全的做法是将其放在CFBridgingRelease()里，来平衡retain和release。
 
+<a name="配置ARC和MRC混合使用"></a>
 <h2 id="配置ARC和MRC混合使用"> 配置ARC和MRC混合使用 </h2>
 
 - MRC: target -> build phase -> compile -> -fno-objc-arc
 - ARC:  target -> build phase -> compile -> -fobjc-arc
 
+<a name="ARC使用基本规则"></a>
 <h2 id="ARC使用基本规则"> ARC使用基本规则 </h2>
 
 - 代码中不能使用retain, release, retain, autorelease
@@ -534,6 +547,7 @@ dealloc:
 
 ***
 
+<a name="cocoa内存管理规则"></a>
 <h2 id="cocoa内存管理规则"> cocoa内存管理规则 </h2>
 
 - 使用alloc、new、copy、mutableCopy生成的对象需要手动释放，这些对象成为堆上的对象
@@ -545,6 +559,7 @@ dealloc:
 
 ***
 
+<a name="属性总结"></a>
 <h2 id="属性总结"> 属性总结 </h2>
 
 - assign:直接赋值，简单、复杂数据类型、SEL(@selector()) 默认属性 避免循环引用(无法释放对象) --delegate:委托、代理设计模式
@@ -567,6 +582,7 @@ dealloc:
 
 ***
 
+<a name="class关键字"></a>
 <h2 id="class关键字"> class关键字 </h2>
 
 - 在.h文件中用@class来声明类，仅仅是告诉编译器，某个名称是一个类
@@ -575,6 +591,7 @@ dealloc:
 
 ***
 
+<a name="category"></a>
 <h1 id="category"> category </h1>
 
 - 类别声明可以和需要扩展的类写在同一个.h文件中，写在原声明后面，实现文件同理
@@ -586,6 +603,7 @@ dealloc:
 
 ***
 
+<a name="protocol"></a>
 <h1 id="protocol"> protocol </h1>
 
 - 与java的接口类似
@@ -595,6 +613,7 @@ dealloc:
 
 ***
 
+<a name="block"></a>
 <h1 id="block"> block </h1>
 
 - 类似于java的匿名内部类
@@ -636,6 +655,7 @@ dealloc:
 
 ***
 
+<a name="appDelegate"></a>
 <h1 id="appDelegate"> appDelegate </h1>
 
 	#pragma mark 程序加载完成,自定义界面加载，数据导入，初始化等
@@ -653,6 +673,7 @@ dealloc:
 
 ***
 
+<a name="键盘弹出和收起"></a>
 <h1 id="键盘弹出和收起"> 键盘弹出和收起 </h1>
 
 	#pragma mark - 处理键盘遮挡输入框
@@ -720,6 +741,7 @@ dealloc:
 
 ***
 
+<a name="检测网络状况"></a>
 <h1 id="检测网络状况"> 检测网络状况 </h1>
 
 －　方式一
@@ -785,6 +807,7 @@ dealloc:
 
 ***
 
+<a name="判断设备"></a>
 <h1 id="判断设备"> 判断设备 </h1>
 
 	// 设备名称
@@ -813,6 +836,7 @@ dealloc:
 
 ***
 
+<a name="objective-c数据类型"></a>
 <h1 id="objective-c数据类型"> objective-c数据类型 </h1>
 
 - NSValue可以用来封装任意数据结构
@@ -836,8 +860,10 @@ dealloc:
 
 ***
 
+<a name="字符串NSString"></a>
 <h1 id="NSString"> 字符串NSString </h1>
 
+<a name="字符串对象初始化"></a>
 <h2 id="字符串对象初始化"> 字符串对象初始化 </h2>
 
 - 创建常量字符串
@@ -866,12 +892,14 @@ dealloc:
 		   NSString *s5 = [[NSString alloc] initWithContentsOfFile:@"/Users/cuan/Desktop/1.txt" encoding:NSUTF8StringEncoding error:nil];
 		   NSString *s6 = [[NSString alloc] initWithContentsOfURL:@"file:///Users/cuan/demo.txt" encoding:NSUTF8StringEncoding error:nil];
     
+<a name="字符串长度获取"></a>
 <h2 id="字符串长度获取"> 字符串长度获取 </h2>
 		
 - 字符串长度获取
 
 	`-(NSInteger)length;`
 
+<a name="获取字符串的子串"></a>
 <h2 id="获取字符串的子串"> 获取字符串的子串 </h2>
 
 - 拼接字符串
@@ -891,6 +919,7 @@ dealloc:
 		-(BOOL)hasSuffix:(NSString *)aString;
 		-(NSRang)rangeOfString:(NSString *)aString;
 
+<a name="字符串的导出"></a>
 <h2 id="字符串的导出"> 字符串的导出 </h2>
 
 	   [@"Hello,world" writeToFile:@"/User/cuan/echo.txt" atomically:YES encoding:NSUTF8StringEncoding error:nil];
@@ -898,6 +927,7 @@ dealloc:
 	   NSURL *url = [NSURL fileURLWithPath:@"/Users/cuan/echo.txt"];
 	   [@"hello, every one" writeToURL:url atomically:YES encoding:NSUTF8StringEncoding error:nil];
 
+<a name="字符串的比较"></a>
 <h2 id="字符串的比较"> 字符串的比较 </h2>
 
 - 是否相等
@@ -913,6 +943,7 @@ dealloc:
 		- (NSString *)uppercaseString;
 		- (NSString *)lowercaseString;
 
+<a name="类型的转换"></a>
 <h2 id="类型的转换"> 类型的转换 </h2>
 
 	- (double)doubleValue;
@@ -924,6 +955,7 @@ dealloc:
 	- (double)doubelValue
 	- (id)initWithFormat:(NSString *)format....
  
+<a name="可变字符串"></a>
 <h2 id="可变字符串"> 可变字符串 </h2>
 
 	-(id)initWithCapacity:(NSUInteger)capacity;
@@ -934,6 +966,7 @@ dealloc:
 	-(void)appendFormat:(NSString *)format, ....
 	-(void)setString:(NSString)aString;
 
+<a name="编码的转换"></a>
 <h2 id="编码的转换"> 编码的转换 </h2>
 	
 	NSStringEncoding utf8Encoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingUTF8);
@@ -941,6 +974,7 @@ dealloc:
 	NSData *isoStr = [obj dataUsingEncoding:isoEncoding];
 	NSString *utf8Str = [[NSString alloc] initWithData:isoStr encoding:utf8Encoding];
 
+<a name="文本大小自适应"></a>
 <h2 id="文本大小自适应"> 文本大小自适应 </h2>
 
 	@implementation NSString (CalculateSize)
@@ -976,8 +1010,10 @@ dealloc:
 
 ***
 
+<a name="数组NSArray"></a>
 <h1 id="NSArray"> 数组NSArray </h1>
 
+<a name="数组简化"></a>
 <h2 id="数组简化"> 数组简化 </h2>
 
 	[NSArray array] 简写为@[]
@@ -986,6 +1022,8 @@ dealloc:
 	[array objectAtIndex:idx] 简写为array[idx]
 	[array replaceObjectAtIndex:idx withObject:newObj] 简写为array[idx] = newObj;
 	
+
+<a name="可变数组"></a>
 <h2 id="可变数组"> 可变数组 </h2>
 
 	- (id)initWithCapacity:(NSUInteger)numItems; // 初始化
@@ -1000,8 +1038,10 @@ dealloc:
 
 ***
 
+<a name="字典"></a>
 <h1 id="字典"> 字典 </h1>
 
+<a name="常用方法"></a>
 <h2 id="常用方法"> 常用方法 </h2>
 
 	- (instancetype)initWithObjects:(NSArray *)objects forKeys:(NSArray *)keys; // 用数据数组和key值数据初始化
@@ -1016,6 +1056,7 @@ dealloc:
 	- [NSDictionary dictionaryWithObject:o1 forKey:k1] 简写为 @{k1:o1}
 	- [NSDictionary dictionaryWithObjectsAndKeys:o1, k1, o2, k2, o3, k3, nil] 简写为 @{k1:o1, k2:o2, k3:o3}
 
+<a name="可变字典"></a>
 <h2 id="可变字典"> 可变字典 </h2>
 
 	- (void)setObject:(id)anObject forKey:(id)key; // 增加和修改可变字典的内容
@@ -1023,6 +1064,7 @@ dealloc:
 	- (void)removeObjectForkey:(id)aKey; // 删除Key值对应的对象
 	- (void)removeAllObjects; // 删除所有字典内容
 
+<a name="字典与数组的联合使用"></a>
 <h2 id="字典与数组的联合使用"> 字典与数组的联合使用 </h2>
 
     NSArray *persons = @[
@@ -1037,8 +1079,10 @@ dealloc:
 
 ***
 
+<a name="NSDictionary、NSData、JSON数据类型相互转换"></a>
 <h1 id="NSDictionary、NSData、JSON数据类型相互转换"> NSDictionary、NSData、JSON数据类型相互转换 </h1>
 
+<a name="NSDictionary类型转换为NSData类型"></a>
 <h2 id="NSDictionary类型转换为NSData类型"> NSDictionary类型转换为NSData类型 </h2>
 
 	//NSDictionary -> NSData:  
@@ -1053,6 +1097,7 @@ dealloc:
 	[archiver encodeObject:params forKey:@"Some Key Value"];  
 	[archiver finishEncoding];
 
+<a name="NSData类型转换为NSDictionary类型"></a>
 <h2 id="NSData类型转换为NSDictionary类型"> NSData类型转换为NSDictionary类型 </h2>
 
 	// NSData -> NSDictionary  
@@ -1063,11 +1108,13 @@ dealloc:
 	[unarchiver release];  
 	[data release];  
 
+<a name="NSDictionary转换为JSON数据类型"></a>
 <h2 id="NSDictionary转换为JSON数据类型"> NSDictionary转换为JSON数据类型 </h2>
 
 	// NSDictionary -> JSON:  
 	NSString *jsonStr=[dict JSONRepresentation];  
 
+<a name="JSON转换为OC对象"></a>
 <h2 id="JSON转换为OC对象"> JSON转换为OC对象 </h2>
 
 	// Create a Foundation object from JSON data
@@ -1087,6 +1134,7 @@ dealloc:
 		return object;
 	}
 
+<a name="OC对象转换为JSON"></a>
 <h2 id="OC对象转换为JSON"> OC对象转换为JSON </h2>
 
 	// Generate JSON data from a Foundation object
@@ -1108,6 +1156,7 @@ dealloc:
 
 ***
 
+<a name="集"></a>
 <h1 id="集"> 集 </h1>
  
 **初始化**
@@ -1137,8 +1186,10 @@ dealloc:
 
 ***
 
-<h1 id="singleton">单例Singleton </h1>
+<a name="单例Singleton"></a>
+<h1 id="singleton"> 单例Singleton </h1>
 
+<a name="典型的单例写法"></a>
 <h2 id="典型的单例写法"> 典型的单例写法 </h2>
 
 	static id sharedMyManager;
@@ -1149,6 +1200,7 @@ dealloc:
 		return sharedMyManager;
 	}
 
+<a name="加锁的写法"></a>
 <h2 id="加锁的写法"> 加锁的写法 </h2>
 
 	+ (id)sharedThemeManager {
@@ -1160,6 +1212,8 @@ dealloc:
 		return sharedMyManager;
 	}
 	
+
+<a name="第一次实例化创建"></a>
 <h2 id="第一次实例化创建"> 第一次实例化创建 </h2>
 
 	+ (voidq)initialize {
@@ -1170,6 +1224,7 @@ dealloc:
 		}
 	}	
 
+<a name="GCD写法"></a>
 <h2 id="gcd写法"> GCD写法 </h2>
 
 	+ (id)sharedManager {
@@ -1180,6 +1235,7 @@ dealloc:
 		return sharedMyManager;
 	}
 
+<a name="完整写法"></a>
 <h2 id="完整写法"> 完整写法 </h2>
 		
 `重载下列方法`
@@ -1244,6 +1300,7 @@ Demo:
 
 ***
 
+<a name="文件管理器NSFileManager"></a>
 <h1 id="NSFileManager"> 文件管理器NSFileManager </h1>
 
 	// 创建一个单例fileManager对象
@@ -1276,6 +1333,7 @@ Demo:
 
 ***
 
+<a name="文件句柄NSFileHandle"></a>
 <h1 id="NSFileHandle"> 文件句柄NSFileHandle </h1>
 
 	// NSFileHandle 文件句柄：对文件内容的操作
@@ -1305,6 +1363,7 @@ Demo:
 
 ***
 
+<a name="Archiver归档"></a>
 <h1 id="archiver"> Archiver归档 </h1>
 
 **对普通的对象归档的要求**
@@ -1386,6 +1445,7 @@ Demo:
 
 ***
 
+<a name="沙盒Sandbox"></a>
 <h1 id="sandbox"> 沙盒Sandbox </h1>
 
 - 获得home目录
@@ -1409,9 +1469,11 @@ Demo:
 
 ***
 
+<a name="UIView"></a>
 <h1 id="UIView"> UIView </h1>
 
-<h2 id="UIView常见属性以及含义"> UIView常见属性以及含义 </h2>
+<a name="UIView"></a>
+<h2 id="UIView常见属性以及含义"> c </h2>
 
 * frame:  			相对于父视图的位置和大小(CGRect)/坐标
 * bounds: 			相对于自己的的位置和大小(CGRect)/边框大小
@@ -1436,6 +1498,7 @@ Demo:
 * alpha				透明度
 * contentStech		改变视图内容如何拉伸
 
+<a name="TIPS"></a>
 <h2 id="UIViewTIPS"> TIPS </h2>
 
 * 屏幕上能够看见的都是UIView
@@ -1444,6 +1507,7 @@ Demo:
 * IButlet能够让属性显示到storyboard的右键列表
 * bounds的x,y永远为0(以自身左上角为原点)，frame的x,y以父视图的左上角为原点
 
+<a name="UIView加载过程"></a>
 <h2 id="UIView加载过程"> UIView加载过程 </h2>
 
 - 首先访问view属性
@@ -1453,6 +1517,7 @@ Demo:
 	- 如果没有复写该方法，UIViewController会默认调用initWithNibName:bundle:方法初始化并加载view
 - 通过viewDidLoad方法来执行一些其他任务
 
+<a name="UIView层的操作常用方法"></a>
 <h2 id="UIView层的操作常用方法"> UIView层的操作常用方法 </h2>
 
 - (void)removeFromSuperview; // 从父视图中移除
@@ -1468,8 +1533,10 @@ Demo:
 
 ***
 
+<a name="UIViewController"></a>
 <h1 id="UIViewController"> UIViewController </h1>
 
+<a name="UIViewController生命周期"></a>
 <h2 id="UIViewController生命周期"> UIViewController生命周期</h2>
 
 - (void)viewDidLoad; //视图加载完成
@@ -1503,6 +1570,7 @@ Demo:
 		// 控制器试图将要旋转到某个朝向，在方法中处理新的界面布局
 		- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration;
 	
+<a name="UIViewController切换"></a>
 <h2 id="UIViewController切换"> UIViewController切换 </h2>
 	
 	// 设置切换动画效果
@@ -1512,6 +1580,7 @@ Demo:
 	// 返回上一视图
 	[self.presentingViewController dismissViewControllerAnimated:YES completion:nil];	
 
+<a name="获取UIView的UIViewcontroller"></a>
 <h2 id="获取UIView的UIViewcontroller"> 获取UIView的UIViewcontroller </h2>
 
 	@implementation UIView (FindUIViewController)    
@@ -1533,8 +1602,10 @@ Demo:
 
 ***
 
+<a name="UIButton(按钮)"></a>
 <h1 id="UIButton"> UIButton(按钮) </h1>
 
+<a name="UIButton初始化"></a>
 <h2 id="UIButton初始化"> UIButton初始化 </h2>
 
 	UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -1562,8 +1633,10 @@ Demo:
 	
 ***
 
+<a name="UILabel"></a>
 <h1 id="UILabel"> UILabel </h1>
-	
+
+<a name="UILabel常用属性"></a>
 <h2 id="UILabel常用属性"> UILabel常用属性 </h2>
 
 - text 					// 设置文本内容
@@ -1604,8 +1677,10 @@ Demo:
 
 ***
 
+<a name="UITextField"></a>
 <h1 id="UITextField"> UITextField </h1>
 
+<a name="UITextField常用属性"></a>
 <h2 id="UITextField常用属性"> UITextField常用属性 </h2>
 
 - borderStyle 边框样式
@@ -1646,6 +1721,7 @@ Demo:
 
 注意：若要实现<UITextFieldDelegate>协议中的方法，必须设置delegate为当前对象	
 
+<a name="UITextFieldDelegate>中的方法"></a>
 <h2 id="UITextFieldDelegate中的方法"> UITextFieldDelegate>中的方法 </h2>
 
 - \- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField; // 文本输入框是否可以进入编辑模式
@@ -1658,8 +1734,10 @@ Demo:
 
 ***
 
+<a name="UITextView"></a>
 <h1 id="UITextView"> UITextView </h1>
 
+<a name="UITextView常用属性"></a>
 <h2 id="UITextView常用属性"> UITextView常用属性 </h2>
 
 - text 文字内容
@@ -1668,6 +1746,7 @@ Demo:
 - selectedRange 控制滚动
 - editable 是否可编辑
 
+<a name="UITextView常用方法"></a>
 <h2 id="UITextView常用方法"> UITextView常用方法 </h2>
 
 - \- (void)scrollRangeTovisible:(NSRange)range;
@@ -1681,8 +1760,10 @@ Demo:
 
 ***
 
+<a name="UIPageControl"></a>
 <h1 id="UIPageControl"> UIPageControl </h1>
 
+<a name="常用属性和方法"></a>
 <h2 id="常用属性和方法"> 常用属性和方法 </h2>
 
 - numberOfPage	共有几个分页"圆圈"
@@ -1692,8 +1773,10 @@ Demo:
 
 ***
 
+<a name="UISwitch"></a>
 <h1 id="UISwitch"> UISwitch </h1>
 
+<a name="UISwitch常用属性"></a>
 <h2 id="UISwitch常用属性"> UISwitch常用属性 </h2>
 
 - isOn 是否打开状态
@@ -1703,6 +1786,7 @@ Demo:
 - onImage 开启状态图片
 - offImage 关闭状态图片
 
+<a name="UISwitch常用方法"></a>
 <h2 id="UISwitch常用方法"> UISwitch常用方法 </h2>
 
 - \-(void)setOn:(BOOL)on animated:(BOOL)animated; // 设置开关状态并带有动画效果
@@ -1721,8 +1805,10 @@ Demo:
 
 ***
 
+<a name="UISlider"></a>
 <h1 id="UISlider"> UISlider </h1>
 
+<a name="UISlider常用属性"></a>
 <h2 id="UISlider常用属性"> UISlider常用属性 </h2>
 
 - value 当前值
@@ -1734,6 +1820,7 @@ Demo:
 - maximumTintColor 最大值颜色
 - thumbTintColor 滑块颜色
 
+<a name="UISlider常用方法"></a>
 <h2 id="UISlider常用方法"> UISlider常用方法 </h2>
 
 - \- (void)setValue:(float)value animated:(BOOL)animated;
@@ -1757,8 +1844,10 @@ Demo:
 
 ***
 
+<a name="UIProgressView"></a>
 <h1 id="UIProgressView"> UIProgressView </h1>
 
+<a name="UIProgressView常用属性"></a>
 <h2 id="UIProgressView常用属性"> UIProgressView常用属性 </h2>
 
 - progress 当前进度值
@@ -1779,6 +1868,7 @@ Demo:
     
 ***
 
+<a name="UISegmentedControl"></a>
 <h1 id="UISegmentedControl"> UISegmentedControl </h1>
 
 	// 分段控件
@@ -1793,6 +1883,7 @@ Demo:
 
 ***
 
+<a name="UIActivityIndicatorView"></a>
 <h1 id="UIActivityIndicatorView"> UIActivityIndicatorView </h1>
 
 	// 进度指示器
@@ -1807,8 +1898,10 @@ Demo:
 
 ***
 
+<a name="UIImageView"></a>
 <h1 id="UIImageView"> UIImageView </h1>
 
+<a name="UIImageView常用属性"></a>
 <h2 id="UIImageView常用属性"> UIImageView常用属性 </h2>
 
 - image 图片
@@ -1817,6 +1910,7 @@ Demo:
 - animationRepeatCount 动画循环次数
 - contentMode 内容模式
 
+<a name="UIImageView动画"></a>
 <h2 id="UIImageView动画"> UIImageView动画 </h2>
 
 - \- (void)startAnimating; // 开始动画
@@ -1825,14 +1919,17 @@ Demo:
 
 ***
 
+<a name="UINavigationController"></a>
 <h1 id="UINavigationController"> UINavigationController </h1>
 
+<a name="UINavigationController"></a>
 <h2 id="UINavigationController基本概念"> UINavigationController基本概念 </h2>
 
 - UINavigationController继承于UIViewController，通过栈的方式来管理视图控制器，视图控制器通过入栈，出栈操作进行切换
 - UINavigationController用于处理复杂的分层数据
 - UINavigationController维护一个视图控制器，任何类型的视图控制器都可以放到导航控制器的栈中
 
+<a name="视图控制器入栈和出栈操作"></a>
 <h2 id="视图控制器入栈和出栈操作"> 视图控制器入栈和出栈操作 </h2>
 	
 	// 入栈
@@ -1847,12 +1944,14 @@ Demo:
     NSArray *viewControllers = self.navigationController.viewControllers;
     [self.navigationController popToViewController:viewControllers[1] animated:YES];
 
+<a name="UINavigationController说明"></a>
 <h2 id="UINavigationController说明"> UINavigationController说明 </h2>
 
 - viewControllers能够拿到所有视图控制器的实例
 - viewControllers视图控制器在数组中的顺序即为视图控制器在导航控制器栈中的顺序
 - 传参进去的视图控制器实例必须存在于导航控制器栈中
 
+<a name="自定义导航控制器的push、pop动画效果"></a>
 <h2 id="自定义导航控制器的push、pop动画效果"> 自定义导航控制器的push、pop动画效果 </h2>
 
 在导航器对应视图的layer上，加载自己的动画效果
@@ -1879,6 +1978,7 @@ Demo:
 - 通过设置UINavigationItem的属性，显示Item(UINavigationBar)
 - UINavigationItem不是由navigationBar控制的，更不是由UINavigationController来控制，而是由当前视图控制器来控制的
 
+<a name="改变导航控制器文本颜色"></a>
 <h2 id="改变导航控制器文本颜色"> 改变导航控制器文本颜色 </h2>
 
 	for (UINavigationController *navi in navis) {
@@ -1890,8 +1990,10 @@ Demo:
 
 ***
 
+<a name="UINavigationBar"></a>
 <h1 id="UINavigationBar"> UINavigationBar </h1>
 
+<a name="UINavigationBar常用属性和方法"></a>
 <h2 id="UINavigationBar常用属性和方法"> UINavigationBar常用属性和方法 </h2>
 
 	// 设置导航条样式
@@ -1909,7 +2011,7 @@ Demo:
 	// 隐藏导航条的方法
 	- (void)setNavigationBarHidden:(BOOL)hidden animated:(BOOL)animated;
 
-
+<a name="在不同IOS版本中更改UINavigationBar背景图片"></a>
 <h2 id="在不同IOS版本中更改UINavigationBar背景图片"> 在不同IOS版本中更改UINavigationBar背景图片 </h2>
 
 	@implementation UINavigationBar (custom)
@@ -1939,11 +2041,13 @@ Demo:
 
 ***
 
+<a name="UINavigationItem"></a>
 <h1 id="UINavigationItem"> UINavigationItem </h1>
 
 - 每个视图控制器都有一个UINavigationItem属性
 - 每个视图控制器都可以通过UINavigationItem属性来定制导航栏的显示效果
 
+<a name="UINavigationItem常用属性和方法"></a>
 <h2 id="UINavigationItem常用属性和方法"> UINavigationItem常用属性和方法 </h2>
 
 	// 设置标题，显示在导航栏的中间
@@ -1966,6 +2070,7 @@ Demo:
 
 ***
 
+<a name="UIToolBar"></a>
 <h1 id="UIToolBar"> UIToolBar </h1>
 
 - UINavigationController有个UIToolBar属性
@@ -1975,6 +2080,7 @@ Demo:
 
 ***
 
+<a name="UITabBarController"></a>
 <h1 id="UITabBarController"> UITabBarController </h1>
 
 - UITabBarController继承于视图控制器，通过标签栏项的形式来管理视图控制器，各个标签栏项之间的视图控制器彼此独立，互不影响
@@ -1982,6 +2088,7 @@ Demo:
 - 点击不同的标签栏项(UITabBarItem)，展现不同的视图控制器的view
 - 被点中的标签栏项对应的视图控制器的view处于显示状态，其他的视图控制器的view处于卸载状态
 
+<a name="改变标签控制器颜色"></a>
 <h2 id="改变标签控制器颜色"> 改变标签控制器颜色 </h2>
 
 	tabBarController.tabBar.tintColor = [UIColor orangeColor];
@@ -1990,8 +2097,10 @@ Demo:
 
 ***
 
+<a name="UIScrollView"></a>
 <h1 id="UIScrollView"> UIScrollView </h1>
 
+<a name="创建一个UIScrollView实例"></a>
 <h2 id="创建一个UIScrollView实例"> 创建一个UIScrollView实例 </h2>
 
 	// 创建y一个UIScrollView实例
@@ -2003,6 +2112,7 @@ Demo:
 	// 设置内容尺寸
 	scrollView.contentSize = CGSize(500,500);
 
+<a name="UIScrollView常用属性"></a>
 <h2 id="UIScrollView常用属性"> UIScrollView常用属性 </h2>
 
 	// contentSize
@@ -2031,6 +2141,7 @@ Demo:
 	// 滚动条的样式,基本只是设置颜色。总共3个颜色:默认、黑、白 scrollIndicatorInsets
 	// 设置滚动条的位置
 
+<a name="UIScrollView常用代理方法"></a>
 <h2 id="UIScrollView常用代理方法"> UIScrollView常用代理方法 </h2>
 
 	// scrollView已经滑动
@@ -2045,6 +2156,7 @@ Demo:
 	- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView; // scrollview减速停止
 	- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView;
 
+<a name="UIScrollView的捏合手势"></a>
 <h2 id="UIScrollView的捏合手势"> UIScrollView的捏合手势 </h2>
 
 UIScrollView能很简单的使用捏手势来进行缩放,可以缩小或者放大,只需要 实现一个委托方法就可以,简单的几个步骤就可以让滚动视图的子视图支持缩放功能
@@ -2064,8 +2176,10 @@ UIScrollView能很简单的使用捏手势来进行缩放,可以缩小或者放�
 
 ***
 
+<a name="UITableView"></a>
 <h1 id="UITableView"> UITableView </h1>
 
+<a name="表视图常用属性"></a>
 <h2 id="表视图常用属性"> 表视图常用属性 </h2>
 
 	// 表视图分割线风格
@@ -2097,6 +2211,7 @@ UIScrollView能很简单的使用捏手势来进行缩放,可以缩小或者放�
 	// 默认为NO,在编辑状态下时,是否可以同时选中多个单元格,注意版本问题
 	@property(nonatomic) BOOL allowsMultipleSelectionDuringEditing NS_AVAILABLE_IOS(5_0);
 
+<a name="表视图常用方法"></a>
 <h2 id="表视图常用方法"> 表视图常用方法 </h2>
 
 	// 指定一个cell,返回一个NSIndexPath实例,如果cell没有显示,返回nil
@@ -2123,6 +2238,7 @@ UIScrollView能很简单的使用捏手势来进行缩放,可以缩小或者放�
 	  + (NSIndexPath *)indexPathForRow:(NSInteger)row inSection:(NSInteger)section;
 	  @property(nonatomic,readonly) NSInteger section; // 指定分区 @property(nonatomic,readonly) NSInteger row; // 指定行
 
+<a name="表视图常用数据源方法"></a>
 <h2 id="表视图常用数据源方法"> 表视图常用数据源方法 </h2>
 
 	// 配置section中含有行数
@@ -2145,6 +2261,7 @@ UIScrollView能很简单的使用捏手势来进行缩放,可以缩小或者放�
 	// 实现此方法,移动单元格
 	- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath;
 
+<a name="表视图常用委托方法"></a>
 <h2 id="表视图常用委托方法"> 表视图常用委托方法 </h2>
 
 	// 配置行高
@@ -2164,6 +2281,7 @@ UIScrollView能很简单的使用捏手势来进行缩放,可以缩小或者放�
 	// 设置单元格编辑样式
 	- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath;
 
+<a name="表视图单元格的重用"></a>
 <h2 id="表视图单元格的重用"> 表视图单元格的重用 </h2>
 
 	// 静态标识符
@@ -2177,6 +2295,7 @@ UIScrollView能很简单的使用捏手势来进行缩放,可以缩小或者放�
 	// 设置cell的内容
 	return cell;
 
+<a name="cell编辑按钮颜色"></a>
 <h2 id="cell编辑按钮颜色"> cell编辑按钮颜色 </h2>
 
 		- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {   
@@ -2187,8 +2306,10 @@ UIScrollView能很简单的使用捏手势来进行缩放,可以缩小或者放�
 
 ***
 
+<a name="UITableViewController"></a>
 <h1 id="UITableViewController"> UITableViewController </h1>
 
+<a name="UITableViewController常用属性"></a>
 <h2 id="UITableViewController常用属性"> UITableViewController常用属性 </h2>
 
 	// 通过这个属性,访问和设置表视图
@@ -2226,6 +2347,7 @@ UIScrollView能很简单的使用捏手势来进行缩放,可以缩小或者放�
 	      self.imageView.frame = CGRectMake(260, 30, 50, 10);
 	  }
 
+<a name="定制单元格:向contentView添加子视图"></a>
 <h2 id="定制单元格 向contentView添加子视图"> 定制单元格:向contentView添加子视图 </h2>
 
 	if (cell == nil) {
@@ -2241,6 +2363,7 @@ UIScrollView能很简单的使用捏手势来进行缩放,可以缩小或者放�
 	}
 	UILabel *titleLab = (UILabel *)[cell.contentView viewWithTag:100]; titleLab.text = @"label内容";
 
+<a name="定义单元格第二种方式:xib定义单元格"></a>
 <h2 id="定义单元格第二种方式 xib定义单元格"> 定义单元格第二种方式:xib定义单元格 </h2>
 	
 	if (cell == nil) {
@@ -2252,6 +2375,7 @@ UIScrollView能很简单的使用捏手势来进行缩放,可以缩小或者放�
 	}
 	UILabel *titleLab = (UILabel *)[cell.contentView viewWithTag:100]; titleLab.text = @"label内容";
 
+<a name="定制单元格第三种方式:子类化定制"></a>
 <h2 id="定制单元格第三种方式 子类化定制"> 定制单元格第三种方式:子类化定制 </h2>
 
 	- (void)_initViews {
@@ -2275,6 +2399,7 @@ UIScrollView能很简单的使用捏手势来进行缩放,可以缩小或者放�
 	    _timeLab.frame = CGRectMake(260, 30, 50, 10);
 	}
 
+<a name="表视图的编辑"></a>
 <h2 id="表视图的编辑"> 表视图的编辑 </h2>
 
 	- (void)tableView:(UITableView *)tableView
@@ -2293,6 +2418,7 @@ UIScrollView能很简单的使用捏手势来进行缩放,可以缩小或者放�
 	    }
 	}
 
+<a name="编辑模式数据源方法"></a>
 <h2 id="编辑模式数据源方法"> 编辑模式数据源方法 </h2>
 
 	// 定义可编辑的单元格
@@ -2307,6 +2433,7 @@ UIScrollView能很简单的使用捏手势来进行缩放,可以缩小或者放�
 	// 指定可移动的单元格
 	- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath;
 
+<a name="过滤表格内容"></a>
 <h2 id="过滤表格内容"> 过滤表格内容 </h2>
 
 	- (void)textChange:(UITextField *)textfield {
@@ -2326,6 +2453,7 @@ UIScrollView能很简单的使用捏手势来进行缩放,可以缩小或者放�
 
 ***
 
+<a name="UITouch"></a>
 <h1 id="UITouch"> UITouch </h1>
 
 	响应者类通过复写以下方法,可以监听触摸事件
@@ -2338,6 +2466,7 @@ UIScrollView能很简单的使用捏手势来进行缩放,可以缩小或者放�
 	// 当触摸序列被诸如电话呼⼊入这样的系统事件所取消时
 	- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 
+<a name="UITouch类中常用属性"></a>
 <h2 id="UITouch类中常用属性"> UITouch类中常用属性 </h2>
 
 	window: 触摸产⽣生时所处的窗⼝口。
@@ -2351,6 +2480,7 @@ UIScrollView能很简单的使用捏手势来进行缩放,可以缩小或者放�
 	UITouchPhaseEnded(触摸结束)
 	UITouchPhaseCancelled(触摸取消)
 
+<a name="UITouch类中常用方法"></a>
 <h2 id="UITouch类中常用方法"> UITouch类中常用方法 </h2>
 
 	//  函数返回y一个CGPoint类型的值,表⽰示触摸在view这个视图上的位置,这⾥里返回的位 置是针对view的坐标系的。
@@ -2358,6 +2488,7 @@ UIScrollView能很简单的使用捏手势来进行缩放,可以缩小或者放�
 	//  该⽅方法记录了前y一个坐标值,函数返回也是y一个CGPoint类型的值, 表⽰示触摸在 view这个视图上的位置,这⾥里返回的位置是针对view的坐标系的
 	- (CGPoint)previousLocationInView:(UIView *)view;
 
+<a name="UITouch事件的传递"></a>
 <h2 id="UITouch事件的传递"> UITouch事件的传递 </h2>
 
 - 从事件发生到其处理的对象,传递要经过特殊的一段过程。
@@ -2365,6 +2496,7 @@ UIScrollView能很简单的使用捏手势来进行缩放,可以缩小或者放�
 - UIApplication对象从事件队列中取出最前面的事件并将其分发
 - 通常,其发送事件给应用程序的主窗口——UIWindow实例,再由窗口对 象发送事件给”第一响应者 (触摸的视图)”处理
 
+<a name="事件响应者链的基本概念"></a>
 <h2 id="事件响应者链的基本概念"> 事件响应者链的基本概念 </h2>
 
 - 响应者对象是一个能接收并处理事件的对象。
@@ -2372,6 +2504,7 @@ UIScrollView能很简单的使用捏手势来进行缩放,可以缩小或者放�
 - 该基类定义了一系列编程接口,不但为事件处理进行服务而且还提 供了通用的响应行为处理。
 - UIApplication, UIView(包括UIWindow),UIViewController都直接或间接的继承自UIResponser,所有的这些类的实例都是响应者对象。
 
+<a name="事件响应者链"></a>
 <h2 id="事件响应者链"> 事件响应者链 </h2>
 
 - 当用户与视图交互时,将会 消息传递给视图控制器,如果 不存在控制器,传递给父视图
@@ -2381,6 +2514,7 @@ UIScrollView能很简单的使用捏手势来进行缩放,可以缩小或者放�
 
 ***
 
+<a name="手势识别器UIGestureRecognizer"></a>
 <h1 id="手势识别器UIGestureRecognizer"> 手势识别器UIGestureRecognizer </h1>
 
 - UIGestureRecognizer类,用于检测、识别用户使用设备时所用的手势。
@@ -2409,6 +2543,7 @@ UIScrollView能很简单的使用捏手势来进行缩放,可以缩小或者放�
 			// 区别两种手势(一只手单击、双击)
 			[singleTap requireGestureRecognizerToFail:doubleTap];
 
+<a name="平移手势"></a>
 <h2 id="平移手势"> 平移手势 </h2>
 
 	UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
@@ -2420,6 +2555,8 @@ UIScrollView能很简单的使用捏手势来进行缩放,可以缩小或者放�
 	    tempView.center = point;
 	}
 	
+
+<a name="平移手势"></a>
 <h2 id="长按手势"> 长按手势 </h2>
 
 	UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
@@ -2429,6 +2566,7 @@ UIScrollView能很简单的使用捏手势来进行缩放,可以缩小或者放�
 	    NSLog(@"long press : %u", [_longPress state]);
 	}
 
+<a name="旋转手势"></a>
 <h2 id="旋转手势"> 旋转手势 </h2>
 
 	UIRotationGestureRecognizer *rotationGesture = [[UIRotationGestureRecognizer alloc]
@@ -2440,6 +2578,7 @@ UIScrollView能很简单的使用捏手势来进行缩放,可以缩小或者放�
 	    tempView.transform = CGAffineTransformRotate(tempView.transform, degress/1000);
 	}
 
+<a name="捏合手势"></a>
 <h2 id="捏合手势"> 捏合手势 </h2>
 
 	static float scale = 0;
@@ -2466,14 +2605,17 @@ UIScrollView能很简单的使用捏手势来进行缩放,可以缩小或者放�
 
 ***
 
+<a name="UIPickerView"></a>
 <h1 id="UIPickerView"> UIPickerView </h1>
 
+<a name="UIPickerView的使用"></a>
 <h2 id="UIPickerView的使用"> UIPickerView的使用 </h2>
 
 - UIPickerView控件生成的表格可以提供滚动的轮盘,如下图,它有两个或多个轮盘 (Component)。
 - 这些表格表面上类似于标准的UITableView控件,但是它们使用的数据和委托协议有 细微的差别。
 - UIPickerView的宽度和高度是固定的,纵向是320x216,横向480x162
 
+<a name="UIPickerView常用方法"></a>
 <h2 id="UIPickerView常用方法"> UIPickerView常用方法 </h2>
 
 	//是否启⽤用选择启⽰示器,就是y一个蓝⾊色的条 @property(nonatomic)BOOL showsSelectionIndicator;
@@ -2490,6 +2632,7 @@ UIScrollView能很简单的使用捏手势来进行缩放,可以缩小或者放�
 	//获取某列选择的⾏行数
 	- (NSInteger)selectedRowInComponent:(NSInteger)component;
 
+<a name="UIPickerView委托方法"></a>
 <h2 id="UIPickerView委托方法"> UIPickerView委托方法 </h2>
 
 	// 返回列数
@@ -2508,6 +2651,7 @@ UIScrollView能很简单的使用捏手势来进行缩放,可以缩小或者放�
 
 ***
 
+<a name="UIDatePicker"></a>
 <h1 id="UIDatePicker"> UIDatePicker </h1>
 
 	//设置初始化显⽰示的date⽇日期。
@@ -2524,8 +2668,10 @@ datePickerMode四种显示模式
 - UIDatePickerModeDateAndTime 显示日期和时间
 - UIDatePickerModeCountDownTimer 显示时间
 
+<a name="图像加载"></a>
 <h1 id="图像加载"> 图像加载 </h1>
 
+<a name="本地加载"></a>
 <h2 id="本地加载"> 本地加载 </h2>
 
 程序包和沙盒中的图像读取的方式是一样的,都是通过文件路径读取,不同 是路径不一样
@@ -2542,6 +2688,7 @@ datePickerMode四种显示模式
 	//通过路径对应的图⽚片⽂文件
 	UIImage *image = [UIImage imageWithContentsOfFile:path];
 
+<a name="网络加载"></a>
 <h2 id="网络加载"> 网络加载 </h2>
 
 	NSURL *url = [NSURL URLWithString:@"http://www.baidu.com/img/520.gif"]; //⺴⽹网络获取数据
@@ -2552,6 +2699,7 @@ datePickerMode四种显示模式
 	//将NSData写⼊入⽂文件⺫⽬目录
 	[data writeToFile:path atomically:YES];
 
+<a name="相册访问"></a>
 <h2 id="相册访问"> 相册访问 </h2>
 
 	- 相册资源访问通过UIImagePickerController类来读取。UIImagePickerController类继承自UINavigationController,是个独立的导航控制 器,一般使用模态窗口的方式弹出
@@ -2567,6 +2715,7 @@ datePickerMode四种显示模式
 	// 取消选取
 	- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker;
 
+<a name="相册访问"></a>
 <h1 id="调用摄像头"> 调用摄像头 </h1>
 
 UIImagePickerController的 sourceType属性设置为 UIImagePickerControllerSourceTypeCamera 即可调用摄像头拍照。拍完后通过UIImageWriteToSavedPhotosAlbum将照片保存至相册
@@ -2585,6 +2734,7 @@ UIImagePickerController的 sourceType属性设置为 UIImagePickerControllerSour
 	                                               }
 	}
 
+<a name="SDWebImage图片异步加载"></a>
 <h2 id="SDWebImage图片异步加载"> SDWebImage图片异步加载 </h2>
 
 *SDWebImage是基于ARC的*
@@ -2604,8 +2754,10 @@ UIImagePickerController的 sourceType属性设置为 UIImagePickerControllerSour
 
 ***
 
+<a name="AVFundation"></a>
 <h1 id="AVFundation"> AVFundation </h1>
 
+<a name="iOS系统中的音频播放方式"></a>
 <h2 id="iOS系统中的音频播放方式"> iOS系统中的音频播放方式 </h2>
 
 - AVAudioPlayer、AVPlayer、系统声音、音频队列 ·AVAudioPlayer
@@ -2616,6 +2768,7 @@ UIImagePickerController的 sourceType属性设置为 UIImagePickerControllerSour
 
 ***
 
+<a name="AVAudioPlayer的使用"></a>
 <h1 id="AVAudioPlayer的使用"> AVAudioPlayer的使用 </h1>
 
 - 引用框架
@@ -2633,6 +2786,7 @@ UIImagePickerController的 sourceType属性设置为 UIImagePickerControllerSour
 	    NSLog(@"正在播放");
 	}
 
+<a name="AVAudioPlayer代理方法"></a>
 <h2 id="AVAudioPlayer代理方法"> AVAudioPlayer代理方法 </h2>
 
 	- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer*)player successfully:(BOOL)flag {
@@ -2651,6 +2805,7 @@ UIImagePickerController的 sourceType属性设置为 UIImagePickerControllerSour
 	    // 处理中断结束的代码
 	}
 
+<a name="AVPlayer的使用"></a>
 <h2 id="AVPlayer的使用"> AVPlayer的使用 </h2>
 
 	NSString *urlString = @"http://zhangmenshiting2.baidu.com/data2/music/ 1736524/1736524.mp3? xcode=4c984fdae3c1bad69e17a9d95288ce1e&mid=0.33322142677174";
@@ -2659,6 +2814,7 @@ UIImagePickerController的 sourceType属性设置为 UIImagePickerControllerSour
 	AVPlayer *player = [[AVPlayer alloc] initWithURL:url]; // 播放
 	[player play];
 
+<a name="播放系统声音"></a>
 <h2 id="播放系统声音"> 播放系统声音 </h2>
 
 格式为:caf/wav/aiff格式,且时长小于30s
@@ -2675,6 +2831,7 @@ UIImagePickerController的 sourceType属性设置为 UIImagePickerControllerSour
 	// 播放系统震动
 	AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 
+<a name="后台播放任务"></a>
 <h2 id="后台播放任务"> 后台播放任务 </h2>
 
 - 当你的应用程序在后台时(被挂起), 在iOS系统(4.0之后)允许你做三件事:播放音频(audio),位置信息以及voip(网络电话),播放音频
@@ -2685,6 +2842,7 @@ UIImagePickerController的 sourceType属性设置为 UIImagePickerControllerSour
 	[audionSession setCategory:AVAudioSessionCategoryPlayback
 	error:&error];
 
+<a name="自定义后台任务"></a>
 <h2 id="自定义后台任务"> 自定义后台任务 </h2>
 
 	- (void)applicationDidEnterBackground:(UIApplication *)application
@@ -2725,6 +2883,7 @@ UIImagePickerController的 sourceType属性设置为 UIImagePickerControllerSour
 	      }];
 	}
 
+<a name="iOS视频播放"></a>
 <h2 id="iOS视频播放"> iOS视频播放 </h2>
 
 iOS内置了视频播放器,我们可以通过使用MPMoviePlayerController或者 MPMoviePlayerViewController类(视图控制器)来播放视频(含流媒体视频播 放),两者使用也较为简单
@@ -2754,6 +2913,7 @@ MPMoviePlayerController的使用
 	// 模态窗⼝口弹出播放器
 	[self presentModalViewController:moviePlayer animated:YES]; [moviePlayer release];
 
+<a name="视频播放常用的通知"></a>
 <h2 id="视频播放常用的通知"> 视频播放常用的通知 </h2>
 
 - 视频播放结束的通知 MPMoviePlayerPlaybackDidFinishNotification
@@ -2762,8 +2922,10 @@ MPMoviePlayerController的使用
 
 ***
 
+<a name="转场动画"></a>
 <h1 id="转场动画"> 转场动画 </h1>
 
+<a name="iOS7之前的VC切换解决方案"></a>
 <h2 id="iOS7之前的VC切换解决方案"> iOS7之前的VC切换解决方案 </h2>
 
 [Source](http://www.cnblogs.com/EnamelPot/p/3465561.html "Permalink to UIViewController切换（ios5：transitionFromViewController） - EnamelPot - 博客园")
@@ -2888,6 +3050,7 @@ oneV's Den demo:
 	animation.subtype =kCATransitionFromLeft;
 	[rootVC.view.layer addAnimation:animation forKey:@"animate"];
 
+<a name="iOS7中的ViewController切换"></a>
 <h2 id="iOS7中的ViewController切换"> iOS7中的ViewController切换 </h2>
 
 source:[OneV'S Den](#http://onevcat.com/2013/10/vc-transition-in-ios7/)
@@ -3068,6 +3231,7 @@ Demo:
 		
 ***
 
+<a name="购物车曲线动画"></a>
 <h2 id="购物车曲线动画"> 购物车曲线动画 </h2>
 
 	CAKeyframeAnimation *animation=[CAKeyframeAnimation animationWithKeyPath:@"position"];
@@ -3087,6 +3251,7 @@ Demo:
 
 ***
 
+<a name="CABasicAnimation"></a>
 <h1 id="CABasicAnimation"> CABasicAnimation </h1>
 
 平移动画
@@ -3127,8 +3292,10 @@ Demo:
 
 ***
 
+<a name="多线程基础"></a>
 <h1 id="多线程基础"> 多线程基础 </h1>
 
+<a name="进程的基本概念"></a>
 <h2 id="进程的基本概念"> 进程的基本概念 </h2>
 
 - 每一个进程都是一个应用程序,都有独立的内存空间,一般来说一个应用程序存在
@@ -3136,6 +3303,7 @@ Demo:
 - 视图的操作一定 · 要主线程来完
 - 同一个进程中的线程共享内存中内存和资源成
 
+<a name="多线程的基本概念"></a>
 <h2 id="多线程的基本概念"> 多线程的基本概念 </h2>
 
 - 每一个程序都有一个主线程,程序启动时创建(调用main来启动)
@@ -3143,6 +3311,7 @@ Demo:
 - 多线程技术表示,一个应用程序有多个线程,使用多线程能提供CPU的使用率,防 止主线程堵塞
 - 任何有可能堵塞主线程的任务不要在主线程执行(访问网络)
 
+<a name="线程的创建与启动"></a>
 <h2 id="线程的创建与启动"> 线程的创建与启动 </h2>
 
 	// 1. 第一种开启新的线程调⽤mutableThread
@@ -3174,6 +3343,7 @@ Demo:
 	[self performSelectorOnMainThread:@selector(reloadData)
 	                      withObject:nil waitUntilDone:NO];
 
+<a name="NSThread的常用方法"></a>
 <h2 id="NSThread的常用方法"> NSThread的常用方法 </h2>
 
 	// 判断当前线程是否是多线程
@@ -3189,6 +3359,7 @@ Demo:
 	// 启动该线程
 	- (void)start
 
+<a name="GCD创建队列"></a>
 <h2 id="GCD创建队列"> GCD创建队列 </h2>
 
 	// 创建y一个队列
@@ -3202,6 +3373,7 @@ Demo:
 	    });
 	});
 
+<a name="子线程的内存管理"></a>
 <h2 id="子线程的内存管理"> 子线程的内存管理 </h2>
 
 	// 创建⼦子线程
@@ -3220,6 +3392,7 @@ Demo:
 	  [pool release];
 	}
 
+<a name="NSRunloop的基本概念"></a>
 <h2 id="NSRunloop的基本概念"> NSRunloop的基本概念 </h2>
 
 - Run loops 是线程相关的的基础框架的一部分
@@ -3227,6 +3400,7 @@ Demo:
 - 线程的生命周期存在五个状态:新建、就绪、运行、阻塞、死亡 
 - NSRunLoop可以保持一个线程一直为活动状态,不会马上销毁掉
 
+<a name="定时器在多线程的使用"></a>
 <h2 id="定时器在多线程的使用"> 定时器在多线程的使用 </h2>
 
 在多线程中使用定时器必须开启Runloop,因为只有开启Runloop保持线程为活动 状态,才能保持定时器能不断执行
@@ -3243,6 +3417,7 @@ Demo:
 	     [pool release];
 	}
 
+<a name="GCD"></a>
 <h1 id="GCD"> GCD </h1>
 
 - The main queue: 与主线程功能相同。实际上，提交至main queue的任务会在主线程中执行。
@@ -3293,12 +3468,15 @@ Demo:
 		});
 	}
 
+<a name="GCD执行类别"></a>
 <h2 id="GCD执行类别"> GCD执行类别 </h2>
 
 ***
 
+<a name="网络请求基础"></a>
 <h1 id="网络请求基础"> 网络请求基础 </h1>
 
+<a name="HTTP请求"></a>
 <h2 id="HTTP请求"> HTTP请求 </h2>
 
 	Http请求主要由两部分组成:http请求头、http请求体 ·POST请求才有请求体 ·请求的参数有两种形式:1.放在URL后面,2.放在请求体中
@@ -3312,6 +3490,7 @@ Demo:
 
 	HTTP请求体: userName=wxhl&password=wxhl2805
 
+<a name="HTTP响应"></a>
 <h2 id="HTTP响应"> HTTP响应 </h2>
 
 HTTP响应主要由两部分组成:响应头、响应内容 ·HTTP响应有个状态码,标示响应的结果,例如200表示成功,404未找到页面
@@ -3322,6 +3501,7 @@ HTTP响应主要由两部分组成:响应头、响应内容 ·HTTP响应有个�
 
 	HTTP响应体: {username:”wxhl”,success:true};
 
+<a name="访问网络的基本流程"></a>
 <h2 id="访问网络的基本流程"> 访问网络的基本流程 </h2>
 
 - 构造NSURL实例(地址)
@@ -3330,6 +3510,7 @@ HTTP响应主要由两部分组成:响应头、响应内容 ·HTTP响应有个�
 - 通过返回NSURLRespond实例和NSError实例分析结果
 - 接受返回数据
 
+<a name="NSURLRequest的使用"></a>
 <h2 id="NSURLRequest的使用"> NSURLRequest的使用 </h2>
 
 	NSURLRequest 包装了网络请求的信息。
@@ -3349,6 +3530,7 @@ HTTP响应主要由两部分组成:响应头、响应内容 ·HTTP响应有个�
 	// 设置请求头
 	[request setValue:@"tttt" forHTTPHeaderField:@"cookes"];
 
+<a name="同步请求用法"></a>
 <h2 id="同步请求用法"> 同步请求用法 </h2>
 
 	// 构造url
@@ -3363,6 +3545,7 @@ HTTP响应主要由两部分组成:响应头、响应内容 ·HTTP响应有个�
 	                                     encoding:NSUTF8StringEncoding];
 	self.resultText.text = dataString;
 
+<a name="异步请求用法"></a>
 <h2 id="异步请求用法"> 异步请求用法 </h2>
 
 - 第一种方式
@@ -3401,6 +3584,7 @@ HTTP响应主要由两部分组成:响应头、响应内容 ·HTTP响应有个�
 		   [pool release];
 		}
 
+<a name="xml和json的基本概念"></a>
 <h2 id="xml和json的基本概念"> xml和json的基本概念 </h2>
 
 - xml:可扩展标记语言,是一种数据交换格式,解析方式一般分为两种Dom和Sax 解析。
@@ -3408,6 +3592,7 @@ HTTP响应主要由两部分组成:响应头、响应内容 ·HTTP响应有个�
 - Sax解析:Sax采用逐步解析的方式,占用内存小,特点是方便、灵活,解析相对 麻烦
 - json:一种轻量级的数据交换格式,“{”表示一个字典的开始,“}”表示一个字典 的结束,“[”表示一个数组的开始,“]”表示一个数组的结束。
   
+<a name="解析的开源框架"></a>
 <h2 id="解析的开源框架"> 解析的开源框架 </h2>
 
 - XML Dom解析,GDataXMLNode,XMLDictionary等
@@ -3432,6 +3617,7 @@ XML 解析：
 	
 ***
 
+<a name="ASIHTTPRequest"></a>
 <h1 id="ASIHTTPRequest"> ASIHTTPRequest </h1>
 
 使用ASIHTTPRequest需要导入其依赖库：
