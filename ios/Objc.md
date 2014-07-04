@@ -63,7 +63,7 @@ ios开发相关知识整理
 	- [典型的单例写法](#典型的单例写法)
 	- [加锁的写法](#加锁的写法)
 	- [第一次实例化创建](#第一次实例化创建)
-	- [GCD写法](#gcd写法)
+	- [GCD写法](#GCD写法)
 	- [完整写法](#完整写法)
 - [文件管理器NSFileManager](#NSFileManager)
 - [文件句柄NSFileHandle](#NSFileHandle)
