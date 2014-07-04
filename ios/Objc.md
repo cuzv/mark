@@ -455,6 +455,7 @@ dealloc:
 - 不能使用NSAutoReleasePool、而需要@autoreleasepool块
 - 不能使用“new”开始的属性名称 （如果使用会有下面的编译错误”Property’s synthesized getter follows Cocoa naming convention for returning ‘owned’ objects”）
 
+<a name="ARC严格遵守OC内存管理的基本原则"></a>
 <h2 id="ARC严格遵守OC内存管理的基本原则"> ARC严格遵守OC内存管理的基本原则 </h2>
 
 - 自己生成的对象，那么既是其持有者
