@@ -7,6 +7,7 @@ mark tips, notes, faqs, techs, shares
 	- [APNS](./ios/APNS.md)
 	- [APNS](./ios/APNS-1.md)
 	- [Swift](./ios/Swift.md)
+	- [把「The Swift Programming Language」读薄 by hawstein](./ios/ReadSwiftThin.md)
 - linux
 	- [终端相关命令总结-荐](./linux/TerminalCommand.md)
 	- [LinuxCast.net学习笔记](./linux/LinuxCast.net/)
