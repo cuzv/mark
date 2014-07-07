@@ -13,6 +13,8 @@
 - [自动引用计数](#自动引用计数)
 - [扩展](#扩展)
 - [协议](#协议)
+- [幽灵一般的Optional](#幽灵一般的Optional)
+- [?和!的用法](#?和!的用法)
 
 ***
 
@@ -298,3 +300,153 @@ protocol SomeProtocol {
 - 协议类型作为函数、方法或构造器中的参数类型或返回值类型
 - 协议类型作为常量、变量或属性的类型
 - 协议类型作为数组、字典或其他容器中的元素类型
+
+## 幽灵一般的 Optional
+<a name="幽灵一般的Optional"></a>
+
+在声明时，我们可以通过在类型后面加一个`?`来将变量声明为`Optional`的。如果不是`Optional`的变量，那么它就必须有值。而如果没有值的话，我们使用`Optional`并且将它设置为`nil`来表示没有值
+
+```swift
+// num 不是一个 Int
+var num: Int?  
+// num 没有值
+num = nil  // nil  
+// num 有值
+num = 3    // {Some 3}
+```
+
+在声明类型时的这个`?`仅仅只是Apple为了简化写法而提供的一个语法糖。实际上我们是有 Optional 类型的声明，就这里的num为例，最正规的写法应该是这样的：
+
+```swift
+// 真 Optional 声明和使用
+var num: Optional<Int>  
+num = Optional<Int>()  
+num = Optional<Int>(3)
+
+`num`不是`Int`类型，它是一个`Optional`类型
+
+```swift
+enum Optional<T> : LogicValue, Reflectable {  
+    case None
+    case Some(T)
+    init()
+    init(_ some: T)
+
+    /// Allow use in a Boolean context.
+    func getLogicValue() -> Bool
+
+    /// Haskell's fmap, which was mis-named
+    func map<U>(f: (T) -> U) -> U?
+    func getMirror() -> Mirror
+}
+```
+
+`Optional`是一个泛型枚举enum，而其实我们在使用这个枚举时，如果没有值，我们就规定这个枚举的是.None，如果有，那么它就是Some(value)，而这个枚举又恰好实现了LogicValue 接口，这也就是为什么我们能使用 if 来对一个 Optinal的值进行判断并进一步进行 unwrap 的依据
+
+```swift
+var num: Optional<Int> = 3  
+if num {       //因为有 LogicValue，  
+               //.None 时 getLogicValue() 返回 false
+               //.Some 时返回 true
+   var realInt = num!
+   realInt     //3
+}
+```
+
+> 猫神叮嘱：Swift 里的 nil 和 objc 里的 nil 完全不是一回事儿。objc 的 nil 是一个实实在在的指针，它指向一个空的对象。而这里的 nil 虽然代表空，但它只是一个语意上的概念，确是有实际的类型的
+
+```swift
+// A null sentinel value.
+var nil: NilType { get } 
+```
+
+nil 其实只是 NilType 的一个变量，而且这个变量是一个 getter，nil 其实只是一个 null的标记值
+
+我们在声明或者赋值一个 Optional 的变量时，? 语法糖做的事情就是声明一个Optional<T>，然后查看等号右边是不是 nil 这个标记值。如果不是，则使用 init(_some: T) 用等号右边的类型 T 的值生成一个 .Some 枚举并赋值给这个 Optional变量；如果是 nil，将其赋为 None 枚举
+
+Apple 推荐我们在 unwrap 的时候使用一种所谓的隐式方法，即下面这种方式来 unwrap：
+
+```swift
+var num: Int? = 3  
+if let n = num {  
+    //have a num
+} else {
+    //no num
+}
+```
+
+这样隐式调用足够安全，性能上似乎应该也做优化，推荐在unwrap 的时候尽可能写这样的推断，而减少直接进行 unwrap 这种行为
+
+## `?`和`!`的用法
+<a name="?和!的用法"></a>
+
+- `?` 放在类型后面作为 Optional 类型的标记
+
+```swift
+var num: Int? = nil        //声明一个 Int 的 Optional，并将其设为啥都没有  
+var str: String? = "Hello" //声明一个 String 的 Optional，并给它一个字符串  
+```
+
+- `?` 放在某个 Optional 变量后面，表示对这个变量进行判断，并且隐式地 unwrap
+
+```swift
+foo?.somemethod()  
+```
+上面的写法等价于：
+
+```swift
+if let maybeFoo = foo {  
+    maybeFoo.somemethod()
+}
+```
+
+```swift
+if let upper = john.residence?.address?.buildingIdentifier()?.uppercaseString {  
+    println("John's uppercase building identifier is \(upper).")
+}
+```
+
+最后`buildingIdentifier`后面的问号是在`()`之后的，这代表了这个`Optional`的判断对象是`buildingIdentifier()`的返回值
+
+- `?` 放在某个 optional 的 protocol 方法的括号前面，以表示询问是否可以对该方法调用
+
+```swift
+delegate?.questionViewControllerDidGetResult?(self, result)  
+```
+
+在 Swift 中，默认的 potocol 类型是没有
+optional的方法的，声明一个带有可选方法的接口时，必须要在声明 protocol
+时再其前面加上 `@objc` 关键字，并在可选方法前面加上 `@optional`：
+
+```swift
+@objc protocol CounterDataSource {
+    @optional func optionalMethod() -> Int
+    func requiredMethod() -> Int
+    @optional var optionalGetter: Int { get }
+}
+```
+
+- `!` 放在 Optional 变量的后面，表示强制的 unwrap 转换：
+
+```swift
+foo!.somemethod()  
+```
+
+这将会使一个 Optional<T> 的量被转换为 T。但是需要特别注意，如果这个 Optional的量是 nil 的话，这种转换会在运行时让程序崩溃
+
+- `!` 放在类型后面，表示强制的隐式转换
+
+`?` 声明的是 Optional，而 `!` 其实声明的是一个 `ImplicitlyUnwrappedOptional` 类型
+
+```swift
+struct ImplicitlyUnwrappedOptional<T> : LogicValue, Reflectable {  
+    var value: T?
+    //...
+    static var None: T! { get }
+    static func Some(value: T) -> T!
+    //...
+}
+```
+
+Optional 需要我们手动进行进行 unwrap，而 `ImplicitlyUnwrappedOptional`则会在使用的时候自动地去unwrap，并对继续之后的操作调用，而不必去增加一次手动的显示/隐式操作
+
