@@ -322,6 +322,7 @@ num = 3    // {Some 3}
 var num: Optional<Int>  
 num = Optional<Int>()  
 num = Optional<Int>(3)
+```
 
 `num`不是`Int`类型，它是一个`Optional`类型
 
