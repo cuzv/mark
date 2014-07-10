@@ -16,8 +16,9 @@ mark tips, notes, faqs, techs, shares
 	- [vBird脚本](./linux/vBirdScript)
 	- [vim配置](./linux/vim)
 	- [CentOS搭建LAMP](./linux/InstallLampOnCentOS.md)
-	- [PPTP脚本](./linux/pptpd6.sh)
 	- [VPS搭建VPN](./linux/VPS搭建VPN.md)
+	- [PPTP脚本](./linux/pptpd6.sh)
+	- [福利吧VPN脚本](./linux/fulibafq.sh)
 - java
 	- [Java基础](./java/JavaBasicSegment.md)
 	- [Java集合框架](./java/JavaCollectionsFramework.md)
