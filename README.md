@@ -4,7 +4,7 @@ mark tips, notes, faqs, techs, shares
 
 - iOS
 	- [objc学习笔记汇总](./ios/Objc.md)
-	- [APNS](./ios/APNS.md)
+	- [Apple Push Notification Services Tutorial](./ios/APNS.md)
 	- [APNS](./ios/APNS-1.md)
 	- [Swift](./ios/Swift.md)
 	- [把「The Swift Programming Language」读薄 by hawstein](./ios/ReadSwiftThin.md)

@@ -1,34 +1,24 @@
 
-[Source](http://www.cnblogs.com/gpwzw/archive/2012/03/31/Apple_Push_Notification_Services_Tutorial_Part_1-2.html "Permalink to 苹果推送通知服务教程 Apple Push Notification Services Tutorial - 风雨雷电堂")
+[check Source](http://www.cnblogs.com/gpwzw/archive/2012/03/31/Apple_Push_Notification_Services_Tutorial_Part_1-2.html "Permalink to 苹果推送通知服务教程 Apple Push Notification Services Tutorial - 风雨雷电堂")
 
-# 苹果推送通知服务教程 Apple Push Notification Services Tutorial
+#  Apple Push Notification Services Tutorial
 
-本文译自http://www.raywenderlich.com/。原文由iOS教程团队 Matthijs Hollemans
-撰写(非本人翻译，只做存档)
+## 目录
 
-在iOS系统，考虑到手机电池电量，应用不允许在后台进行过多的操作，当用户未开启应用时，要怎么样才能通知用户呢？
+- [基本框架](#基本框架)
 
-好比用户收到一个新的微博、喜欢的球队取得一场胜利或者是晚餐准备好了，如果应用都不在运行当中，当然也就无法去获得这些事件。
+在iOS系统，考虑到手机电池电量，应用不允许在后台进行过多的操作，当用户未开启应用时，要怎么样才能通知用户呢？好比用户收到一个新的微博、喜欢的球队取得一场胜利或者是晚餐准备好了，如果应用都不在运行当中，当然也就无法去获得这些事件。
 
-幸运的是苹果提供一个解决方案，通过你自己的服务组件来替代应用持续地检查事件或在后台进行类似的操作，当事件实时发生时，服务组件能发送通知给应用，通过下列三种方式提醒用户：
+幸运的是苹果提供一个解决方案，通过你自己的服务组件来替代应用持续地检查事件或在后台进行类似的操作，当事件实时发生时，服务组件能发送通知给应用，通过下列三种方式提醒用户：显示简短的文本作息，播放提示音，在应用图标上显示数字提示（就是红色背景的那个）你可以把这三种方式随便地组合使用，比如播放声音并显示一个提示数字而已。
 
-显示简短的文本作息，播放提示音，在应用图标上显示数字提示（就是红色背景的那个）
-
-你可以把这三种方式随便地组合使用，比如播放声音并显示一个提示数字而已。
-
-在本教程中，你可以用APNS（Apple Push Notification Services）来开发一个简单的应用。
-
-我们先来学习一下在应用开发中如何设置接收推送通知，如何接收一条测试通知。
-
-本教程针对的是有一些经验的iOS开发者，初学者请在先选择一些初级教程：
+初学者请在先选择一些初级教程：
 
 目录：[raywenderlich.com/tutorials][1]
 
 特别是这两篇：
+
 - [How To Write A Simple PHP/MySQL Web Service for an iOS App](http://www.raywenderlich.com/2941/how-to-write-a-simple-phpmysql-web-service-for-an-ios-app)
 - [How To Write an iOS App That Uses A Web Service](http://www.raywenderlich.com/2965/how-to-write-an-ios-app-that-uses-a-web-service)
-
-准备好了吗，让我们开始吧：
 
 ## 基本框架
 
@@ -244,12 +234,12 @@ APNS需要认证证书！
 转换证书&nbsp;.cer 文件到 .pem 文件格式：
 
 
-    $ openssl x509 -in aps_developer_identity.cer -inform der&nbsp;-outPushChatCert.pem
+    $ openssl x509 -in aps_developer_identity.cer -inform der -out PushChatCert.pem
 
 转换私钥 .p12 文件 到 .pem 文件格式:
 
 
-    $ openssl pkcs12 -nocerts -outPushChatKey.pem -inPushChatKey.p12
+    $ openssl pkcs12 -nocerts -out PushChatKey.pem -in PushChatKey.p12
     EnterImportPassword:
     MAC verified OK
     Enter PEM pass phrase:Verifying-Enter PEM pass phrase:
@@ -326,8 +316,12 @@ APNS需要认证证书！
 完成新建项目的操作，打开PushChatAppDelegate.m，修改 didFinishLaunchingWithOptions 过程：
 
 
-    -(BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions
-    {self.window.rootViewController =self.viewController;[self.window makeKeyAndVisible];// 通知设备需要接收推送通知 Let the device know we want to receive push notifications[[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeAlert)];return YES;}
+    -(BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
+		self.window.rootViewController = self.viewController;[self.window makeKeyAndVisible];
+		// 通知设备需要接收推送通知 Let the device know we want to receive push notifications
+		[[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeAlert)];
+		return YES;
+	}
 
 调用registerForRemoteNotificationTypes 通知系统应用是需要接收推送信息的。
 
@@ -351,8 +345,11 @@ APNS需要认证证书！
 还有额外的一件事，为了发送信息到指定的手机，我们还需要一些操作：
 
 
-    -(void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
-    {NSLog(@"我的设备ID: %@", deviceToken);}-(void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
+    -(void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken {
+		NSLog(@"我的设备ID: %@", deviceToken);	
+	}
+	
+	-(void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
     {NSLog(@"注册失败，无法获取设备ID, 具体错误: %@", error);}
 
 当应用注册推送服务成功时，就可以获取用户设备识别ID（Token ID），这是对应你的设备一个32位的唯一编码，你可以理解为推送信息的地址。
@@ -417,7 +414,7 @@ PHP脚本具体的实现过程就不讨论了，有兴趣的或需要自行搭�
 译者：Cheney Lin, www.linchangyu.com, iOS开发爱好者。
 
 [1]: http://www.raywenderlich.com/tutorials
-[2]: http://d1xzuxjlafny7l.cloudfront.net/wp-content/uploads/2011/05/Push-Overview-467x500.jpg "Apple Push Notification Services (APNS) Overview"
+[2]: ./images/APNS_frame.jpg "Apple Push Notification Services (APNS) Overview"
 [3]: http://developer.apple.com/library/ios/#documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Introduction/Introduction.html
 [4]: http://d1xzuxjlafny7l.cloudfront.net/wp-content/uploads/2011/05/PushNotifWhy-250x187.jpg "Push Notifications Are Unreliable!"
 [5]: http://d1xzuxjlafny7l.cloudfront.net/wp-content/uploads/2011/05/RageFace-250x197.jpg "After looking at the APNS Server Bill"
