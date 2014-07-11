@@ -3,7 +3,8 @@
 
 # 苹果推送通知服务教程 Apple Push Notification Services Tutorial
 
-本文译自http://www.raywenderlich.com/。原文由iOS教程团队 Matthijs Hollemans 撰写，经原网站管理员授权本博翻译。
+本文译自http://www.raywenderlich.com/。原文由iOS教程团队 Matthijs Hollemans
+撰写(非本人翻译，只做存档)
 
 在iOS系统，考虑到手机电池电量，应用不允许在后台进行过多的操作，当用户未开启应用时，要怎么样才能通知用户呢？
 
