@@ -5,7 +5,7 @@ How to install phpmyadmin on centos 6
 
 Before you install phpMyAdmin confirm you got following things done:
 
-1. [Apache2 installation an configuration][1]
+1. [Apache2 installation and configuration][1]
 2. [Mysql installation][2]
 3. [PHP installation][3]
 4. [Testing all together][4]
