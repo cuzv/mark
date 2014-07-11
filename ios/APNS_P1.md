@@ -1,7 +1,7 @@
 
-[check Source](http://www.cnblogs.com/gpwzw/archive/2012/03/31/Apple_Push_Notification_Services_Tutorial_Part_1-2.html "Permalink to 苹果推送通知服务教程 Apple Push Notification Services Tutorial - 风雨雷电堂")
+[Check Source：风雨雷电堂](http://www.cnblogs.com/gpwzw/archive/2012/03/31/Apple_Push_Notification_Services_Tutorial_Part_1-2.html "Permalink to 苹果推送通知服务教程 Apple Push Notification Services Tutorial - 风雨雷电堂")
 
-#  Apple Push Notification Services Tutorial
+#  Apple Push Notification Services Tutorial Part 1
 
 ## 目录
 
@@ -319,3 +319,5 @@
 **注意**:如果应用在开启运行状态的话，你看不到任何信息，信息被直接发送给应用本身，但是我们还没有通过编程来处理收到的信息，不信你可以再试一下。
 
 如果PHP脚本退出并返回错误信息，请检查PEM文件是否正确、连接沙盒服务器是否正常
+
+[查看第二部分](./APNS_P2.md)
