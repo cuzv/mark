@@ -10,7 +10,7 @@
 - [推送通知格式](#推送通知格式)
 - [正式开始之前](#正式开始之前)
 - [配置文件和证书](#配置文件和证书)
-- [准备证书申请文件](#准备证书申请文件)
+- [准备证书申请文件](#CertificateSigningRequest)
 - [准备应用ID（App ID）和SSL证书](#appid_ssl)
 - [制作PEM文件](#制作PEM文件)
 - [准备配置文件](#准备配置文件)
@@ -85,8 +85,8 @@
 - 开发（Development）.对应着你开发测试时用的应用配置文件
 - 发布（Production）.对应着你正式发布时用的应用配置文件
 
-<a name="准备证书申请文件"></a>
-## 准备证书申请文件（Certificate Signing Request&nbsp）
+<a name="CertificateSigningRequest"></a>
+## 准备证书申请文件（Certificate Signing Request）
 
 数字证书基于公私钥加密方式，数字证书总是和个人私钥文件合并使用。证书是公钥的部分，用于建立基于SSL的加密网络连接，并不需要高强度的保密，而私钥不同，这是"私的"，你需要好好地保存。
 
@@ -218,7 +218,7 @@
 
 开发者门户上的操作还没有完，点击左项菜单上的「Provisioning」，点击「New Profile」新建一个配置文件。
 
-![Creating a Provisioning Profile in the iOS Provisioning Portal](./images/Provisioning.jpeg)
+![Creating a Provisioning Profile in the iOS Provisioning Portal](./images/APNS_Provisioning.jpeg)
 
 填入如下内容：
 
