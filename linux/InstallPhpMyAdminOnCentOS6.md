@@ -10,10 +10,10 @@ Before you install phpMyAdmin confirm you got following things done:
 3. [PHP installation][3]
 4. [Testing all together][4]
 
-[1](http://www.krizna.com/centos/installing-apache2-mysql-server-php-centos-6-lamp/#apache)
-[2](http://www.krizna.com/centos/installing-apache2-mysql-server-php-centos-6-lamp/#mysql)
-[3](http://www.krizna.com/centos/installing-apache2-mysql-server-php-centos-6-lamp/#php)
-[4](http://www.krizna.com/centos/installing-apache2-mysql-server-php-centos-6-lamp/#testing)
+[1]: http://www.krizna.com/centos/installing-apache2-mysql-server-php-centos-6-lamp/#apache
+[2]: http://www.krizna.com/centos/installing-apache2-mysql-server-php-centos-6-lamp/#mysql
+[3]: http://www.krizna.com/centos/installing-apache2-mysql-server-php-centos-6-lamp/#php
+[4]: http://www.krizna.com/centos/installing-apache2-mysql-server-php-centos-6-lamp/#testing
 
 PhpMyadmin installation on Centos 6:
 
