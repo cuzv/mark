@@ -21,7 +21,7 @@ mark tips, notes, faqs, techs, shares
 	- [CentOS how to](http://www.krizna.com/centos/)
 	- [CentOS搭建LAMP](./linux/InstallLampOnCentOS.md)
 	- [CentOS搭建LAMP](./linux/InstallLampOnCentOS6.md)
-	- [CentOS安装phpMyAdmin](./linux/InstallPhpMyAdmin.md)
+	- [CentOS安装phpMyAdmin](./linux/InstallPhpMyAdminOnCentOS6.md)
 - java
 	- [Java基础](./java/JavaBasicSegment.md)
 	- [Java集合框架](./java/JavaCollectionsFramework.md)
