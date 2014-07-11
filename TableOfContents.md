@@ -4,7 +4,7 @@ mark tips, notes, faqs, techs, shares
 
 - iOS
 	- [objc学习笔记汇总](./ios/Objc.md)
-	- [APNS](./ios/APNS.md)
+	- [Apple Push Notification Services Tutorial](./ios/APNS.md)
 	- [APNS](./ios/APNS-1.md)
 	- [Swift](./ios/Swift.md)
 	- [把「The Swift Programming Language」读薄 by hawstein](./ios/ReadSwiftThin.md)
@@ -15,9 +15,14 @@ mark tips, notes, faqs, techs, shares
 	- [RHCE学习笔记](./linux/RHCE)
 	- [vBird脚本](./linux/vBirdScript)
 	- [vim配置](./linux/vim)
-	- [CentOS搭建LAMP](./linux/InstallLampOnCentOS.md)
-	- [PPTP脚本](./linux/pptpd6.sh)
 	- [VPS搭建VPN](./linux/VPS搭建VPN.md)
+	- [PPTP脚本](./linux/ShellScript/pptpd6.sh)
+	- [福利吧VPN脚本](./linux/ShellScript/fulibafq.sh)
+	- [VPN路由转发规则](./linux/chnroutes.md)
+	- [CentOS how to](http://www.krizna.com/centos/)
+	- [CentOS搭建LAMP](./linux/InstallLampOnCentOS.md)
+	- [CentOS搭建LAMP](./linux/InstallLampOnCentOS6.md)
+	- [CentOS安装phpMyAdmin](./linux/InstallPhpMyAdminOnCentOS6.md)
 - java
 	- [Java基础](./java/JavaBasicSegment.md)
 	- [Java集合框架](./java/JavaCollectionsFramework.md)
