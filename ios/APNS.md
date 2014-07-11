@@ -1,7 +1,7 @@
 
 [Check Source：风雨雷电堂](http://www.cnblogs.com/gpwzw/archive/2012/03/31/Apple_Push_Notification_Services_Tutorial_Part_1-2.html "Permalink to 苹果推送通知服务教程 Apple Push Notification Services Tutorial - 风雨雷电堂")
 
-#  Apple Push Notification Services Tutorial Part 1
+#  Apple Push Notification Services Tutorial
 
 ## 目录
 
@@ -320,4 +320,6 @@
 
 如果PHP脚本退出并返回错误信息，请检查PEM文件是否正确、连接沙盒服务器是否正常
 
-[查看第二部分](./APNS_P2.md)
+[查看第二部分](http://www.raywenderlich.com/32963/apple-push-notification-services-in-ios-6-tutorial-part-2)
+[中文翻译part1](http://www.tairan.com/archives/281)
+[中文翻译part2](http://www.tairan.com/archives/240)
