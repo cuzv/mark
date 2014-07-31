@@ -3,11 +3,12 @@
 mark tips, notes, faqs, techs, shares
 
 - iOS
-	- [objc学习笔记汇总](./ios/Objc.md)
-	- [Apple Push Notification Services Tutorial](./ios/APNS.md)
-	- [APNS](./ios/APNS-1.md)
-	- [Swift](./ios/Swift.md)
-	- [把「The Swift Programming Language」读薄 by hawstein](./ios/ReadSwiftThin.md)
+	- [objc学习笔记汇总](./iOS/Objc.md)
+	- [iOS想法与实现](./iOS/IssuesAndSolutions.md)
+	- [Apple Push Notification Services Tutorial](./iOS/APNS.md)
+	- [APNS](./iOS/APNS-1.md)
+	- [Swift](./iOS/Swift.md)
+	- [把「The Swift Programming Language」读薄 by hawstein](./iOS/ReadSwiftThin.md)
 - linux
 	- [终端相关命令总结-荐](./linux/TerminalCommand.md)
 	- [LinuxCast.net学习笔记](./linux/LinuxCast.net/)
