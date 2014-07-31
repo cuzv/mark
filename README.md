@@ -4,7 +4,7 @@ mark tips, notes, faqs, techs, shares
 
 - iOS
 	- [objc学习笔记汇总](./iOS/Objc.md)
-	- [iOS想法与实现](./iOS/IssuesAndSolutions.md)
+	- [iOS Code Slices](./iOS/slices.md)
 	- [Apple Push Notification Services Tutorial](./iOS/APNS.md)
 	- [APNS](./iOS/APNS-1.md)
 	- [Swift](./iOS/Swift.md)
