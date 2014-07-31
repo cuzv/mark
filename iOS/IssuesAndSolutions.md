@@ -1,6 +1,6 @@
 # Issues & Solutinos
 
-[让Category支持添加属性与成员变量](#让-category-支持添加属性与成员变量)
+[让Category支持添加属性与成员变量](#让category支持添加属性与成员变量)
 
 ## 让Category支持添加属性与成员变量
 
