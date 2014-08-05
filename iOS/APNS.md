@@ -34,7 +34,7 @@
 
 要让苹果推送通知服务正常工作，涉及很多方面，下图是一个基本框架：
 
-![Apple Push Notification Services \(APNS\) Overview](./images/APNS_frame.jpg "APNS Overview")
+![Apple Push Notification Services \(APNS\) Overview](./APNS.img/APNS_frame.jpg "APNS Overview")
 
 1. 应用启用推送通知功能，需要用户确认
 2. 应用收到设备识别ID（device token），相当于接收推送通知的地址
@@ -78,7 +78,7 @@
 
 ## 配置文件和证书
 
-![APNS needs a certificate!](./images/APNS_certificate.jpeg)
+![APNS needs a certificate!](./APNS.img/APNS_certificate.jpeg)
 
 应用配置文件分为开发和发布两种类型，推送配置文件也有两种：
 
@@ -94,13 +94,13 @@
 
 在你的MAC电脑上的「应用程序/实用工具」下打开"钥匙串访问"程序（Applications/Utilities/Keychain Access），在「Keychain Access/Certificate Assistant」菜单中选择「Request a Certificate from a Certificate Authority…」
 
-![Requesting a certificate with Keychain Access](./images/APNS_certSigningRequest.jpeg)
+![Requesting a certificate with Keychain Access](./APNS.img/APNS_certSigningRequest.jpeg)
 
 如果你没有找到这个菜单项或是提示"Request a Certificate from a Certificate Authority with key"，你还需要额外在开发者门户里下载并安装[WWDR Intermediate Certificate](https://developer.apple.com/certificationauthority/AppleWWDRCA.cer)
 
 确认没有选中窗口列表中的任何私钥，你应该可以看到以下窗口：
 
-![Generating a certificate sign request with Keychain Access](./images/APNS_confirm_information.jpeg)
+![Generating a certificate sign request with Keychain Access](./APNS.img/APNS_confirm_information.jpeg)
 
 输入你的邮件地址，虽然有人建议说最好是跟开发资格的用户一致，但是看起来不一样也没有关系。
 
@@ -110,7 +110,7 @@
 
 现在你在"钥匙串访问"程序中Keys分类下应该可以找到一个新的私钥项目，右击并选择Export。
 
-![Exporting your private key with keychain access](./images/APNS_export_cert.jpeg)
+![Exporting your private key with keychain access](./APNS.img/APNS_export_cert.jpeg)
 
 将私钥保存为文件，保存时会提示你输入口令，命名为"PushChatKey.p12"。
 
@@ -125,7 +125,7 @@
 
 在左项菜单中选择APP IDs，点击按钮【New App ID】。
 
-![Creating a new App ID](./images/APNS_new_appid.jpeg)
+![Creating a new App ID](./APNS.img/APNS_new_appid.jpeg)
 
 填写如下：
 
@@ -139,27 +139,27 @@
 
 填写完毕，你应该可以看到下列信息：
 
-![List of App IDs in the iOS Provisioning Portal](./images/APNS_Configurable.jpeg)
+![List of App IDs in the iOS Provisioning Portal](./APNS.img/APNS_Configurable.jpeg)
 
 在「Apple Push Notification service」列，有两行有橙色小圆点起始的信息：「Configurable for Development」 和「Configurable for Production」 这就意味着这个应用ID已经准备好了，接下来设置相关的选项。点击「Configure」链接
 
-![Configuring your App ID in the iOS Provisioning Portal](./images/APNS_Configure.jpeg)
+![Configuring your App ID in the iOS Provisioning Portal](./APNS.img/APNS_Configure.jpeg)
 
 点选「Enable for Apple Push Notification service」框，点击对应「Development Push SSL Certificate」的设置按钮「Configure」，弹出 苹果推送服务SSL证书助理（Apple Push Notification service SSL Certificate Assistant）窗口 :
 
-![Uploading your CSR with the SSL Assistant](./images/APNS_Assistant.jpeg)
+![Uploading your CSR with the SSL Assistant](./APNS.img/APNS_Assistant.jpeg)
 
 首先提示你准备好证书签名申请文件，我们上面已经准备好了，点击继续，在下一步中进行上传CSR文件的操作，选中之前生成的CSR文件然后点击生成（Generate）。
 
-![Generating a Certificate with the SSL Assistant](./images/APNS_ Generate.jpeg)
+![Generating a Certificate with the SSL Assistant](./APNS.img/APNS_ Generate.jpeg)
 
 生成证书需要几秒钟，接着点继续按钮（Continue）
 
-![Downloading a certificate with the SSL assistant](./images/APNS_ Continue.jpeg)
+![Downloading a certificate with the SSL assistant](./APNS.img/APNS_ Continue.jpeg)
 
 下载生成的证书并保存为"aps_developer_identity.cer"。点击完成按钮（Done）关闭助理窗口返回APP ID界面。
 
-![Screenshot after the SSL Assistant is Complete](./images/APNS_done.jpeg))
+![Screenshot after the SSL Assistant is Complete](./APNS.img/APNS_done.jpeg))
 
 已经激活开发用的证书认证，如果需要你可以在这里重新下载证书，开发证书的有效期为3个月。要正式发布你的应用的时候，必须在发布认证那一项目下把这个过程重新来一遍。
 
@@ -218,7 +218,7 @@
 
 开发者门户上的操作还没有完，点击左项菜单上的「Provisioning」，点击「New Profile」新建一个配置文件。
 
-![Creating a Provisioning Profile in the iOS Provisioning Portal](./images/APNS_Provisioning.jpeg)
+![Creating a Provisioning Profile in the iOS Provisioning Portal](./APNS.img/APNS_Provisioning.jpeg)
 
 填入如下内容：
 
@@ -233,7 +233,7 @@
 
 打开你的XCode，选择「File」「New Project」，选择「View-based Application」点击继续：
 
-![Creating a View-Based Application with Xcode 4](./images/APNS_new_proj.jpeg)
+![Creating a View-Based Application with Xcode 4](./APNS.img/APNS_new_proj.jpeg)
 
 填入以下内容：
 
@@ -258,15 +258,15 @@
 
 在你的设备上编译运行应用，模拟器是不支持推送信息的。XCode应该会自动选择配置文件，如果出现签名错误，你需要在`Code Signing build settings`手动选择之前下载的配置文件。应用启动时会注册推送通知服务，弹出下面的确认窗口提示用户允许此应用接收推送通知服务
 
-![A Simple iPhone App Requesting Permission to Deliver Notifications](./images/APNS_ registerForRemoteNotification.jpeg)
+![A Simple iPhone App Requesting Permission to Deliver Notifications](./APNS.img/APNS_ registerForRemoteNotification.jpeg)
 
 应用只会提示询问一次，如果用户选择接受，设备就一切就绪了。如果用户选择了拒绝，应用将永远无法接收到信息，用户可以在设备的设置项目中修改此项设定。
 
-![Viewing Push Notification Permissions in iPhone Settings](./images/APNS_ changeForRemoteNotification.jpeg)
+![Viewing Push Notification Permissions in iPhone Settings](./APNS.img/APNS_ changeForRemoteNotification.jpeg)
 
 应用的名称将会添加到设置程序中的通知项目下，用户可以方便地在这里开启或关闭或自定义接收信息的种类和方式
 
-![A single app's Push Notification Settings](./images/APNS_ registerForRemoteNotificationTypes.jpeg)
+![A single app's Push Notification Settings](./APNS.img/APNS_ registerForRemoteNotificationTypes.jpeg)
 
 应用也可以通过程序来激活具体的提示方式：
 
@@ -314,7 +314,7 @@
 
 几秒钟内，你应该可以在设备上收到推送的信息了。
 
-![Simple app receiving a Push Notification](./images/APNS_ simplepush.jpeg)
+![Simple app receiving a Push Notification](./APNS.img/APNS_ simplepush.jpeg)
 
 **注意**:如果应用在开启运行状态的话，你看不到任何信息，信息被直接发送给应用本身，但是我们还没有通过编程来处理收到的信息，不信你可以再试一下。
 
