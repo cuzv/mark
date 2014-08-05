@@ -1,4 +1,4 @@
-OS Realization
+# iOS Realization
 
 - [转换对象](#转换对象)
 - [让Category支持添加属性与成员变量](#让category支持添加属性与成员变量)
@@ -43,8 +43,7 @@ OS Realization
 
 - (instancetype)initWithProperties:(NSDictionary *)properties {
     if (self = [self init]) {
-        [properties enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL
-*stop) {
+        [properties enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
             if ([obj isKindOfClass:[NSNull class]]) {
                 obj = @"";
             }
@@ -63,8 +62,7 @@ OS Realization
 - (NSMutableArray *)properties {
     NSMutableArray *propertyArray = [[NSMutableArray alloc] init];
     u_int count;
-    objc_property_t *propertyList = class_copyPropertyList([self class],
-&count);
+    objc_property_t *propertyList = class_copyPropertyList([self class], &count);
     for (int i = 0; i < count; i++) {
         const char *propertyName = property_getName(propertyList[i]);
         NSString *stringName = [NSString  stringWithCString:propertyName
@@ -80,8 +78,7 @@ OS Realization
 + (NSMutableArray *)properties {
     NSMutableArray *propertyArray = [[NSMutableArray alloc] init];
     u_int count;
-    objc_property_t *propertyList = class_copyPropertyList([self class],
-&count);
+    objc_property_t *propertyList = class_copyPropertyList([self class], &count);
     for (int i = 0; i < count; i++) {
         const char *propertyName = property_getName(propertyList[i]);
         NSString *stringName = [NSString  stringWithCString:propertyName
@@ -99,8 +96,7 @@ OS Realization
     // 获取本类属性列表字符串数组
     NSMutableArray *propertyArray = [self properties];
     
-    [propertyArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL
-*stop) {
+    [propertyArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [dict setObject:[self valueForKey:obj] forKey:obj];
     }];
     
@@ -111,10 +107,8 @@ OS Realization
     NSMutableString *desc = [[NSMutableString alloc] init];
     
     NSMutableArray *propertyArray = [self properties];
-    [propertyArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL
-*stop) {
-        NSString *string = [NSString stringWithFormat:@"%@ = %@, ", obj, [self
-valueForKey:obj]];
+    [propertyArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        NSString *string = [NSString stringWithFormat:@"%@ = %@, ", obj, [self valueForKey:obj]];
         [desc appendString:string];
     }];
     
@@ -338,8 +332,7 @@ OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (void)setMidX:(CGFloat)x {
-    self.frame = CGRectMake(x - self.width / 2, self.minY, self.width,
-self.height);
+    self.frame = CGRectMake(x - self.width / 2, self.minY, self.width, self.height);
 }
 
 - (CGFloat)midX {
@@ -363,8 +356,7 @@ self.height);
 }
 
 - (void)setMidY:(CGFloat)y {
-    self.frame = CGRectMake(self.minX, y - self.height / 2, self.width,
-self.height);
+    self.frame = CGRectMake(self.minX, y - self.height / 2, self.width, self.height);
 }
 
 - (CGFloat)midY {
@@ -372,8 +364,7 @@ self.height);
 }
 
 - (void)setMaxY:(CGFloat)y {
-    self.frame = CGRectMake(self.minX, y - self.height, self.width,
-self.height);
+    self.frame = CGRectMake(self.minX, y - self.height, self.width, self.height);
 }
 
 - (CGFloat)maxY {
@@ -411,8 +402,7 @@ typedef enum {
 
 @interface UIView (BorderLine)
 - (void)setBorderLineColor:(UIColor *)aColor;
-- (void)setBorderLineColor:(UIColor *)aColor
-  edgeOrientation:(CHEdgeOrientation)orientation;
+- (void)setBorderLineColor:(UIColor *)aColor edgeOrientation:(CHEdgeOrientation)orientation;
 @end
 ```
 
@@ -477,8 +467,7 @@ typedef enum {
 
 - (UIViewController *)viewController {
     /// Finds the view's view controller.
-    // Traverse responder chain. Return first found view controller, which will
-    // be the view's view controller.
+    // Traverse responder chain. Return first found view controller, which will be the view's view controller.
     UIResponder *responder = self;
     while ((responder = [responder nextResponder]))
         if ([responder isKindOfClass: [UIViewController class]])
@@ -506,21 +495,17 @@ typedef enum {
 
 // 提示信息，自动消失
 + (void)toastMessage:(NSString *)theMessage {
-    UIFont *theFont = [UIFont
-preferredFontForTextStyle:UIFontTextStyleFootnote];
-    CGSize boundingRectSize = CGSizeMake(CGRectGetWidth([[UIScreen mainScreen]
-bounds]) - 80, CGRectGetHeight([[UIScreen mainScreen] bounds]));
+    UIFont *theFont = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
+    CGSize boundingRectSize = CGSizeMake(CGRectGetWidth([[UIScreen mainScreen] bounds]) - 80, CGRectGetHeight([[UIScreen mainScreen] bounds]));
     CGSize size = [theMessage boundingRectWithSize:boundingRectSize
-                                           options:NSStringDrawingTruncatesLastVisibleLine
-| NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin
+                                           options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin
                                         attributes:@{NSFontAttributeName:theFont}
                                            context:nil].size;
     
     PaddingLabel *toastLabel = [[PaddingLabel alloc] init];
     toastLabel.bounds = CGRectMake(0, 0, size.width + 20, size.height + 20);
     CGRect bounds = [[UIScreen mainScreen] bounds];
-    toastLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0
-alpha:0.7];
+    toastLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
     toastLabel.textColor = [UIColor whiteColor];
     toastLabel.textAlignment = NSTextAlignmentCenter;
     toastLabel.numberOfLines = 0;
@@ -530,20 +515,16 @@ alpha:0.7];
     toastLabel.text = theMessage;
     
     // 实现可以让toast显示在键盘上方
-    [[[[UIApplication sharedApplication] windows] lastObject]
-addSubview:toastLabel];
+    [[[[UIApplication sharedApplication] windows] lastObject] addSubview:toastLabel];
     
-    toastLabel.center = CGPointMake(bounds.size.width / 2 , bounds.size.height *
-2);
+    toastLabel.center = CGPointMake(bounds.size.width / 2 , bounds.size.height * 2);
     [UIView animateWithDuration:0.5
                           delay:0
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                          toastLabel.center = CGPointMake(bounds.size.width / 2 ,
                                                          CGRectGetMaxY(toastLabel.superview.frame)
-                                                         - 100 -
-                                                           CGRectGetHeight(toastLabel.bounds)
-/ 2);
+                                                         - 100 - CGRectGetHeight(toastLabel.bounds) / 2);
                      }
                      completion:^(BOOL finished) {
                          [UIView animateWithDuration:0.5
@@ -569,16 +550,14 @@ addSubview:toastLabel];
 @property (nonatomic, assign) NSUInteger unreadNumber;
 
 - (instancetype)initWithOrigin:(CGPoint)origin;
-- (instancetype)initWithOrigin:(CGPoint)origin
-  unreadNumber:(NSUInteger)unreadNumber;
+- (instancetype)initWithOrigin:(CGPoint)origin unreadNumber:(NSUInteger)unreadNumber;
 
 @end
 ```
 
 ```objective-c
 #import "UIView+Accessor.h"
-#define RGBColor(r,g,b,a) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f
-blue:(b)/255.0f alpha:(a)]
+#define RGBColor(r,g,b,a) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:(a)]
 #define CHFont [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote]
 
 @interface BadgeView ()
@@ -591,8 +570,7 @@ blue:(b)/255.0f alpha:(a)]
     return [self initWithFrame:CGRectMake(origin.x, origin.y, 0, 0)];
 }
 
-- (instancetype)initWithOrigin:(CGPoint)origin
-  unreadNumber:(NSUInteger)unreadNumber {
+- (instancetype)initWithOrigin:(CGPoint)origin unreadNumber:(NSUInteger)unreadNumber {
     if (self = [self initWithOrigin:origin]) {
         [self setUnreadNumber:unreadNumber];
     }
@@ -615,11 +593,9 @@ blue:(b)/255.0f alpha:(a)]
 
 - (void)setUnreadNumber:(NSUInteger)unreadNumber {
     _unreadNumber = unreadNumber;
-    NSString *unreadStr = _unreadNumber > 99 ? [NSString
-stringWithFormat:@"99+"] : [NSString stringWithFormat:@"%d", _unreadNumber];
+    NSString *unreadStr = _unreadNumber > 99 ? [NSString stringWithFormat:@"99+"] : [NSString stringWithFormat:@"%d", _unreadNumber];
     self.width = [unreadStr boundingRectWithSize:CGSizeMake(MAXFLOAT, 20)
-                                           options:NSStringDrawingTruncatesLastVisibleLine
-| NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin
+                                           options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin
                                         attributes:@{NSFontAttributeName:CHFont}
                                            context:nil].size.width + 4;
     self.width = self.width < 20 ? 20 : self.width;
@@ -633,11 +609,9 @@ stringWithFormat:@"99+"] : [NSString stringWithFormat:@"%d", _unreadNumber];
 }
 
 - (void)drawRect:(CGRect)rect {
-    NSString *unreadStr = _unreadNumber > 99 ? [NSString
-stringWithFormat:@"99+"] : [NSString stringWithFormat:@"%d",_unreadNumber];
+    NSString *unreadStr = _unreadNumber > 99 ? [NSString stringWithFormat:@"99+"] : [NSString stringWithFormat:@"%d",_unreadNumber];
     _badgeLabel.text = unreadStr;
-    self.layer.cornerRadius = self.width > self.height + 5 ? self.width / 3 :
-self.width / 2;
+    self.layer.cornerRadius = self.width > self.height + 5 ? self.width / 3 : self.width / 2;
     [_badgeLabel drawTextInRect:self.bounds];
 }
 
@@ -689,8 +663,7 @@ self.width / 2;
         _placeHolderLabel = placeHolderLabel;
         _placeHolderLabel.textColor = [UIColor lightGrayColor];
         _placeHolderLabel.text = _placeHolderLabel.text ? : @"请输入内容";
-        _placeHolderLabel.font = [UIFont
-preferredFontForTextStyle:UIFontTextStyleBody];
+        _placeHolderLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     }
 }
 
@@ -711,22 +684,19 @@ preferredFontForTextStyle:UIFontTextStyleBody];
     }
 }
 
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range
-  replacementText:(NSString *)text {
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if (NSMaxRange(range) + text.length > self.maxCount){
         return NO;
     }
     if (text.length > 0) {
         if(self.countLabel.text.intValue > 0) {
-            self.countLabel.text = [NSString
-stringWithFormat:@"%d",self.maxCount - (NSMaxRange(range) + text.length)];
+            self.countLabel.text = [NSString stringWithFormat:@"%d",self.maxCount - (NSMaxRange(range) + text.length)];
             if(textView.text.length == self.maxCount - 1) {
                 textView.text = [textView.text stringByAppendingString:text];
             }
         }
     } else {
-        self.countLabel.text = [NSString stringWithFormat:@"%d",self.maxCount -
-(textView.text.length - range.length)];
+        self.countLabel.text = [NSString stringWithFormat:@"%d",self.maxCount - (textView.text.length - range.length)];
     }
 
     if (self.countLabel && self.countLabel.text.intValue <= 0) {
@@ -737,24 +707,19 @@ stringWithFormat:@"%d",self.maxCount - (NSMaxRange(range) + text.length)];
 
 #pragma mark - text field delegate
 
-- (BOOL)textField:(UITextField *)textField
-  shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString
-*)string {
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     if (NSMaxRange(range)+string.length > self.maxCount) {
         return NO;
     }
     if (string.length > 0) {
         if(self.countLabel.text.intValue > 0) {
-            self.countLabel.text = [NSString
-stringWithFormat:@"%d",self.maxCount - (NSMaxRange(range) + string.length)];
+            self.countLabel.text = [NSString stringWithFormat:@"%d",self.maxCount - (NSMaxRange(range) + string.length)];
             if(textField.text.length == self.maxCount - 1) {
-                textField.text = [textField.text
-stringByAppendingString:string];
+                textField.text = [textField.text stringByAppendingString:string];
             }
         }
     } else {
-        self.countLabel.text = [NSString stringWithFormat:@"%d",self.maxCount -
-(textField.text.length - range.length)];
+        self.countLabel.text = [NSString stringWithFormat:@"%d",self.maxCount - (textField.text.length - range.length)];
     }
     if (self.countLabel.text.intValue <= 0) {
         return NO;
@@ -773,15 +738,13 @@ stringByAppendingString:string];
     _textConfigure.maxCount = 20;
     
     // text view
-    UILabel *placeHolderLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0,
-120, 30)];
+    UILabel *placeHolderLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 120, 30)];
     [_textView addSubview:placeHolderLabel];
     _textConfigure.placeHolderLabel = placeHolderLabel;
     _textView.delegate = _textConfigure;
 
     // text field
-    UILabel *countLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 20,
-40)];
+    UILabel *countLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 20, 40)];
     _textField.rightView = countLabel;
     _textField.rightViewMode = UITextFieldViewModeWhileEditing;
     _textConfigure.countLabel = countLabel;
@@ -793,8 +756,7 @@ stringByAppendingString:string];
 覆盖以下方法：
 
 ```objective-c
-- (BOOL)canPerformAction:(SEL)action withSender:(id)sender NS_AVAILABLE_IOS(3_0)
-  {
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender NS_AVAILABLE_IOS(3_0) {
     return NO;
 }
 
