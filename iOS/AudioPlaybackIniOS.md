@@ -14,3 +14,15 @@ Note in read [「Audio Playback in iOS」](http://msching.github.io/blog/2014/07
 
 ![](./AudioPlaybackIniOS.img/api-architectural-layers.png)
 
+高层接口进行功能说明
+
+- Audio File Services：读写音频数据，可以完成播放流程中的第2步；
+- Audio File Stream Services：对音频进行解码，可以完成播放流程中的第2步；
+- Audio Converter services：音频数据转换，可以完成播放流程中的第3步；
+- Audio Processing Graph Services：音效处理模块，可以完成播放流程中的第4步；
+- Audio Unit Services：播放音频数据：可以完成播放流程中的第5步、第6步；
+- Extended Audio File Services：Audio File Services和Audio Converter services的结合体；
+- AVAudioPlayer/AVPlayer(AVFoundation)：高级接口，可以完成整个音频播放的过程（包括本地文件和网络流播放，第4步除外）；
+- Audio Queue Services：高级接口，可以进行录音和播放，可以完成播放流程中的第3、5、6步；
+- OpenAL：用于游戏音频播放，暂不讨论
+
