@@ -7,7 +7,8 @@ mark tips, notes, faqs, techs, shares
 	- [iOS Realization](./iOS/Realization.md)
 	- [Apple Push Notification Services Tutorial](./iOS/APNS.md)
 	- [APNS](./iOS/APNS-1.md)
-	- [Swift](./iOS/Swift.md)
+	- [Swift Issues](./iOS/SwiftIssues.md)
+	- [Swift Programming Language Noteworthy](./iOS/SwiftProgrammingLanguageNoteworthy.md)
 	- [把「The Swift Programming Language」读薄 by hawstein](./iOS/ReadSwiftThin.md)
 - linux
 	- [终端相关命令总结-荐](./linux/TerminalCommand.md)
@@ -27,7 +28,7 @@ mark tips, notes, faqs, techs, shares
 - java
 	- [Java基础](./java/JavaBasicSegment.md)
 	- [Java集合框架](./java/JavaCollectionsFramework.md)
-	- [Java IO](./java/JavaIOmd)
+	- [Java IO](./java/JavaIO.md)
 	- [Java 网络、正则、反射、类加载器](./java/JavaNet-RegularExpression-Reflector-ClassLoader.md)
 - php
 	- [php.ini](./php/php.ini)
