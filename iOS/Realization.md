@@ -631,6 +631,8 @@ typedef enum {
 ```
 
 ```objective-c
+@implementation TextConfigure
+
 - (instancetype)init
 {
     self = [super init];
@@ -667,7 +669,45 @@ typedef enum {
     }
 }
 
+- (void)textDidChange:(NSNotification *)notification {
+    NSUInteger length;
+    if ([notification.object isKindOfClass:[UITextView class]]) {
+        UITextView *textView = (UITextView *)notification.object;
+        length = textView.text.length;
+    } else if ([notification.object isKindOfClass:[UITextField class]]) {
+        UITextField *textField = (UITextField *)notification.object;
+        length = textField.text.length;
+    }
+    _countLabel.text = [NSString stringWithFormat:@"%d", self.maxCount - length];
+}
+
+- (void)initialNotificationForObject:(id)object {
+    static dispatch_once_t onceToken;
+    if ([object isKindOfClass:[UITextView class]]) {
+        UITextView *textView = (UITextView *)object;
+        dispatch_once(&onceToken, ^{
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(textDidChange:)
+                                                         name:UITextViewTextDidChangeNotification
+                                                       object:textView];
+        });
+    } else if ([object isKindOfClass:[UITextField class]]) {
+        UITextField *textField = (UITextField *)object;
+        dispatch_once(&onceToken, ^{
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(textDidChange:)
+                                                         name:UITextFieldTextDidChangeNotification
+                                                       object:textField];
+        });
+    }
+}
+
 #pragma mark - text view delegate
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+    [self initialNotificationForObject:textView];
+    return YES;
+}
 
 - (void)textViewDidChange:(UITextView *)textView {
     if (textView.text.length) {
@@ -676,7 +716,6 @@ typedef enum {
         [self.placeHolderLabel setHidden:NO];
     }
 }
-
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
     if(textView.text.length < 1) {
@@ -707,6 +746,11 @@ typedef enum {
 
 #pragma mark - text field delegate
 
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    [self initialNotificationForObject:textField];
+    return YES;
+}
+
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     if (NSMaxRange(range)+string.length > self.maxCount) {
         return NO;
@@ -727,6 +771,8 @@ typedef enum {
     
     return YES;
 }
+
+@end
 ```
 
 ### usage
