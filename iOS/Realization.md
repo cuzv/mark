@@ -13,6 +13,8 @@
 - [徽标效果](#徽标效果)
 - [统计并限制输入长度](#统计并限制输入长度)
 - [禁用粘贴功能](#禁用粘贴功能)
+- [判断键盘是否已经升起](#判断键盘是否已经升起)
+- [GCD Timer](#cgd-timer)
 
 ## 转换对象
 
@@ -806,4 +808,60 @@ typedef enum {
     return NO;
 }
 
+```
+
+## 判断键盘是否已经升起
+
+```objective-c
+- (BOOL)isKeyboardOnScreen {
+    BOOL isKeyboardShown = NO;
+    
+    NSArray *windows = [UIApplication sharedApplication].windows;
+    if (windows.count > 1) {
+        NSArray *wSubviews =  [windows[1]  subviews];
+        if (wSubviews.count) {
+            CGRect keyboardFrame = [wSubviews[0] frame];
+            CGRect screenFrame = [windows[1] frame];
+            if (keyboardFrame.origin.y+keyboardFrame.size.height == screenFrame.size.height) {
+                isKeyboardShown = YES;
+            }
+        }
+    }
+    
+    return isKeyboardShown;
+}
+
++(BOOL) isKeyBoardInDisplay {
+    BOOL isExists = NO;
+    for (UIWindow *keyboardWindow in [[UIApplication sharedApplication] windows])   {
+        if ([[keyboardWindow description] hasPrefix:@"<UITextEffectsWindow"] == YES) {
+            isExists = YES;
+        }
+    }
+    
+    return isExists;
+}
+```
+
+## GCD Timer
+
+```objective-c
+    __block int completeness = 0;
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+    dispatch_source_set_timer(timer, dispatch_walltime(NULL, 0), 0.3 * NSEC_PER_SEC / 18, 0);
+    dispatch_source_set_event_handler(timer, ^{
+        if (completeness != 100) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.view updateDownloadingHUDProgress:completeness];
+            });
+            completeness++;
+        } else {
+            dispatch_source_cancel(timer);
+        }
+    });
+    dispatch_source_set_cancel_handler(timer, ^{
+//        dispatch_release(timer);
+    });
+    dispatch_resume(timer);
 ```
