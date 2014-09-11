@@ -92,11 +92,11 @@
     // userDefinedColorName is nil, so colorNameToUse is set to the default of "red"
     ```
     
-4. The closed range operator `(a...b)` defines a range that runs from a to b, and includes the values a and b. The value of a must not be greater than b. The half-open range operator `(a..<b)` defines a range that runs from a to b, but does not include b. It is said to be half-open because it contains its first value, but not its final value. As with the closed range operator, the value of a must not be greater than b.    
+4. The closed range operator (`a...b`) defines a range that runs from a to b, and includes the values a and b. The value of a must not be greater than b. The half-open range operator (`a..<b`) defines a range that runs from a to b, but does not include b. It is said to be half-open because it contains its first value, but not its final value. As with the closed range operator, the value of a must not be greater than b.    
 
 ## Strings and Characters
 
-1. Swift approach is different from string mutation in Objective-C and Cocoa, where you choose between two classes (NSString and NSMutableString) to indicate whether a string can be mutated.
+1. Swift approach is different from string mutation in Objective-C and Cocoa, where you choose between two classes (`NSString` and `NSMutableString`) to indicate whether a string can be mutated.
 
     ```Swift
     var variableString = "Horse"
@@ -116,9 +116,9 @@
     
 3. If you are working with particularly long string values, be aware that the `countElements` function must iterate over the Unicode scalars in the entire string in order to calculate an accurate character count for that string.
 
-    Note also that the character count returned by `countElements` is not always the same as the `length` property of an `NSString` that contains the same characters. The length of an `NSString` is based on the number of 16-bit code units  within the string’s UTF-16 representation and not the number of Unicode extended grapheme clusters within the           string. To reflect this fact, the `length` property from `NSString` is called `utf16Count` when it is accessed on a     Swift String value.
+    Note also that the character count returned by `countElements` is not always the same as the `length` property of an `NSString` that contains the same characters. The length of an `NSString` is based on the number of 16-bit code units  within the string’s UTF-16 representation and not the number of Unicode extended grapheme clusters within the string. To reflect this fact, the `length` property from `NSString` is called `utf16Count` when it is accessed on a Swift String value.
     
-4. String and character equality is checked with the “equal to” operator `(==)` and the “not equal to” operator `(!=)`
+4. String and character equality is checked with the “equal to” operator (`==`) and the “not equal to” operator (`!=`)
 
 5. About unicode
     
@@ -174,7 +174,7 @@
         println("Item \(index + 1): \(value)")
     }
     ```
-4. You can create a new array by adding together two existing arrays of compatible type with the addition operator (+)
+4. You can create a new array by adding together two existing arrays of compatible type with the addition operator (`+`)
 
     ```Swift
     var threeDoubles = [Double](count: 3, repeatedValue: 0.0)
@@ -200,7 +200,7 @@
     namesOfIntegers[16] = "sixteen"
     namesOfIntegers = [:]
     ```
-9. You can use your own custom types as dictionary key types by making them conform to the Hashable protocol from Swift’s standard library. Types that conform to the Hashable protocol must provide a gettable Int property called hashValue, and must also provide an implementation of the “is equal” operator (==). The value returned by a type’s hashValue property is not required to be the same across different executions of the same program, or in different programs.
+9. You can use your own custom types as dictionary key types by making them conform to the `Hashable` protocol from Swift’s standard library. Types that conform to the Hashable protocol must provide a gettable Int property called `hashValue`, and must also provide an implementation of the “is equal” operator (`==`). The value returned by a type’s `hashValue` property is not required to be the same across different executions of the same program, or in different programs.
 
 ## Control Flow
 
