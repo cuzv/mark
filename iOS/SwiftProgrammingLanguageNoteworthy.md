@@ -4,6 +4,7 @@
 - [Basic Operators](#basic-operators)
 - [Strings and Characters](#strings-and-characters)
 - [Collection Types](#collection-types)
+- [Control Flow](#control-flow)
 
 ## The Basics
 
@@ -70,6 +71,7 @@
         println(assumedString)
     }
     ```
+    
 ## Basic Operators
 
 1. Unlike the remainder operator in C and Objective-C, Swift’s remainder operator can also operate on floating-point numbers:
@@ -105,6 +107,7 @@
     constantString += " and another Highlander"
     // this reports a compile-time error - a constant string cannot be modified
     ```
+    
 2. Swift’s `String` type is a value type. If you create a new `String` value, that `String` value is copied when it is passed to a function or method, or when it is assigned to a constant or variable. In each case, a new copy of the existing String value is created, and the new copy is passed or assigned, not the original version.
     
     > This behavior differs from that of `NSString` in Cocoa. When you create an `NSString` instance in Cocoa, and pass it to a function or method or assign it to a variable, you are always passing or assigning a reference to the same      single `NSString`. No copying of the string takes place, unless you specifically request it.
@@ -142,11 +145,62 @@
 
 1. Swift arrays are specific about the kinds of values they can store. They differ from Objective-C’s `NSArray` and `NSMutableArray` classes, which can store any kind of object and do not provide any information about the nature of the objects they return. Swift arrays are type safe, and are always clear about what they may contain.
 
-2. Define an array
+2. How to define an array
 
     ```Swift
     var normalArry: Array<Int> = [2, 3, 5]
     var shorthandArray:[Int] = [2, 4, 6] // this is preferred
     
     var shoppingList = ["Eggs", "Milk"]
+    
+    var someInts = [Int]()
+    
+    var threeDoubles = [Double](count: 3, repeatedValue: 0.0)
+    
+    var anotherThreeDoubles = [Double](count: 3, repeatedValue: 2.5)
+    // anotherThreeDoubles is inferred as [Double], and equals [2.5, 2.5, 2.5]
+    var sixDoubles = threeDoubles + anotherThreeDoubles
+    // sixDoubles is inferred as [Double], and equals [0.0, 0.0, 0.0, 2.5, 2.5, 2.5]
     ```
+    
+3. Iterating Over an Array
+
+    ```Swift
+    for item in shoppingList {
+        println(item)
+    }
+    
+    for (index, value) in enumerate(shoppingList) {
+        println("Item \(index + 1): \(value)")
+    }
+    ```
+4. You can create a new array by adding together two existing arrays of compatible type with the addition operator (+)
+
+    ```Swift
+    var threeDoubles = [Double](count: 3, repeatedValue: 0.0)
+    var anotherThreeDoubles = [Double](count: 3, repeatedValue: 2.5)
+    var sixDoubles = threeDoubles + anotherThreeDoubles
+    ```    
+    
+5. Swift dictionaries are specific about the types of keys and values they can store. They differ from Objective-C’s `NSDictionary` and `NSMutableDictionary` classes, which can use any kind of object as their keys and values and do not provide any information about the nature of those objects. In Swift, the type of keys and values that a particular dictionary can store is always made clear, either through an explicit type annotation or through type inference.
+
+6. How to define a dictionary
+
+    ```Swift
+    var dictionary: Dictionary<String, String>
+    var anotherDictionary: [String: String] // this is preferred
+    ```
+    
+7. As an alternative to subscripting, use a dictionary’s `updateValue(forKey:)` method to set or update the value for a particular key. Unlike a subscript, however, the `updateValue(forKey:)` method returns the old value after performing an update. This enables you to check whether or not an update took place.
+
+8. Creating an Empty Dictionary
+
+    ```Swift
+    var namesOfIntegers = [Int: String]()
+    namesOfIntegers[16] = "sixteen"
+    namesOfIntegers = [:]
+    ```
+9. You can use your own custom types as dictionary key types by making them conform to the Hashable protocol from Swift’s standard library. Types that conform to the Hashable protocol must provide a gettable Int property called hashValue, and must also provide an implementation of the “is equal” operator (==). The value returned by a type’s hashValue property is not required to be the same across different executions of the same program, or in different programs.
+
+## Control Flow
+
