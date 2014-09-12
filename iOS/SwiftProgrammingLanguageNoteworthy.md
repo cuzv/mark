@@ -5,6 +5,7 @@
 - [Strings and Characters](#strings-and-characters)
 - [Collection Types](#collection-types)
 - [Control Flow](#control-flow)
+- [Functions](#functions)
 
 ## The Basics
 
@@ -204,3 +205,323 @@
 
 ## Control Flow
 
+1. Items in a `Dictionary` may not necessarily be iterated in the same order as they were inserted. The contents of a `Dictionary` are inherently unordered, and iterating over them does not guarantee the order in which they will be retrieved. 
+
+2. In addition to arrays and dictionaries, you can also use the `for-in` loop to iterate over the `Character` values in a string
+
+    ```Swift
+    for character in "helloc" {
+        println(character)
+    }
+    ```
+3. the `if` statement has a single `if` condition. It executes a set of statements only if that condition is `true`
+
+4. `switch` statements in Swift do not fall through the bottom of each case and into the next one by default. Instead, the entire `switch` statement finishes its execution as soon as the first matching `switch` case is completed, without requiring an explicit break statement. 
+
+    The body of each case must contain at least one executable statement. It is not valid to write the following code, because the first case is empty:
+
+    ```Swift
+    let anotherCharacter: Character = "a"
+    switch anotherCharacter {
+    case "a":
+    case "A":
+        println("The letter A")
+    default:
+        println("Not the letter A")
+    }
+    // this will report a compile-time error
+```
+
+    Unlike a `switch` statement in C, this `switch` statement does not match both `"a"` and `"A"`. Rather, it reports a compile-time error that `case "a"`: does not contain any executable statements. This approach avoids accidental fallthrough from one case to another, and makes for safer code that is clearer in its intent.
+
+    > To opt in to fallthrough behavior for a particular switch case, use the fallthrough keyword
+
+5. Values in `switch` cases can be checked for their inclusion in a range.
+
+6. A `switch` case can use a `where` clause to check for additional conditions.
+
+    ```Swift
+    let yetAnotherPoint = (1, -1)
+    switch yetAnotherPoint {
+    case let (x, y) where x == y:
+        println("(\(x), \(y)) is on the line x == y")
+    case let (x, y) where x == -y:
+        println("(\(x), \(y)) is on the line x == -y")
+    case let (x, y):
+        println("(\(x), \(y)) is just some arbitrary point")
+    }
+    // prints "(1, -1) is on the line x == -y"
+    ```
+7. When used inside a `switch` statement, `break` causes the `switch` statement to end its execution immediately, and to transfer control to the first line of code after the `switch` statement’s closing brace (`}`).
+
+8. Fallthrough
+
+    ```Swift
+    let integerToDescribe = 5
+    var description = "The number \(integerToDescribe) is"
+    switch integerToDescribe {
+    case 2, 3, 5, 7, 11, 13, 17, 19:
+        description += " a prime number, and also"
+        fallthrough
+    default:
+        description += " an integer."
+    }
+    println(description)
+    // prints "The number 5 is a prime number, and also an integer."
+```
+9. A labeled statement is indicated by placing a label on the same line as the statement’s introducer keyword, followed by a colon. Here’s an example of this syntax for a `while` loop, although the principle is the same for all loops and `switch` statements
+
+    ```Swift
+    <#labelName#>: while <#condition#> {
+        <#statements#>
+    }
+    ```
+
+## Functions
+
+1. You can use a tuple type as the return type for a function to return multiple values as part of one compound return value.
+
+    ```Swift
+    func minMax(array: [Int]) -> (min: Int, max: Int) {
+        var currentMin = array[0]
+        var currentMax = array[0]
+        
+        for value in array[1 ..< array.count] {
+            if value < currentMin {
+                currentMin = value
+            } else if value > currentMax {
+                currentMax = value
+            }
+        }
+        
+        return (currentMin, currentMax)
+    }
+    
+    func minAndMax(array: Array<Int>) -> (min: Int?, max: Int?) {
+        var currentMin = array.first
+        var currentMax = array.first
+        
+        for value in array[1 ..< array.count] {
+            if value < currentMin {
+                currentMin = value
+            } else if value > currentMax {
+                currentMax = value
+            }
+        }
+        
+        return (currentMin, currentMax)
+    }
+    
+    let bounds = minMax([8, -6, 2, 109, 3, 71])
+    println("min is \(bounds.min) and max is \(bounds.max)")
+    ```
+    
+2. An optional tuple type such as `(Int, Int)?` is different from a tuple that contains optional types such as `(Int?, Int?)`. With an optional tuple type, the entire tuple is optional, not just each individual value within the tuple.
+
+    ```Swift
+    func minMax(array: [Int]) -> (min: Int, max: Int)? {
+        if array.isEmpty { return nil }
+        var currentMin = array[0]
+        var currentMax = array[0]
+        for value in array[1..<array.count] {
+            if value < currentMin {
+                currentMin = value
+            } else if value > currentMax {
+                currentMax = value
+            }
+        }
+        return (currentMin, currentMax)
+    }
+    ```
+    
+3. External Parameter Names
+
+    ```Swift
+    func someFunction(externalParameterName localParameterName: Int) {
+        // function body goes here, and can use localParameterName
+        // to refer to the argument value for that parameter
+    }
+    ```
+    > If you provide an external parameter name for a parameter, that external name must always be used when you call the function.
+
+4. You can define a default value for any parameter as part of a function’s definition. If a default value is defined, you can omit that parameter when calling the function.
+
+    > Place parameters with default values at the end of a function’s parameter list. This ensures that all calls to the function use the same order for their non-default arguments, and makes it clear that the same function is being called in each case.
+
+    ```Swift
+    func join(string s1: String, toString s2: String,
+        withJoiner joiner: String = " ") -> String {
+            return s1 + joiner + s2
+    }
+    
+    join(string: "hello", toString: "world", withJoiner: "-")
+    join(string: "Hello", toString: "World")
+    ```
+
+5.  Swift provides an automatic external name for any parameter that has a default value. The automatic external name is the same as the local name, as if you had written a hash symbol before the local name in your code.
+
+6. Variadic Parameters
+
+    ```Swift
+    func arithmeticMean(numbers: Double...) -> Double {
+        var total: Double = 0
+        for number in numbers {
+            total += number
+        }
+        
+        return total
+    }
+    
+    arithmeticMean(1, 2, 3, 4, 5)
+    // returns 3.0, which is the arithmetic mean of these five numbers
+    arithmeticMean(3, 8.25, 18.75)
+    // returns 10.0, which is the arithmetic mean of these three numbers
+    ```
+
+    > A function may have at most one variadic parameter, and it must always appear last in the parameter list, to avoid ambiguity when calling the function with multiple parameters.
+
+    > If your function has one or more parameters with a default value, and also has a variadic parameter, place the variadic parameter after all the defaulted parameters at the very end of the list.
+
+7. Function parameters are constants by default. Define variable parameters by prefixing the parameter name with the keyword `var`
+
+    ```Swift
+    func alignRight(var string: String, count: Int, pad: Character) -> String {
+        let amountToPad = count - countElements(string)
+        if  amountToPad < 1 {
+            return string
+        }
+       
+        let padString = String(pad)
+        for _ in 1...amountToPad {
+            string = padString + string
+        }
+        
+        return string
+    }
+
+    let originalString = "hello"
+    let paddedString = alignRight(originalString, 10, "-")
+    // paddedString is equal to "-----hello"
+    // originalString is still equal to "hello"
+    ```
+    
+8. Variable parameters, as described above, can only be changed within the function itself. If you want a function to modify a parameter’s value, and you want those changes to persist after the function call has ended, define that parameter as an *in-out parameter* instead.
+
+    You write an in-out parameter by placing the inout keyword at the start of its parameter definition. An `in-out` parameter has a value that is passed in to the function, is modified by the function, and is passed back out of the function to replace the original value.
+
+    You can only pass a variable as the argument for an in-out parameter. You cannot pass a constant or a literal value as the argument, because constants and literals cannot be modified. You place an ampersand (`&`) directly before a variable’s name when you pass it as an argument to an inout parameter, to indicate that it can be modified by the function.
+
+    > `In-out` parameters cannot have default values, and variadic parameters cannot be marked as inout. If you mark a parameter as `inout`, it cannot also be marked as `var` or `let`.
+
+    ```Swift
+    func swapTwoInts(inout a: Int, inout b: Int) {
+        let temporaryA = a
+        a = b
+        b = temporaryA
+    }
+    
+    var a = 23, b = 108
+    swap(&a, &b)
+    a // 108
+    b // 23
+    ```
+
+9. Every function has a specific *function type*, made up of the parameter types and the return type of the function.
+
+    ```Swift
+    func addTwoInts(a: Int, b: Int) -> Int {
+        return a + b
+    }
+    func multiplyTwoInts(a: Int, b: Int) -> Int {
+        return a * b
+    }   
+    ```
+    
+    The type of both of these functions is `(Int, Int) -> Int`. This can be read as:
+
+    “A function type that has two parameters, both of type Int, and that returns a value of type Int.”
+
+    ```Swift
+    func printHelloWorld() {
+        println("hello, world")
+    }
+    ```
+
+    The type of this function is `() -> ()`, or “a function that has no parameters, and returns Void.” Functions that don’t specify a return value always return `Void`,  **which is equivalent to an empty tuple in Swift, shown as `()`**.
+
+10. Function Types as Parameter Types
+
+    ```Swift
+        func addTwoInts(#anInt: Int, #anotherInt: Int ) -> Int {
+        return anInt + anotherInt
+    }
+    
+    func printMathResult(#mathFunction: (Int, Int) -> Int, #firstParameter: Int, #secondParameter: Int) {
+        println("Result: \(mathFunction(firstParameter, secondParameter))")
+    }
+    
+    printMathResult(mathFunction: addTwoInts, firstParameter: 3, secondParameter: 4)
+    // "Result: 7"
+    
+    // closures
+    printMathResult(mathFunction: { (a, b) -> Int in
+        return a + b
+        }, firstParameter: 3, secondParameter: 5)
+    // "Result: 8"
+    ```
+    
+11. Function Types as Return Types
+
+    ```Swift
+    func stepForward(input: Int) -> Int {
+        return input + 1
+    }
+    
+    func stepBackward(input: Int) -> Int {
+        return input - 1
+    }
+    
+    func chooseStepFunction(backwards: Bool) -> (Int) -> Int {
+        return backwards ? stepBackward : stepForward
+    }
+    
+    var currentValue = 3
+    let moveNearerToZero = chooseStepFunction(currentValue > 0)
+    
+    println("Counting to zero:")
+    
+    while currentValue != 0 {
+        println("\(currentValue)...")
+        currentValue = moveNearerToZero(currentValue)
+    }
+    
+    println(currentValue)
+    // 3...
+    // 2...
+    // 1...
+    // zero!
+    ```
+    
+12. Nested Functions
+
+    ```Swift
+    func chooseStepFunction(backwards: Bool) -> (Int) -> Int {
+        func stepForward(input: Int) -> Int { return input + 1 }
+        func stepBackward(input: Int) -> Int { return input - 1 }
+        return backwards ? stepBackward : stepForward
+    }
+    var currentValue = -4
+    let moveNearerToZero = chooseStepFunction(currentValue > 0)
+    // moveNearerToZero now refers to the nested stepForward() function
+    while currentValue != 0 {
+        println("\(currentValue)... ")
+        currentValue = moveNearerToZero(currentValue)
+    }
+    println("zero!")
+    // -4...
+    // -3...
+    // -2...
+    // -1...
+    // zero!
+    ```
+    
