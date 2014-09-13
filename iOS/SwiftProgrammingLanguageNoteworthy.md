@@ -6,6 +6,13 @@
 - [Collection Types](#collection-types)
 - [Control Flow](#control-flow)
 - [Functions](#functions)
+- [Closures](#closures)
+- [Enumerations](#enumerations)
+- [Classes and Structures](#classes-and-structures)
+- [Properties](#properties)
+- [Methods](#methods)
+- [Subscripts](#subscripts)
+- [Inheritance](#inheritance)
 
 ## The Basics
 
@@ -525,3 +532,543 @@
     // zero!
     ```
     
+## Closures
+
+1. Closure Expression Syntax
+
+    ```Swift
+        { (<#parameters#>) -> <#return type#> in
+            <#statements#>
+        }
+    ```
+
+2. Inferring
+
+    ```Swift
+    reversed = sorted(names, { (s1: String, s2: String) -> Bool in return s1 > s2 } )
+    reversed = sorted(names, { s1, s2 in return s1 > s2 } )
+    ```
+    Single-expression closures can implicitly return the result of their single expression by omitting the `return` keyword from their declaration, as in this version of the previous example:
+
+    ```Swift
+    reversed = sorted(names, { s1, s2 in s1 > s2 } )
+    ```
+    
+    Swift automatically provides shorthand argument names to inline closures, which can be used to refer to the values of the closure’s arguments by the names `$0`, `$1`, `$2`, and so on.
+
+    ```Swift
+    reversed = sorted(names, { $0 > $1 } )
+    ```
+    There’s actually an even shorter way to write the closure expression above
+    
+    ```Swift
+    reversed = sorted(names, >)
+    ```
+
+3. Trailing Closures
+
+    ```Swift
+    func someFunctionTahtTakesAClosure(closure: () -> ()) {
+        // function body goes here
+    }
+    
+    // here's how you call this function without using a trailing closure
+    someFunctionTahtTakesAClosure { () -> () in
+        // closure's body goes here
+    }
+    
+    // here's how you call this function with a trailing closure instead
+    someFunctionTahtTakesAClosure() {
+    }
+    
+    // or like this
+    someFunctionTahtTakesAClosure {
+    }
+    ```
+
+    > If a closure expression is provided as the function’s only argument and you provide that expression as a trailing closure, you do not need to write a pair of parentheses` () `after the function’s name when you call the function.
+
+    ```Swift
+    let digitNames = [
+        0: "Zero", 1: "One", 2: "Two", 3: "Three", 4: "Four",
+        5: "Five", 6: "Six", 7: "Seven", 8: "Eight", 9: "Nine"
+    ]
+    
+    let numbers = [16, 58, 510]
+    let strings = numbers.map {
+        (var number) -> String in
+        var output = ""
+        while number > 0 {
+            output = digitNames[number % 10]! + output
+            number /= 10
+        }
+    
+        return output
+    }
+    strings
+    ```
+
+4. Capturing Values
+
+    A closure can capture constants and variables from the surrounding context in which it is defined. The closure can then refer to and modify the values of those constants and variables from within its body, even if the original scope that defined the constants and variables no longer exists.
+
+    The simplest form of a closure in Swift is a nested function, written within the body of another function. A nested function can capture any of its outer function’s arguments and can also capture any constants and variables defined within the outer function.
+
+    ```Swift
+    func makeIncrementor(forIncrement amount: Int) -> () -> Int {
+        var runningTotal = 0
+        
+        func incrementor() -> Int {
+            runningTotal += amount
+            return runningTotal
+        }
+        
+        return incrementor
+    }
+    ```
+    
+    > Swift determines what should be captured by reference and what should be copied by value. You don’t need to annotate `amount` or `runningTotal` to say that they can be used within the nested `incrementor` function. Swift also handles all memory management involved in disposing of `runningTotal` when it is no longer needed by the `incrementor` function.
+
+    ```Swift
+    let incrementByTen = makeIncrementor(forIncrement: 10)
+    incrementByTen() // 10
+    incrementByTen() // 20
+    
+    let incrementBySeven = makeIncrementor(forIncrement: 7)
+    incrementBySeven() // 7
+    
+    incrementByTen() // 30
+    ```
+
+    > If you assign a closure to a property of a class instance, and the closure captures that instance by referring to the instance or its members, you will create a strong reference cycle between the closure and the instance. Swift uses *capture lists* to break these strong reference cycles. 
+
+5. Closures Are Reference Types
+    
+    In the example above, ` incrementBySeven` and `incrementByTen` are constants, but the closures these constants refer to are still able to increment the `runningTotal` variables that they have captured. This is because functions and closures are reference types.
+
+    Whenever you assign a function or a closure to a constant or a variable, you are actually setting that constant or variable to be a reference to the function or closure. In the example above, it is the choice of closure that `incrementByTen` *refers* to that is constant, and not the contents of the closure itself.
+
+## Enumerations
+
+1. If you are familiar with C, you will know that C enumerations assign related names to a set of integer values. Enumerations in Swift are much more flexible, and do not have to provide a value for each member of the enumeration. If a value (known as a “raw” value) is provided for each enumeration member, the value can be a string, a character, or a value of any integer or floating-point type.
+
+    Enumerations in Swift are first-class types in their own right. They adopt many features traditionally supported only by classes, such as computed properties to provide additional information about the enumeration’s current value, and instance methods to provide functionality related to the values the enumeration represents. Enumerations can also define initializers to provide an initial member value; can be extended to expand their functionality beyond their original implementation; and can conform to protocols to provide standard functionality.
+
+2. Enumeration Syntax
+
+    ```Swift
+    enum CompassPoint {
+        case North
+        case South
+        case East
+        case West
+    }
+    ```
+
+    The `case` keyword indicates that a new line of member values is about to be defined.
+
+    > Unlike C and Objective-C, Swift enumeration members are not assigned a default integer value when they are created. In the `CompassPoint` example above, `North`, `South`, `East` and `West` do not implicitly equal `0`, `1`, `2` and `3`. Instead, the different enumeration members are fully-fledged values in their own right, with an explicitly-defined type of `CompassPoint`.
+
+    Multiple member values can appear on a single line, separated by commas
+
+    ```Swift
+    enum Planet {
+        case Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune
+    }
+    ```
+
+3. Associated Values
+
+    ```Swift
+    enum Barcode {
+        case UPCA(Int, Int, Int, Int)
+        case QRCode(String)
+    }
+    
+    var productBarcode = Barcode.UPCA(8, 85909, 51226, 3)
+    productBarcode = .QRCode("ABCDEFGHIJKLMNOP")
+    
+    switch productBarcode {
+    case let .UPCA(numberSystem, manufacturer, product, check):
+        println("UPC-A: \(numberSystem), \(manufacturer), \(product), \(check).")
+    case let .QRCode(productCode):
+        println("QR code: \(productCode).")
+    }
+    // prints "QR code: ABCDEFGHIJKLMNOP."
+    ```
+
+4. Raw Values
+
+    Raw values can be strings, characters, or any of the integer or floating-point number types. Each raw value must be unique within its enumeration declaration. When integers are used for raw values, they auto-increment if no value is specified for some of the enumeration members.
+
+    ```Swift
+    enum Planet: Int {
+        case Mercury = 1, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune
+    }
+    ```
+
+    Access the raw value of an enumeration member with its `toRaw` method
+
+    ```Swift
+    let earthsOrder = Planett.Earth.toRaw()
+    // earthsOrder is 3
+    ```
+
+    Use an enumeration’s fromRaw method to try to find an enumeration member with a particular raw value. This example identifies Uranus from its raw value of 7
+
+    ```Swift
+    let possiblePlant = Planett.fromRaw(7)
+    // possiblePlanet is of type Planet? and equals Planet.Uranus
+    ```
+
+## Classes and Structures
+
+1. Comparing Classes and Structures
+
+    Classes and structures in Swift have many things in common. Both can:
+    
+    - Define properties to store values
+    - Define methods to provide functionality
+    - Define subscripts to provide access to their values using subscript syntax
+    - Define initializers to set up their initial state
+    - Be extended to expand their functionality beyond a default implementation
+    - Conform to protocols to provide standard functionality of a certain kind
+
+    Classes have additional capabilities that structures do not:
+
+    - Inheritance enables one class to inherit the characteristics of another.
+    - Type casting enables you to check and interpret the type of a class instance at runtime.
+    - Deinitializers enable an instance of a class to free up any resources it has assigned.
+    - Reference counting allows more than one reference to a class instance.
+
+    > Structures are always copied when they are passed around in your code, and do not use reference counting.
+
+2. Unlike Objective-C, Swift enables you to set sub-properties of a structure property directly.
+
+3. All structures have an automatically-generated memberwise initializer, which you can use to initialize the member properties of new structure instances. Initial values for the properties of the new instance can be passed to the memberwise initializer by name:
+
+    ```Swift
+    struct Resolution {
+        var width = 0
+        var height = 0
+    }
+    
+    let vga = Resolution(width: 640, height: 480)
+    ```
+
+    Unlike structures, class instances do not receive a default memberwise initializer
+
+4. Structures and Enumerations Are Value Types
+
+     A value type is a type whose value is copied when it is assigned to a variable or constant, or when it is passed to a function.
+
+    **In fact, all of the basic types in Swift—integers, floating-point numbers, Booleans, strings, arrays and dictionaries—are value types, and are implemented as structures behind the scenes.**
+
+    ```Swift
+    let hd = Resolution(width: 1920, height: 1080)
+    
+    var cinema = hd
+    
+    cinema.width = 2048
+    println("cinema is now \(cinema.width) pixels wide")
+    // prints "cinema is now 2048 pixels wide"
+    
+    println("hd is still \(hd.width) pixels wide")
+    // prints "hd is still 1920 pixels wide"
+    ```
+    The same behavior applies to enumerations
+
+5. Classes Are Reference Types
+
+    Unlike value types, *reference types* are *not copied* when they are assigned to a variable or constant, or when they are passed to a function. Rather than a copy, a reference to the same existing instance is used instead.
+
+    ```Swift
+    et tenEighty = VideoMode()
+    tenEighty.resolution = hd
+    tenEighty.interlaced = true
+    tenEighty.name = "1080i"
+    tenEighty.frameRate = 25.0
+    
+    let alsoTenEigthy = tenEighty
+    alsoTenEigthy.frameRate = 30.0
+    
+    println("The frameReate property of tenEighty is now \(tenEighty.frameRate)")
+    
+    // prints "The frameRate property of tenEighty is now 30.0"
+    ```
+
+6. Identity Operators
+
+    Because classes are reference types, it is possible for multiple constants and variables to refer to the same single instance of a class behind the scenes. 
+
+    It can sometimes be useful to *find out if two constants or variables refer to exactly the same instance of a class*. To enable this, Swift provides two identity operators:
+
+    - Identical to (`===`)
+    - Not identical to (`!==`)
+
+    Note that “identical to” (represented by three equals signs, or ===) does not mean the same thing as “equal to” (represented by two equals signs, or ==):
+
+    - “Identical to” means that two constants or variables of class type refer to exactly the same class instance.
+    - “Equal to” means that two instances are considered “equal” or “equivalent” in value, for some appropriate meaning of “equal”, as defined by the type’s designer.
+
+7. Choosing Between Classes and Structures
+
+    As a general guideline, consider creating a structure when one or more of these conditions apply:
+    - The structure’s primary purpose is to encapsulate a few relatively simple data values.
+    - It is reasonable to expect that the encapsulated values will be copied rather than referenced when you assign or pass around an instance of that structure.
+    - Any properties stored by the structure are themselves value types, which would also be expected to be copied rather than referenced.
+    - The structure does not need to inherit properties or behavior from another existing type.
+
+    Examples of good candidates for structures include:
+
+    - The size of a geometric shape, perhaps encapsulating a width property and a height property, both of type Double.
+    - A way to refer to ranges within a series, perhaps encapsulating a start property and a length property, both of type Int.
+    - A point in a 3D coordinate system, perhaps encapsulating x, y and z properties, each of type Double.
+
+    In all other cases, define a class, and create instances of that class to be managed and passed by reference. In practice, this means that most custom data constructs should be classes, not structures.
+
+8. Swift’s `String,` `Array`, and `Dictionary` types are implemented as structures. This means that strings, arrays, and dictionaries are copied when they are assigned to a new constant or variable, or when they are passed to a function or method.
+
+    > The description above refers to the “copying” of strings, arrays, and dictionaries. The behavior you see in your code will always be as if a copy took place. However, Swift only performs an actual copy behind the scenes when it is absolutely necessary to do so. Swift manages all value copying to ensure optimal performance, and you should not avoid assignment to try to preempt this optimization.
+
+## Properties
+
+1. Computed properties are provided by classes, structures, and enumerations. Stored properties are provided only by classes and structures.
+
+2. Property observers can be added to stored properties you define yourself, and also to properties that a subclass inherits(whether stored or computed)  from its superclass.
+
+3. If you create an instance of a structure and assign that instance to a constant, you cannot modify the instance’s properties, even if they were declared as variable properties:
+
+    ```Swift
+    let rangeOfFourItems = FixedLengthRange(firstValue: 0, length: 4)
+    // this range represents integer values 0, 1, 2, and 3
+    rangeOfFourItems.firstValue = 6
+    // this will report an error, even though firstValue is a variable property
+    ```
+
+    This behavior is due to structures being value types. When an instance of a value type is marked as a constant, so are all of its properties.
+
+4. You must always declare a lazy property(stored property) as a variable (with the `var` keyword), because its initial value might not be retrieved until after instance initialization completes. Constant properties must always have a value before initialization completes, and therefore cannot be declared as lazy.
+
+5. Computed Properties
+
+    ```Swift
+    struct Rect {
+        var origin = Point()
+        var size = Size()
+        var center: Point {
+            get {
+                let centerX = origin.x + (size.width / 2)
+                let centerY = origin.y + (size.height / 2)
+                return Point(x: centerX, y: centerY)
+            }
+    //        set(newCenter) {
+    //            origin.x = newCenter.x - (size.width / 2)
+    //            origin.y = newCenter.y - (size.height / 2)
+    //        }
+            set {
+                origin.x = newValue.x - (size.width / 2)
+                origin.y = newValue.y - (size.height / 2)
+            }
+        }
+    }
+    
+    var square = Rect(origin: Point(x: 0.0, y: 0.0), size: Size(width: 10.0, height: 10.0))
+    let initialSquareCenter = square.center
+    square.center = Point(x: 15.0, y: 15.0)
+    
+    println("square.origin is now at (\(square.origin.x), \(square.origin.y))")
+    ```
+
+    A computed property with a getter but no setter is known as a read-only computed property. A read-only computed property always returns a value, and can be accessed through dot syntax, but cannot be set to a different value.
+
+6. You don’t need to define property observers for non-overridden computed properties, because you can observe and respond to changes to their value from directly within the computed property’s setter.
+
+    > `willSet` and `didSet` observers are not called when a property is first initialized. They are only called when the property’s value is set outside of an initialization context.
+
+7. Type Property
+
+    Instance properties are properties that belong to an instance of a particular type. Every time you create a new instance of that type, it has its own set of property values, separate from any other instance.
+
+    You can also define properties that belong to the type itself, not to any one instance of that type. There will only ever be one copy of these properties, no matter how many instances of that type you create. These kinds of properties are called *type properties*.
+
+    For value types (that is, structures and enumerations), you can define stored and computed type properties. For classes, you can define computed type properties only.
+
+    > Unlike stored instance properties, you must always give stored type properties a default value. This is because the type itself does not have an initializer that can assign a value to a stored type property at initialization time.
+
+    You define type properties for *value types* with the `static` keyword, and type properties for *class types* with the `class` keyword. The example below shows the syntax for stored and computed type properties
+
+    ```Swift
+    struct SomeStructure {
+        static var storedTypeProperty = "Some value."
+        static var computedTypeProperty: Int {
+            return 1
+        }
+    }
+    
+    enum SomeEnumeration {
+        static var storedTypeProperty = "Some value."
+        static var computedTypeProperty: Int {
+            return 1
+        }
+    }
+    
+    class SomeClass {
+        class var computedTypeProperty: Int {
+            return 1
+        }
+    }
+    ```
+
+## Methods
+
+1. Methods are functions that are associated with a particular type. The fact that structures and enumerations can define methods in Swift is a major difference from C and Objective-C.
+
+2. Local and External Parameter Names for Methods
+
+    ```Swift
+    class Counter {
+        var count: Int = 0
+        func incrementBy(amount: Int, numberOfTimes: Int) {
+            count += amount * numberOfTimes
+        }
+    }
+    ```
+    
+    This `incrementBy` method has two parameters—`amount` and `numberOfTimes`. By default, Swift treats amount as a local name only, but treats numberOfTimes as both a local and an external name.
+
+    You can either add an explicit external name yourself, or you can prefix the first parameter’s name with a hash symbol to use the local name as an external name too.
+
+    Conversely, if you do not want to provide an external name for the second or subsequent parameter of a method, override the default behavior by using an underscore character (`_`) as an explicit external parameter name for that parameter.
+
+3. Structures and enumerations are value types. By default, the properties of a value type cannot be modified from within its instance methods. You can opt in to this behavior by placing the `mutating` keyword before the func keyword for that method
+
+4. Mutating methods can assign an entirely new instance to the implicit `self` property
+
+    ```Swift
+    struct LevelTracker {
+        static var highestUnlockedLevel = 1
+        static func unlockLevel(level: Int) {
+            if level > highestUnlockedLevel { highestUnlockedLevel = level }
+        }
+        
+        static func levelIsUnlocked(levle: Int) -> Bool {
+            return levle <= highestUnlockedLevel
+        }
+        
+        var currentLevel = 1
+        mutating func advanceToLevel(level: Int) -> Bool {
+            if LevelTracker.levelIsUnlocked(level) {
+                currentLevel = level
+                return true
+            }
+            
+            return false
+        }
+    }
+    
+    class Player {
+        var tracker = LevelTracker()
+        let playerName: String
+        func completedLevel(level: Int) {
+            LevelTracker.unlockLevel(level + 1)
+            tracker.advanceToLevel(level + 1)
+        }
+        
+        init(name: String) {
+            playerName = name
+        }
+    }
+    
+    var player = Player(name: "Argyrios")
+    player.completedLevel(1)
+    println("highest unlocked level is now \(LevelTracker.highestUnlockedLevel)")
+    
+    player = Player(name: "Beto")
+    if player.tracker.advanceToLevel(6) {
+        println("player is now on level 6")
+    } else {
+        println("level 6 has not yet been unlocked")
+    }
+    ```
+
+    NOTE: `unlockLevel(Int)` will report error in xcode GM: `Execution was interrupted, reason:EXC_BAD_ACCESS(code=EXE_I386_GPFLT).`
+
+5. dispatch_once generate a singleton
+
+    ```Swift
+    class SomeClass {
+        class var sharedInstance : SomeClass {
+            struct Static {
+                static var onceToken : dispatch_once_t = 0
+                static var instance : SomeClass?
+            }
+                
+            dispatch_once(&Static.onceToken) {
+                Static.instance = SomeClass()
+            }
+                
+            return Static.instance!
+        }
+    }
+    ```
+
+## Subscripts
+
+1. Classes, structures, and enumerations can define subscripts, which are shortcuts for accessing the member elements of a collection, list, or sequence.
+
+    ```Swift
+    struct TimesTable {
+        let multiplier: Int
+        subscript(index: Int) -> Int {
+            return multiplier * index
+        }
+    }
+    
+    let thressTimesTable = TimesTable(multiplier: 3)
+    thressTimesTable[6] // 18
+    ```
+2. Swift’s `Dictionary` type implements its key-value subscripting as a subscript that takes and receives an optional type. For the `numberOfLegs` dictionary above, the key-value subscript takes and returns a value of type `Int?`, or “optional int”. The `Dictionary` type uses an optional subscript type to model the fact that not every key will have a value, and to give a way to delete a value for a key by assigning a `nil` value for that key.
+
+    ```Swift
+    var numberOfLegs = ["spider": 8, "ant": 6, "cat": 4]
+    numberOfLegs["bird"] = 2
+    ```
+
+3. Subscript Options
+
+    ```Swift
+    struct Matrix {
+        let rows: Int, columns: Int
+        var grid: [Double]
+        init(rows: Int, columns: Int) {
+            self.rows = rows
+            self.columns = columns
+            grid = Array(count: rows * columns, repeatedValue: 0.0)
+        }
+        
+        func indexIsValidForRow(row: Int, column: Int) -> Bool {
+            return row >= 0 && row < rows && columns >= 0 && column < columns
+        }
+        
+        subscript(row: Int, column: Int) -> Double {
+            get {
+                assert(indexIsValidForRow(row, column: column), "Index out of range")
+                return grid[(row * columns) + column]
+            }
+            
+            set {
+                assert(indexIsValidForRow(row, column: column),
+                "Index out of range")
+                grid[(row * columns) + column] = newValue
+            }
+        }
+    }
+    
+    var matrix = Matrix(rows: 2, columns: 2)
+    matrix[0, 1] = 1.5
+    matrix[1, 0] = 3.2
+    ```
+
+## Inheritance
+
