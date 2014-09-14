@@ -15,6 +15,8 @@
 - [Inheritance](#inheritance)
 - [Initialization](#initialization)
 - [Deinitialization](#deinitialization)
+- [Automatic Reference Counting](#automatic-reference-counting)
+- [Optional Chaining](#optional-chaining)
 
 ## The Basics
 
@@ -1137,14 +1139,14 @@
         
     To simplify the relationships between designated and convenience initializers, Swift applies the following three rules for delegation calls between initializers:
 
-    1. A designated initializer must call a designated initializer from its immediate superclass.
-    2. A convenience initializer must call another initializer from the same class.
-    3. A convenience initializer must ultimately call a designated initializer.
+    - A designated initializer must call a designated initializer from its immediate superclass.
+    - A convenience initializer must call another initializer from the same class.
+    - A convenience initializer must ultimately call a designated initializer.
 
     A simple way to remember this is:
     
-    1. Designated initializers must always delegate up.
-    2. Convenience initializers must always delegate across.
+    - Designated initializers must always delegate up.
+    - Convenience initializers must always delegate across.
 
     InitializerChaining
         
@@ -1255,7 +1257,119 @@
 
     > If you use a closure to initialize a property, remember that the rest of the instance has not yet been initialized at the point that the closure is executed. This means that you cannot access any other property values from within your closure, even if those properties have default values. You also cannot use the implicit `self` property, or call any of the instance’s methods.
 
-## Deinitialization
+## Deinitialization 
 
+## Automatic Reference Counting
 
+- Reference counting only applies to instances of classes. Structures and enumerations are value types, not reference types, and are not stored and passed by reference.
+
+- Swift provides two ways to resolve strong reference cycles when you work with properties of class type: *weak references* and *unowned references*.
+
+    Use a weak reference whenever it is valid for that reference to become nil at some point during its lifetime. Conversely, use an unowned reference when you know that the reference will never be nil once it has been set during initialization.
+
+    > Weak references must be declared as variables, to indicate that their value can change at runtime. A weak reference cannot be declared as a constant.
+
+- Like weak references, an *unowned reference* does not keep a strong hold on the instance it refers to. Unlike a weak reference, however, an unowned reference is assumed to *always* have a value. Because of this, an unowned reference is always defined as a non-optional type. You indicate an unowned reference by placing the `unowned` keyword before a property or variable declaration.
+
+    > If you try to access an unowned reference after the instance that it references is deallocated, you will trigger a runtime error. Use unowned references only when you are sure that the reference will always refer to an instance.
+
+    > Note also that Swift guarantees your app will crash if you try to access an unowned reference after the instance it references is deallocated. You will never encounter unexpected behavior in this situation. Your app will always crash reliably, although you should, of course, prevent it from doing so.
+
+- Two properties, both of which are allowed to be `nil`, have the potential to cause a strong reference cycle. This scenario is best resolved with a weak reference.
+    
+    One property that is allowed to be  `nil` and another property that cannot be `nil` have the potential to cause a strong reference cycle. This scenario is best resolved with an unowned reference.
+    
+     There is a third scenario, in which both properties should always have a value, and neither property should ever be `nil` **once initialization is complete**. In this scenario, it is useful to combine an unowned property on one class with an implicitly unwrapped optional property on the other class.
+
+    ```Swift
+    class Country {
+        let name: String
+        let capitalCity: City!
+    
+        init(name: String, capitalName: String) {
+            self.name = name
+            self.capitalCity = City(name: capitalName, country:self)
+        }
+    }
+    
+    class City {
+        let name: String
+        unowned let country: Country
+        
+        init(name: String, country: Country) {
+            self.name = name
+            self.country = country
+        }
+    }
+    
+    var country = Country(name: "Canada", capitalName: "Ottawa")
+    println("\(country.name)'s capital city is called \(country.capitalCity.name)")
+    ```
+
+    To cope with this requirement, you declare the `capitalCity` property of `Country` as an *implicitly unwrapped optional property*, indicated by the exclamation mark at the end of its type annotation (`City!`). This means that the `capitalCity` property has a default value of `nil`
+
+    Because `capitalCity` has a default `nil` value, a new `Country` instance is considered fully initialized as soon as the `Country` instance sets its name property within its initializer. This means that the `Country` initializer can start to reference and pass around the implicit `self` property as soon as the name property is set. The `Country` initializer can therefore pass self as one of the parameters for the `City` initializer when the `Country` initializer is setting its own `capitalCity` property.
+
+- Note This by Moch
+
+    ```Swift
+    class SomeClass {
+        // always can not be nil
+        var noneOptionalPropertyValue: Int
+        // after initialzation can not be nil, hava a default value nil
+        var implicitlyUnwrappedOptionalPropertyValue: Int!
+        // always can be nil
+        var optionalPropertyValue: Int?
+        
+        // when initial done noneOptionalPropertyValue and implicitlyUnwrappedOptionalPropertyValue
+        // must have a none-nil value
+        init(noneOptionalPropertyValue: Int, implicitlyUnwrappedOptionalPropertyValue: Int!) {
+            self.noneOptionalPropertyValue = noneOptionalPropertyValue
+            self.implicitlyUnwrappedOptionalPropertyValue = implicitlyUnwrappedOptionalPropertyValue
+        }
+    }
+    ```
+
+- Closure Capture List
+
+    Define a capture in a closure as an unowned reference when the closure and the instance it captures will always refer to each other, and will always be deallocated at the same time.
+
+    Conversely, define a capture as a weak reference when the captured reference may become `nil` at some point in the future. Weak references are always of an optional type, and automatically become `nil` when the instance they reference is deallocated. This enables you to check for their existence within the closure’s body.
+
+    ```Swift
+    class HTMLElement {
+        let name: String
+        let text: String?
+        
+        lazy var asHTML: () -> String = {
+            [unowned self] in
+            if let text = self.text {
+                return "<\(self.name)>\(text)</\(self.name)>"
+            } else {
+                return "<\(self.name) />"
+            }
+        }
+        
+        init(name: String, text: String? = nil) {
+            self.name = name
+            self.text = text
+        }
+        
+        deinit {
+            println("%s", __FUNCTION__)
+        }
+    }
+    
+    var paragraph: HTMLElement? = HTMLElement(name: "p", text: "hello, world")
+    println(paragraph!.asHTML())
+    paragraph = nil
+    ```
+
+## Optional Chaining
+
+- *Optional chaining* is a process for querying and calling properties, methods, and subscripts on an optional that might currently be `nil`. If the optional contains a value, the property, method, or subscript call succeeds; if the optional is `nil`, the property, method, or subscript call returns `nil`. Multiple queries can be chained together, and the entire chain fails gracefully if any link in the chain is `nil`.
+
+- To reflect the fact that optional chaining can be called on a nil value, the result of an optional chaining call is always an optional value, even if the property, method, or subscript you are querying returns a non-optional value.
+
+- If a subscript returns a value of optional type—such as the key subscript of Swift’s  `Dictionary` type—place a question mark after the subscript’s closing bracket to chain on its optional return value:
 
