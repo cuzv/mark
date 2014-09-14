@@ -18,7 +18,7 @@
 
 ## The Basics
 
-1. Unlike multiline comments in C, multiline comments in Swift can be nested inside other multiline comments. You write nested comments by starting a multiline comment block and then starting a second multiline comment within the first block. The second block is then closed, followed by the first block:
+- Unlike multiline comments in C, multiline comments in Swift can be nested inside other multiline comments. You write nested comments by starting a multiline comment block and then starting a second multiline comment within the first block. The second block is then closed, followed by the first block:
 
     ```Swift
     /* this is the start of the first multiline comment
@@ -26,7 +26,7 @@
     this is the end of the first multiline comment */
     ```
 
-2. About int
+- About int
 
     ```Swift
     let cannotBeNegative: UInt8 = -1
@@ -36,7 +36,7 @@
     // and so this will also report an error
     ```
 
-3. Swift’s type safety prevents non-Boolean values from being substituted for `Bool`. The following example reports a compile-time error:
+- Swift’s type safety prevents non-Boolean values from being substituted for `Bool`. The following example reports a compile-time error:
 
     ```Swift
     let i = 1
@@ -54,11 +54,11 @@
     }
     ```
 
-4. `nil` cannot be used with non-optional constants and variables.
+- `nil` cannot be used with non-optional constants and variables.
 
-5. Swift’s `nil` is not the same as `nil` in Objective-C. In Objective-C, `nil` is a pointer to a non-existent object. In Swift, `nil` is not a pointer—it is the absence of a value of a certain type. Optionals of any type can be set to `nil`, not just object types.
+- Swift’s `nil` is not the same as `nil` in Objective-C. In Objective-C, `nil` is a pointer to a non-existent object. In Swift, `nil` is not a pointer—it is the absence of a value of a certain type. Optionals of any type can be set to `nil`, not just object types.
 
-6. `Optional binding` can be used with `if` and `while` statements to check for a value inside an `optional`, and to extract that value into a constant or variable, as part of a single action.
+- `Optional binding` can be used with `if` and `while` statements to check for a value inside an `optional`, and to extract that value into a constant or variable, as part of a single action.
 
     ```Swift
     if let actualNumber = possibleNumber.toInt() {
@@ -73,7 +73,7 @@
 
     “If the optional `Int` returned by `possibleNumber.toInt` contains a value, set a new constant called `actualNumber` to the value contained in the optional.”
     
-7. `Implicitly unwrapped optionals` should not be used when there is a possibility of a variable becoming `nil` at a later point. Always use a normal optional type if you need to check for a `nil` value during the lifetime of a variable.    
+- `Implicitly unwrapped optionals` should not be used when there is a possibility of a variable becoming `nil` at a later point. Always use a normal optional type if you need to check for a `nil` value during the lifetime of a variable.    
 
     ```Swift
     let assumedString: String! = "An implicitly unwrapped optional string."
@@ -84,15 +84,15 @@
     
 ## Basic Operators
 
-1. Unlike the remainder operator in C and Objective-C, Swift’s remainder operator can also operate on floating-point numbers:
+- Unlike the remainder operator in C and Objective-C, Swift’s remainder operator can also operate on floating-point numbers:
 
     ```Swift
     8 % 2.5   // equals 0.5
     ```
 
-2. Swift also provides two identity operators (`===` and `!==`), which you use to test whether two object references both refer to the same object instance.
+- Swift also provides two identity operators (`===` and `!==`), which you use to test whether two object references both refer to the same object instance.
 
-3. Nil Coalescing Operator
+- Nil Coalescing Operator
 
     ```Swift
     let defaultColorName = "red"
@@ -102,11 +102,11 @@
     // userDefinedColorName is nil, so colorNameToUse is set to the default of "red"
     ```
     
-4. The closed range operator (`a...b`) defines a range that runs from a to b, and includes the values a and b. The value of a must not be greater than b. The half-open range operator (`a..<b`) defines a range that runs from a to b, but does not include b. It is said to be half-open because it contains its first value, but not its final value. As with the closed range operator, the value of a must not be greater than b.    
+- The closed range operator (`a...b`) defines a range that runs from a to b, and includes the values a and b. The value of a must not be greater than b. The half-open range operator (`a..<b`) defines a range that runs from a to b, but does not include b. It is said to be half-open because it contains its first value, but not its final value. As with the closed range operator, the value of a must not be greater than b.    
 
 ## Strings and Characters
 
-1. Swift approach is different from string mutation in Objective-C and Cocoa, where you choose between two classes (`NSString` and `NSMutableString`) to indicate whether a string can be mutated.
+- Swift approach is different from string mutation in Objective-C and Cocoa, where you choose between two classes (`NSString` and `NSMutableString`) to indicate whether a string can be mutated.
 
     ```Swift
     var variableString = "Horse"
@@ -118,19 +118,19 @@
     // this reports a compile-time error - a constant string cannot be modified
     ```
     
-2. Swift’s `String` type is a value type. If you create a new `String` value, that `String` value is copied when it is passed to a function or method, or when it is assigned to a constant or variable. In each case, a new copy of the existing String value is created, and the new copy is passed or assigned, not the original version.
+- Swift’s `String` type is a value type. If you create a new `String` value, that `String` value is copied when it is passed to a function or method, or when it is assigned to a constant or variable. In each case, a new copy of the existing String value is created, and the new copy is passed or assigned, not the original version.
     
     > This behavior differs from that of `NSString` in Cocoa. When you create an `NSString` instance in Cocoa, and pass it to a function or method or assign it to a variable, you are always passing or assigning a reference to the same      single `NSString`. No copying of the string takes place, unless you specifically request it.
 
     Behind the scenes, Swift’s compiler optimizes string usage so that actual copying takes place only when absolutely  necessary. This means you always get great performance when working with strings as value types
     
-3. If you are working with particularly long string values, be aware that the `countElements` function must iterate over the Unicode scalars in the entire string in order to calculate an accurate character count for that string.
+- If you are working with particularly long string values, be aware that the `countElements` function must iterate over the Unicode scalars in the entire string in order to calculate an accurate character count for that string.
 
     Note also that the character count returned by `countElements` is not always the same as the `length` property of an `NSString` that contains the same characters. The length of an `NSString` is based on the number of 16-bit code units  within the string’s UTF-16 representation and not the number of Unicode extended grapheme clusters within the string. To reflect this fact, the `length` property from `NSString` is called `utf16Count` when it is accessed on a Swift String value.
     
-4. String and character equality is checked with the “equal to” operator (`==`) and the “not equal to” operator (`!=`)
+- String and character equality is checked with the “equal to” operator (`==`) and the “not equal to” operator (`!=`)
 
-5. About unicode
+- About unicode
     
     ```Swift
     let dogString = "Dog‼🐶"
@@ -153,9 +153,9 @@
 
 ## Collection Types
 
-1. Swift arrays are specific about the kinds of values they can store. They differ from Objective-C’s `NSArray` and `NSMutableArray` classes, which can store any kind of object and do not provide any information about the nature of the objects they return. Swift arrays are type safe, and are always clear about what they may contain.
+- Swift arrays are specific about the kinds of values they can store. They differ from Objective-C’s `NSArray` and `NSMutableArray` classes, which can store any kind of object and do not provide any information about the nature of the objects they return. Swift arrays are type safe, and are always clear about what they may contain.
 
-2. How to define an array
+- How to define an array
 
     ```Swift
     var normalArry: Array<Int> = [2, 3, 5]
@@ -173,7 +173,7 @@
     // sixDoubles is inferred as [Double], and equals [0.0, 0.0, 0.0, 2.5, 2.5, 2.5]
     ```
     
-3. Iterating Over an Array
+- Iterating Over an Array
 
     ```Swift
     for item in shoppingList {
@@ -184,7 +184,7 @@
         println("Item \(index + 1): \(value)")
     }
     ```
-4. You can create a new array by adding together two existing arrays of compatible type with the addition operator (`+`)
+- You can create a new array by adding together two existing arrays of compatible type with the addition operator (`+`)
 
     ```Swift
     var threeDoubles = [Double](count: 3, repeatedValue: 0.0)
@@ -192,62 +192,62 @@
     var sixDoubles = threeDoubles + anotherThreeDoubles
     ```    
     
-5. Swift dictionaries are specific about the types of keys and values they can store. They differ from Objective-C’s `NSDictionary` and `NSMutableDictionary` classes, which can use any kind of object as their keys and values and do not provide any information about the nature of those objects. In Swift, the type of keys and values that a particular dictionary can store is always made clear, either through an explicit type annotation or through type inference.
+- Swift dictionaries are specific about the types of keys and values they can store. They differ from Objective-C’s `NSDictionary` and `NSMutableDictionary` classes, which can use any kind of object as their keys and values and do not provide any information about the nature of those objects. In Swift, the type of keys and values that a particular dictionary can store is always made clear, either through an explicit type annotation or through type inference.
 
-6. How to define a dictionary
+- How to define a dictionary
 
     ```Swift
     var dictionary: Dictionary<String, String>
     var anotherDictionary: [String: String] // this is preferred
     ```
     
-7. As an alternative to subscripting, use a dictionary’s `updateValue(forKey:)` method to set or update the value for a particular key. Unlike a subscript, however, the `updateValue(forKey:)` method returns the old value after performing an update. This enables you to check whether or not an update took place.
+- As an alternative to subscripting, use a dictionary’s `updateValue(forKey:)` method to set or update the value for a particular key. Unlike a subscript, however, the `updateValue(forKey:)` method returns the old value after performing an update. This enables you to check whether or not an update took place.
 
-8. Creating an Empty Dictionary
+- Creating an Empty Dictionary
 
     ```Swift
     var namesOfIntegers = [Int: String]()
     namesOfIntegers[16] = "sixteen"
     namesOfIntegers = [:]
     ```
-9. You can use your own custom types as dictionary key types by making them conform to the `Hashable` protocol from Swift’s standard library. Types that conform to the Hashable protocol must provide a gettable Int property called `hashValue`, and must also provide an implementation of the “is equal” operator (`==`). The value returned by a type’s `hashValue` property is not required to be the same across different executions of the same program, or in different programs.
+- You can use your own custom types as dictionary key types by making them conform to the `Hashable` protocol from Swift’s standard library. Types that conform to the Hashable protocol must provide a gettable Int property called `hashValue`, and must also provide an implementation of the “is equal” operator (`==`). The value returned by a type’s `hashValue` property is not required to be the same across different executions of the same program, or in different programs.
 
 ## Control Flow
 
-1. Items in a `Dictionary` may not necessarily be iterated in the same order as they were inserted. The contents of a `Dictionary` are inherently unordered, and iterating over them does not guarantee the order in which they will be retrieved. 
+- Items in a `Dictionary` may not necessarily be iterated in the same order as they were inserted. The contents of a `Dictionary` are inherently unordered, and iterating over them does not guarantee the order in which they will be retrieved. 
 
-2. In addition to arrays and dictionaries, you can also use the `for-in` loop to iterate over the `Character` values in a string
+- In addition to arrays and dictionaries, you can also use the `for-in` loop to iterate over the `Character` values in a string
 
     ```Swift
     for character in "helloc" {
         println(character)
     }
     ```
-3. the `if` statement has a single `if` condition. It executes a set of statements only if that condition is `true`
+- the `if` statement has a single `if` condition. It executes a set of statements only if that condition is `true`
 
-4. `switch` statements in Swift do not fall through the bottom of each case and into the next one by default. Instead, the entire `switch` statement finishes its execution as soon as the first matching `switch` case is completed, without requiring an explicit break statement. 
+- `switch` statements in Swift do not fall through the bottom of each case and into the next one by default. Instead, the entire `switch` statement finishes its execution as soon as the first matching `switch` case is completed, without requiring an explicit break statement. 
 
     The body of each case must contain at least one executable statement. It is not valid to write the following code, because the first case is empty:
 
     ```Swift
-    let anotherCharacter: Character = "a"
-    switch anotherCharacter {
-    case "a":
-    case "A":
-        println("The letter A")
-    default:
-        println("Not the letter A")
-    }
-    // this will report a compile-time error
-```
-
+        let anotherCharacter: Character = "a"
+        switch anotherCharacter {
+        case "a":
+        case "A":
+            println("The letter A")
+        default:
+            println("Not the letter A")
+        }
+        // this will report a compile-time error
+    ```
+    
     Unlike a `switch` statement in C, this `switch` statement does not match both `"a"` and `"A"`. Rather, it reports a compile-time error that `case "a"`: does not contain any executable statements. This approach avoids accidental fallthrough from one case to another, and makes for safer code that is clearer in its intent.
 
     > To opt in to fallthrough behavior for a particular switch case, use the fallthrough keyword
 
-5. Values in `switch` cases can be checked for their inclusion in a range.
+    Values in `switch` cases can be checked for their inclusion in a range.
 
-6. A `switch` case can use a `where` clause to check for additional conditions.
+- A `switch` case can use a `where` clause to check for additional conditions.
 
     ```Swift
     let yetAnotherPoint = (1, -1)
@@ -261,9 +261,9 @@
     }
     // prints "(1, -1) is on the line x == -y"
     ```
-7. When used inside a `switch` statement, `break` causes the `switch` statement to end its execution immediately, and to transfer control to the first line of code after the `switch` statement’s closing brace (`}`).
+- When used inside a `switch` statement, `break` causes the `switch` statement to end its execution immediately, and to transfer control to the first line of code after the `switch` statement’s closing brace (`}`).
 
-8. Fallthrough
+- Fallthrough
 
     ```Swift
     let integerToDescribe = 5
@@ -278,7 +278,8 @@
     println(description)
     // prints "The number 5 is a prime number, and also an integer."
 ```
-9. A labeled statement is indicated by placing a label on the same line as the statement’s introducer keyword, followed by a colon. Here’s an example of this syntax for a `while` loop, although the principle is the same for all loops and `switch` statements
+
+- A labeled statement is indicated by placing a label on the same line as the statement’s introducer keyword, followed by a colon. Here’s an example of this syntax for a `while` loop, although the principle is the same for all loops and `switch` statements
 
     ```Swift
     <#labelName#>: while <#condition#> {
@@ -288,7 +289,7 @@
 
 ## Functions
 
-1. You can use a tuple type as the return type for a function to return multiple values as part of one compound return value.
+- You can use a tuple type as the return type for a function to return multiple values as part of one compound return value.
 
     ```Swift
     func minMax(array: [Int]) -> (min: Int, max: Int) {
@@ -325,7 +326,7 @@
     println("min is \(bounds.min) and max is \(bounds.max)")
     ```
     
-2. An optional tuple type such as `(Int, Int)?` is different from a tuple that contains optional types such as `(Int?, Int?)`. With an optional tuple type, the entire tuple is optional, not just each individual value within the tuple.
+- An optional tuple type such as `(Int, Int)?` is different from a tuple that contains optional types such as `(Int?, Int?)`. With an optional tuple type, the entire tuple is optional, not just each individual value within the tuple.
 
     ```Swift
     func minMax(array: [Int]) -> (min: Int, max: Int)? {
@@ -343,7 +344,7 @@
     }
     ```
     
-3. External Parameter Names
+- External Parameter Names
 
     ```Swift
     func someFunction(externalParameterName localParameterName: Int) {
@@ -353,7 +354,7 @@
     ```
     > If you provide an external parameter name for a parameter, that external name must always be used when you call the function.
 
-4. You can define a default value for any parameter as part of a function’s definition. If a default value is defined, you can omit that parameter when calling the function.
+- You can define a default value for any parameter as part of a function’s definition. If a default value is defined, you can omit that parameter when calling the function.
 
     > Place parameters with default values at the end of a function’s parameter list. This ensures that all calls to the function use the same order for their non-default arguments, and makes it clear that the same function is being called in each case.
 
@@ -367,9 +368,9 @@
     join(string: "Hello", toString: "World")
     ```
 
-5.  Swift provides an automatic external name for any parameter that has a default value. The automatic external name is the same as the local name, as if you had written a hash symbol before the local name in your code.
+-  Swift provides an automatic external name for any parameter that has a default value. The automatic external name is the same as the local name, as if you had written a hash symbol before the local name in your code.
 
-6. Variadic Parameters
+- Variadic Parameters
 
     ```Swift
     func arithmeticMean(numbers: Double...) -> Double {
@@ -391,7 +392,7 @@
 
     > If your function has one or more parameters with a default value, and also has a variadic parameter, place the variadic parameter after all the defaulted parameters at the very end of the list.
 
-7. Function parameters are constants by default. Define variable parameters by prefixing the parameter name with the keyword `var`
+- Function parameters are constants by default. Define variable parameters by prefixing the parameter name with the keyword `var`
 
     ```Swift
     func alignRight(var string: String, count: Int, pad: Character) -> String {
@@ -414,7 +415,7 @@
     // originalString is still equal to "hello"
     ```
     
-8. Variable parameters, as described above, can only be changed within the function itself. If you want a function to modify a parameter’s value, and you want those changes to persist after the function call has ended, define that parameter as an *in-out parameter* instead.
+- Variable parameters, as described above, can only be changed within the function itself. If you want a function to modify a parameter’s value, and you want those changes to persist after the function call has ended, define that parameter as an *in-out parameter* instead.
 
     You write an in-out parameter by placing the inout keyword at the start of its parameter definition. An `in-out` parameter has a value that is passed in to the function, is modified by the function, and is passed back out of the function to replace the original value.
 
@@ -435,7 +436,7 @@
     b // 23
     ```
 
-9. Every function has a specific *function type*, made up of the parameter types and the return type of the function.
+- Every function has a specific *function type*, made up of the parameter types and the return type of the function.
 
     ```Swift
     func addTwoInts(a: Int, b: Int) -> Int {
@@ -458,7 +459,7 @@
 
     The type of this function is `() -> ()`, or “a function that has no parameters, and returns Void.” Functions that don’t specify a return value always return `Void`,  **which is equivalent to an empty tuple in Swift, shown as `()`**.
 
-10. Function Types as Parameter Types
+- Function Types as Parameter Types
 
     ```Swift
         func addTwoInts(#anInt: Int, #anotherInt: Int ) -> Int {
@@ -479,7 +480,7 @@
     // "Result: 8"
     ```
     
-11. Function Types as Return Types
+- Function Types as Return Types
 
     ```Swift
     func stepForward(input: Int) -> Int {
@@ -511,7 +512,7 @@
     // zero!
     ```
     
-12. Nested Functions
+- Nested Functions
 
     ```Swift
     func chooseStepFunction(backwards: Bool) -> (Int) -> Int {
@@ -536,7 +537,7 @@
     
 ## Closures
 
-1. Closure Expression Syntax
+- Closure Expression Syntax
 
     ```Swift
         { (<#parameters#>) -> <#return type#> in
@@ -544,7 +545,7 @@
         }
     ```
 
-2. Inferring
+- Inferring
 
     ```Swift
     reversed = sorted(names, { (s1: String, s2: String) -> Bool in return s1 > s2 } )
@@ -567,7 +568,7 @@
     reversed = sorted(names, >)
     ```
 
-3. Trailing Closures
+- Trailing Closures
 
     ```Swift
     func someFunctionTahtTakesAClosure(closure: () -> ()) {
@@ -610,7 +611,7 @@
     strings
     ```
 
-4. Capturing Values
+- Capturing Values
 
     A closure can capture constants and variables from the surrounding context in which it is defined. The closure can then refer to and modify the values of those constants and variables from within its body, even if the original scope that defined the constants and variables no longer exists.
 
@@ -644,7 +645,7 @@
 
     > If you assign a closure to a property of a class instance, and the closure captures that instance by referring to the instance or its members, you will create a strong reference cycle between the closure and the instance. Swift uses *capture lists* to break these strong reference cycles. 
 
-5. Closures Are Reference Types
+- Closures Are Reference Types
     
     In the example above, ` incrementBySeven` and `incrementByTen` are constants, but the closures these constants refer to are still able to increment the `runningTotal` variables that they have captured. This is because functions and closures are reference types.
 
@@ -652,11 +653,11 @@
 
 ## Enumerations
 
-1. If you are familiar with C, you will know that C enumerations assign related names to a set of integer values. Enumerations in Swift are much more flexible, and do not have to provide a value for each member of the enumeration. If a value (known as a “raw” value) is provided for each enumeration member, the value can be a string, a character, or a value of any integer or floating-point type.
+- If you are familiar with C, you will know that C enumerations assign related names to a set of integer values. Enumerations in Swift are much more flexible, and do not have to provide a value for each member of the enumeration. If a value (known as a “raw” value) is provided for each enumeration member, the value can be a string, a character, or a value of any integer or floating-point type.
 
     Enumerations in Swift are first-class types in their own right. They adopt many features traditionally supported only by classes, such as computed properties to provide additional information about the enumeration’s current value, and instance methods to provide functionality related to the values the enumeration represents. Enumerations can also define initializers to provide an initial member value; can be extended to expand their functionality beyond their original implementation; and can conform to protocols to provide standard functionality.
 
-2. Enumeration Syntax
+- Enumeration Syntax
 
     ```Swift
     enum CompassPoint {
@@ -679,7 +680,7 @@
     }
     ```
 
-3. Associated Values
+- Associated Values
 
     ```Swift
     enum Barcode {
@@ -699,7 +700,7 @@
     // prints "QR code: ABCDEFGHIJKLMNOP."
     ```
 
-4. Raw Values
+- Raw Values
 
     Raw values can be strings, characters, or any of the integer or floating-point number types. Each raw value must be unique within its enumeration declaration. When integers are used for raw values, they auto-increment if no value is specified for some of the enumeration members.
 
@@ -725,7 +726,7 @@
 
 ## Classes and Structures
 
-1. Comparing Classes and Structures
+- Comparing Classes and Structures
 
     Classes and structures in Swift have many things in common. Both can:
     
@@ -745,9 +746,9 @@
 
     > Structures are always copied when they are passed around in your code, and do not use reference counting.
 
-2. Unlike Objective-C, Swift enables you to set sub-properties of a structure property directly.
+- Unlike Objective-C, Swift enables you to set sub-properties of a structure property directly.
 
-3. All structures have an automatically-generated memberwise initializer, which you can use to initialize the member properties of new structure instances. Initial values for the properties of the new instance can be passed to the memberwise initializer by name:
+- All structures have an automatically-generated memberwise initializer, which you can use to initialize the member properties of new structure instances. Initial values for the properties of the new instance can be passed to the memberwise initializer by name:
 
     ```Swift
     struct Resolution {
@@ -760,7 +761,7 @@
 
     Unlike structures, class instances do not receive a default memberwise initializer
 
-4. Structures and Enumerations Are Value Types
+- Structures and Enumerations Are Value Types
 
      A value type is a type whose value is copied when it is assigned to a variable or constant, or when it is passed to a function.
 
@@ -780,7 +781,7 @@
     ```
     The same behavior applies to enumerations
 
-5. Classes Are Reference Types
+- Classes Are Reference Types
 
     Unlike value types, *reference types* are *not copied* when they are assigned to a variable or constant, or when they are passed to a function. Rather than a copy, a reference to the same existing instance is used instead.
 
@@ -799,7 +800,7 @@
     // prints "The frameRate property of tenEighty is now 30.0"
     ```
 
-6. Identity Operators
+- Identity Operators
 
     Because classes are reference types, it is possible for multiple constants and variables to refer to the same single instance of a class behind the scenes. 
 
@@ -813,7 +814,7 @@
     - “Identical to” means that two constants or variables of class type refer to exactly the same class instance.
     - “Equal to” means that two instances are considered “equal” or “equivalent” in value, for some appropriate meaning of “equal”, as defined by the type’s designer.
 
-7. Choosing Between Classes and Structures
+- Choosing Between Classes and Structures
 
     As a general guideline, consider creating a structure when one or more of these conditions apply:
     - The structure’s primary purpose is to encapsulate a few relatively simple data values.
@@ -829,17 +830,17 @@
 
     In all other cases, define a class, and create instances of that class to be managed and passed by reference. In practice, this means that most custom data constructs should be classes, not structures.
 
-8. Swift’s `String,` `Array`, and `Dictionary` types are implemented as structures. This means that strings, arrays, and dictionaries are copied when they are assigned to a new constant or variable, or when they are passed to a function or method.
+- Swift’s `String,` `Array`, and `Dictionary` types are implemented as structures. This means that strings, arrays, and dictionaries are copied when they are assigned to a new constant or variable, or when they are passed to a function or method.
 
     > The description above refers to the “copying” of strings, arrays, and dictionaries. The behavior you see in your code will always be as if a copy took place. However, Swift only performs an actual copy behind the scenes when it is absolutely necessary to do so. Swift manages all value copying to ensure optimal performance, and you should not avoid assignment to try to preempt this optimization.
 
 ## Properties
 
-1. Computed properties are provided by classes, structures, and enumerations. Stored properties are provided only by classes and structures.
+- Computed properties are provided by classes, structures, and enumerations. Stored properties are provided only by classes and structures.
 
-2. Property observers can be added to stored properties you define yourself, and also to properties that a subclass inherits(whether stored or computed)  from its superclass.
+- Property observers can be added to stored properties you define yourself, and also to properties that a subclass inherits(whether stored or computed)  from its superclass.
 
-3. If you create an instance of a structure and assign that instance to a constant, you cannot modify the instance’s properties, even if they were declared as variable properties:
+- If you create an instance of a structure and assign that instance to a constant, you cannot modify the instance’s properties, even if they were declared as variable properties:
 
     ```Swift
     let rangeOfFourItems = FixedLengthRange(firstValue: 0, length: 4)
@@ -850,9 +851,9 @@
 
     This behavior is due to structures being value types. When an instance of a value type is marked as a constant, so are all of its properties.
 
-4. You must always declare a lazy property(stored property) as a variable (with the `var` keyword), because its initial value might not be retrieved until after instance initialization completes. Constant properties must always have a value before initialization completes, and therefore cannot be declared as lazy.
+- You must always declare a lazy property(stored property) as a variable (with the `var` keyword), because its initial value might not be retrieved until after instance initialization completes. Constant properties must always have a value before initialization completes, and therefore cannot be declared as lazy.
 
-5. Computed Properties
+- Computed Properties
 
     ```Swift
     struct Rect {
@@ -884,11 +885,11 @@
 
     A computed property with a getter but no setter is known as a read-only computed property. A read-only computed property always returns a value, and can be accessed through dot syntax, but cannot be set to a different value.
 
-6. You don’t need to define property observers for non-overridden computed properties, because you can observe and respond to changes to their value from directly within the computed property’s setter.
+- You don’t need to define property observers for non-overridden computed properties, because you can observe and respond to changes to their value from directly within the computed property’s setter.
 
     > `willSet` and `didSet` observers are not called when a property is first initialized. They are only called when the property’s value is set outside of an initialization context.
 
-7. Type Property
+- Type Property
 
     Instance properties are properties that belong to an instance of a particular type. Every time you create a new instance of that type, it has its own set of property values, separate from any other instance.
 
@@ -924,9 +925,9 @@
 
 ## Methods
 
-1. Methods are functions that are associated with a particular type. The fact that structures and enumerations can define methods in Swift is a major difference from C and Objective-C.
+- Methods are functions that are associated with a particular type. The fact that structures and enumerations can define methods in Swift is a major difference from C and Objective-C.
 
-2. Local and External Parameter Names for Methods
+- Local and External Parameter Names for Methods
 
     ```Swift
     class Counter {
@@ -943,9 +944,9 @@
 
     Conversely, if you do not want to provide an external name for the second or subsequent parameter of a method, override the default behavior by using an underscore character (`_`) as an explicit external parameter name for that parameter.
 
-3. Structures and enumerations are value types. By default, the properties of a value type cannot be modified from within its instance methods. You can opt in to this behavior by placing the `mutating` keyword before the func keyword for that method
+- Structures and enumerations are value types. By default, the properties of a value type cannot be modified from within its instance methods. You can opt in to this behavior by placing the `mutating` keyword before the func keyword for that method
 
-4. Mutating methods can assign an entirely new instance to the implicit `self` property
+- Mutating methods can assign an entirely new instance to the implicit `self` property
 
     ```Swift
     struct LevelTracker {
@@ -996,7 +997,7 @@
 
     NOTE: `unlockLevel(Int)` will report error in xcode GM: `Execution was interrupted, reason:EXC_BAD_ACCESS(code=EXE_I386_GPFLT).`
 
-5. dispatch_once generate a singleton
+- dispatch_once generate a singleton
 
     ```Swift
     class SomeClass {
@@ -1017,7 +1018,7 @@
 
 ## Subscripts
 
-1. Classes, structures, and enumerations can define subscripts, which are shortcuts for accessing the member elements of a collection, list, or sequence.
+- Classes, structures, and enumerations can define subscripts, which are shortcuts for accessing the member elements of a collection, list, or sequence.
 
     ```Swift
     struct TimesTable {
@@ -1030,14 +1031,14 @@
     let thressTimesTable = TimesTable(multiplier: 3)
     thressTimesTable[6] // 18
     ```
-2. Swift’s `Dictionary` type implements its key-value subscripting as a subscript that takes and receives an optional type. For the `numberOfLegs` dictionary above, the key-value subscript takes and returns a value of type `Int?`, or “optional int”. The `Dictionary` type uses an optional subscript type to model the fact that not every key will have a value, and to give a way to delete a value for a key by assigning a `nil` value for that key.
+- Swift’s `Dictionary` type implements its key-value subscripting as a subscript that takes and receives an optional type. For the `numberOfLegs` dictionary above, the key-value subscript takes and returns a value of type `Int?`, or “optional int”. The `Dictionary` type uses an optional subscript type to model the fact that not every key will have a value, and to give a way to delete a value for a key by assigning a `nil` value for that key.
 
     ```Swift
     var numberOfLegs = ["spider": 8, "ant": 6, "cat": 4]
     numberOfLegs["bird"] = 2
     ```
 
-3. Subscript Options
+- Subscript Options
 
     ```Swift
     struct Matrix {
@@ -1074,17 +1075,17 @@
 
 ## Inheritance
 
-1. Any class that does not inherit from another class is known as a base class.
+- Any class that does not inherit from another class is known as a base class.
 
     > Swift classes do not inherit from a universal base class. Classes you define without specifying a superclass automatically become base classes for you to build upon.
 
-2. You can provide a custom getter (and setter, if appropriate) to override any inherited property, regardless of whether the inherited property is implemented as a stored or computed property at source.
+- You can provide a custom getter (and setter, if appropriate) to override any inherited property, regardless of whether the inherited property is implemented as a stored or computed property at source.
 
     You can present an inherited read-only property as a read-write property by providing both a getter and a setter in your subclass property override. You cannot, however, present an inherited read-write property as a read-only property.
 
     > If you provide a setter as part of a property override, you must also provide a getter for that override. If you don’t want to modify the inherited property’s value within the overriding getter, you can simply pass through the inherited value by returning `super.someProperty` from the getter, where `someProperty` is the name of the property you are overriding
 
-3. You can use property overriding to add property observers to an inherited property. This enables you to be notified when the value of an inherited property changes, regardless of how that property was originally implemented. 
+- You can use property overriding to add property observers to an inherited property. This enables you to be notified when the value of an inherited property changes, regardless of how that property was originally implemented. 
 
     > You cannot add property observers to inherited constant stored properties or inherited read-only computed properties. The value of these properties cannot be set, and so it is not appropriate to provide a willSet or didSet implementation as part of an override.
 
@@ -1092,15 +1093,15 @@
 
 ## Initialization
 
-1. Unlike Objective-C initializers, Swift initializers do not return a value. Their primary role is to ensure that new instances of a type are correctly initialized before they are used for the first time.
+- Unlike Objective-C initializers, Swift initializers do not return a value. Their primary role is to ensure that new instances of a type are correctly initialized before they are used for the first time.
 
-2. When you assign a default value to a stored property, or set its initial value within an initializer, the value of that property is set directly, without calling any property observers.
+- When you assign a default value to a stored property, or set its initial value within an initializer, the value of that property is set directly, without calling any property observers.
 
-3. If a property always takes the same initial value, provide a default value rather than setting a value within an initializer. The end result is the same, but the default value ties the property’s initialization more closely to its declaration. It makes for shorter, clearer initializers and enables you to infer the type of the property from its default value. The default value also makes it easier for you to take advantage of default initializers and initializer inheritance
+- If a property always takes the same initial value, provide a default value rather than setting a value within an initializer. The end result is the same, but the default value ties the property’s initialization more closely to its declaration. It makes for shorter, clearer initializers and enables you to infer the type of the property from its default value. The default value also makes it easier for you to take advantage of default initializers and initializer inheritance
 
-4. The names and types of an initializer’s parameters play a particularly important role in identifying which initializer should be called. Because of this, Swift provides an automatic external name for every parameter in an initializer if you don’t provide an external name yourself. This automatic external name is the same as the local name, as if you had written a hash symbol before every initialization parameter.
+- The names and types of an initializer’s parameters play a particularly important role in identifying which initializer should be called. Because of this, Swift provides an automatic external name for every parameter in an initializer if you don’t provide an external name yourself. This automatic external name is the same as the local name, as if you had written a hash symbol before every initialization parameter.
 
-5. Initializers can call other initializers to perform part of an instance’s initialization. This process, known as *initializer delegation*, avoids duplicating code across multiple initializers.
+- Initializers can call other initializers to perform part of an instance’s initialization. This process, known as *initializer delegation*, avoids duplicating code across multiple initializers.
 
     The rules for how initializer delegation works, and for what forms of delegation are allowed, are different for value types and class types. Value types (structures and enumerations) do not support inheritance, and so their initializer delegation process is relatively simple, because they can only delegate to another initializer that they provide themselves. Classes, however, can inherit from other classes. This means that classes have additional responsibilities for ensuring that all stored properties they inherit are assigned a suitable value during initialization
 
@@ -1108,7 +1109,7 @@
 
     **Note that if you define a custom initializer for a value type, you will no longer have access to the default initializer (or the memberwise initializer, if it is a structure) for that type**. This constraint prevents a situation in which additional essential setup provided in a more complex initializer is circumvented by someone accidentally using one of the automatic initializers instead.
 
-6. Swift defines two kinds of initializers for class types to help ensure all stored properties receive an initial value. These are known as *designated initializers* and *convenience initializers*.
+- Swift defines two kinds of initializers for class types to help ensure all stored properties receive an initial value. These are known as *designated initializers* and *convenience initializers*.
 
     *Designated initializers* are the primary initializers for a class. A designated initializer fully initializes all properties introduced by that class and calls an appropriate superclass initializer to continue the initialization process up the superclass chain.
 
@@ -1131,10 +1132,10 @@
         <#statements#>
     }
     ```
-    
-    To simplify the relationships between designated and convenience initializers, Swift applies the following three rules for delegation calls between initializers:
-    
+
     <a name="initializer-chaining"></a>
+        
+    To simplify the relationships between designated and convenience initializers, Swift applies the following three rules for delegation calls between initializers:
 
     1. A designated initializer must call a designated initializer from its immediate superclass.
     2. A convenience initializer must call another initializer from the same class.
@@ -1153,7 +1154,7 @@
     
     ![(InitializerChainingMoreComplex)](./SwiftProgrammingLanguageNoteworthy.img/InitializerChainingMoreComplex.png)
 
-7. Two-Phase Initialization
+- Two-Phase Initialization
 
     Class initialization in Swift is a two-phase process. In the first phase, each stored property is assigned an initial value by the class that introduced it. Once the initial state for every stored property has been determined, the second phase begins, and each class is given the opportunity to customize its stored properties further before the new instance is considered ready for use.
     
@@ -1163,15 +1164,15 @@
 
     Swift’s compiler performs four helpful safety-checks to make sure that two-phase initialization is completed without error:
 
-    1. A designated initializer must ensure that all of the properties introduced by its class are initialized before it delegates up to a superclass initializer. 
+    - A designated initializer must ensure that all of the properties introduced by its class are initialized before it delegates up to a superclass initializer. 
 
         As mentioned above, the memory for an object is only considered fully initialized once the initial state of all of its stored properties is known. In order for this rule to be satisfied, a designated initializer must make sure that all its own properties are initialized before it hands off up the chain.
 
-    2. A designated initializer must delegate up to a superclass initializer before assigning a value to an inherited property. If it doesn’t, the new value the designated initializer assigns will be overwritten by the superclass as part of its own initialization.
+    -  A designated initializer must delegate up to a superclass initializer before assigning a value to an inherited property. If it doesn’t, the new value the designated initializer assigns will be overwritten by the superclass as part of its own initialization.
 
-    3. A convenience initializer must delegate to another initializer before assigning a value to any property (including properties defined by the same class). If it doesn’t, the new value the convenience initializer assigns will be overwritten by its own class’s designated initializer.
+    -  A convenience initializer must delegate to another initializer before assigning a value to any property (including properties defined by the same class). If it doesn’t, the new value the convenience initializer assigns will be overwritten by its own class’s designated initializer.
 
-    4. An initializer cannot call any instance methods, read the values of any instance properties, or refer to self as a value **until after the first phase of initialization is complete**.
+    - An initializer cannot call any instance methods, read the values of any instance properties, or refer to self as a value **until after the first phase of initialization is complete**.
 
         The class instance is not fully valid until the first phase ends. Properties can only be accessed, and methods can only be called, once the class instance is known to be valid at the end of the first phase.
 
@@ -1179,23 +1180,23 @@
     
     **Phase 1**
 
-    1. A designated or convenience initializer is called on a class.
-    2. Memory for a new instance of that class is allocated. The memory is not yet initialized.
-    3. A designated initializer for that class confirms that all stored properties introduced by that class have a value. The memory for these stored properties is now initialized.
-    4. The designated initializer hands off to a superclass initializer to perform the same task for its own stored properties.
-    5. This continues up the class inheritance chain until the top of the chain is reached.
-    6. Once the top of the chain is reached, and the final class in the chain has ensured that all of its stored properties have a value, the instance’s memory is considered to be fully initialized, and phase 1 is complete.
+    - A designated or convenience initializer is called on a class.
+    - Memory for a new instance of that class is allocated. The memory is not yet initialized.
+    - A designated initializer for that class confirms that all stored properties introduced by that class have a value. The memory for these stored properties is now initialized.
+    - The designated initializer hands off to a superclass initializer to perform the same task for its own stored properties.
+    - This continues up the class inheritance chain until the top of the chain is reached.
+    - Once the top of the chain is reached, and the final class in the chain has ensured that all of its stored properties have a value, the instance’s memory is considered to be fully initialized, and phase 1 is complete.
 
         ![phase](./SwiftProgrammingLanguageNoteworthy.img/phase1.png)
 
     **Phase 2**
     
-    1. Working back down from the top of the chain, each designated initializer in the chain has the option to customize the instance further. Initializers are now able to access self and can modify its properties, call its instance methods, and so on.
-    2. Finally, any convenience initializers in the chain have the option to customize the instance and to work with self.
+    - Working back down from the top of the chain, each designated initializer in the chain has the option to customize the instance further. Initializers are now able to access self and can modify its properties, call its instance methods, and so on.
+    - Finally, any convenience initializers in the chain have the option to customize the instance and to work with self.
 
         ![phase](./SwiftProgrammingLanguageNoteworthy.img/phase2.png)
 
-8. Unlike subclasses in Objective-C, Swift subclasses do not inherit their superclass initializers by default. Swift’s approach prevents a situation in which a simple initializer from a superclass is inherited by a more specialized subclass and is used to create a new instance of the subclass that is not fully or correctly initialized.
+- Unlike subclasses in Objective-C, Swift subclasses do not inherit their superclass initializers by default. Swift’s approach prevents a situation in which a simple initializer from a superclass is inherited by a more specialized subclass and is used to create a new instance of the subclass that is not fully or correctly initialized.
 
     When you write a subclass initializer that matches a superclass designated initializer, you are effectively providing an override of that designated initializer. Therefore, you must write the `override` modifier before the subclass’s initializer definition. This is true even if you are overriding an automatically provided default initializer
 
@@ -1225,17 +1226,20 @@
     Conversely, if you write a subclass initializer that matches a superclass convenience initializer, that superclass convenience initializer can never be called directly by your subclass, as per the rules described above in [Initializer Chaining](#initializer-chaining) . 
 
 
-9. Automatic Initializer Inheritance
+- Automatic Initializer Inheritance
 
     As mentioned above, subclasses do not inherit their superclass initializers by default. However, superclass initializers are automatically inherited if certain conditions are met
 
-    Rule1: If your subclass doesn’t define any designated initializers, it automatically inherits all of its superclass designated initializers.
+    **Rule1**
+    
+    - If your subclass doesn’t define any designated initializers, it automatically inherits all of its superclass designated initializers.
 
-    Rule2: If your subclass provides an implementation of all of its superclass designated initializers—either by inheriting them as per rule 1, or by providing a custom implementation as part of its definition—then it automatically inherits all of the superclass convenience initializers.
+    **Rule2**
+    -  If your subclass provides an implementation of all of its superclass designated initializers—either by inheriting them as per rule 1, or by providing a custom implementation as part of its definition—then it automatically inherits all of the superclass convenience initializers.
 
     These rules apply even if your subclass adds further convenience initializers.
 
-10. If a stored property’s default value requires some customization or setup, you can use a closure or global function to provide a customized default value for that property. Whenever a new instance of the type that the property belongs to is initialized, the closure or function is called, and its return value is assigned as the property’s default value.
+- If a stored property’s default value requires some customization or setup, you can use a closure or global function to provide a customized default value for that property. Whenever a new instance of the type that the property belongs to is initialized, the closure or function is called, and its return value is assigned as the property’s default value.
 
     ```Swift
          class SomeClass {
