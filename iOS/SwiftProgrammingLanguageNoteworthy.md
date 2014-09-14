@@ -13,6 +13,7 @@
 - [Methods](#methods)
 - [Subscripts](#subscripts)
 - [Inheritance](#inheritance)
+- [Initialization](#initialization)
 
 ## The Basics
 
@@ -1072,3 +1073,73 @@
 
 ## Inheritance
 
+1. Any class that does not inherit from another class is known as a base class.
+
+    > Swift classes do not inherit from a universal base class. Classes you define without specifying a superclass automatically become base classes for you to build upon.
+
+2. You can provide a custom getter (and setter, if appropriate) to override any inherited property, regardless of whether the inherited property is implemented as a stored or computed property at source.
+
+    You can present an inherited read-only property as a read-write property by providing both a getter and a setter in your subclass property override. You cannot, however, present an inherited read-write property as a read-only property.
+
+    > If you provide a setter as part of a property override, you must also provide a getter for that override. If you don’t want to modify the inherited property’s value within the overriding getter, you can simply pass through the inherited value by returning `super.someProperty` from the getter, where `someProperty` is the name of the property you are overriding
+
+3. You can use property overriding to add property observers to an inherited property. This enables you to be notified when the value of an inherited property changes, regardless of how that property was originally implemented. 
+
+    > You cannot add property observers to inherited constant stored properties or inherited read-only computed properties. The value of these properties cannot be set, and so it is not appropriate to provide a willSet or didSet implementation as part of an override.
+
+    > Note also that you cannot provide both an overriding setter and an overriding property observer for the same property. If you want to observe changes to a property’s value, and you are already providing a custom setter for that property, you can simply observe any value changes from within the custom setter.
+
+## Initialization
+
+1. Unlike Objective-C initializers, Swift initializers do not return a value. Their primary role is to ensure that new instances of a type are correctly initialized before they are used for the first time.
+
+2. When you assign a default value to a stored property, or set its initial value within an initializer, the value of that property is set directly, without calling any property observers.
+
+3. If a property always takes the same initial value, provide a default value rather than setting a value within an initializer. The end result is the same, but the default value ties the property’s initialization more closely to its declaration. It makes for shorter, clearer initializers and enables you to infer the type of the property from its default value. The default value also makes it easier for you to take advantage of default initializers and initializer inheritance
+
+4. The names and types of an initializer’s parameters play a particularly important role in identifying which initializer should be called. Because of this, Swift provides an automatic external name for every parameter in an initializer if you don’t provide an external name yourself. This automatic external name is the same as the local name, as if you had written a hash symbol before every initialization parameter.
+
+5. Initializers can call other initializers to perform part of an instance’s initialization. This process, known as *initializer delegation*, avoids duplicating code across multiple initializers.
+
+    The rules for how initializer delegation works, and for what forms of delegation are allowed, are different for value types and class types. Value types (structures and enumerations) do not support inheritance, and so their initializer delegation process is relatively simple, because they can only delegate to another initializer that they provide themselves. Classes, however, can inherit from other classes. This means that classes have additional responsibilities for ensuring that all stored properties they inherit are assigned a suitable value during initialization
+
+    For value types, you use `self.init` to refer to other initializers from the same value type when writing your own custom initializers. You can only call `self.init` from within an initializer.
+
+    **Note that if you define a custom initializer for a value type, you will no longer have access to the default initializer (or the memberwise initializer, if it is a structure) for that type**. This constraint prevents a situation in which additional essential setup provided in a more complex initializer is circumvented by someone accidentally using one of the automatic initializers instead.
+
+6. Swift defines two kinds of initializers for class types to help ensure all stored properties receive an initial value. These are known as *designated initializers* and *convenience initializers*.
+
+    *Designated initializers* are the primary initializers for a class. A designated initializer fully initializes all properties introduced by that class and calls an appropriate superclass initializer to continue the initialization process up the superclass chain.
+
+    Every class must have at least one designated initializer. In some cases, this requirement is satisfied by inheriting one or more designated initializers from a superclass
+
+    *Convenience initializers* are secondary, supporting initializers for a class. You can define a convenience initializer to call a designated initializer from the same class as the convenience initializer with some of the designated initializer’s parameters set to default values. You can also define a convenience initializer to create an instance of that class for a specific use case or input value type.
+
+    Designated initializers for classes are written in the same way as simple initializers for value types:
+
+    ```Swift
+    init(<#parameters#>) {
+        <#statements#>
+    }
+    ```
+    
+    Convenience initializers are written in the same style, but with the convenience modifier placed before the init keyword, separated by a space
+
+    ```Swift
+    convenience init(<#parameters#>) {
+        <#statements#>
+    }
+    ```
+    
+    To simplify the relationships between designated and convenience initializers, Swift applies the following three rules for delegation calls between initializers:
+
+    - A designated initializer must call a designated initializer from its immediate superclass.
+    - A convenience initializer must call another initializer from the same class.
+    - A convenience initializer must ultimately call a designated initializer.
+
+    A simple way to remember this is:
+    
+    - Designated initializers must always delegate up.
+    - Convenience initializers must always delegate across.
+
+    ![(InitializerChaining)](./SwiftProgrammingLanguageNoteworthy.img/InitializerChaining.png)
