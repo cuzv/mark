@@ -1133,19 +1133,24 @@
     ```
     
     To simplify the relationships between designated and convenience initializers, Swift applies the following three rules for delegation calls between initializers:
-<a name="initializer-chaining"></a>
+    
+    <a name="initializer-chaining"></a>
 
-    - A designated initializer must call a designated initializer from its immediate superclass.
-    - A convenience initializer must call another initializer from the same class.
-    - A convenience initializer must ultimately call a designated initializer.
+    1. A designated initializer must call a designated initializer from its immediate superclass.
+    2. A convenience initializer must call another initializer from the same class.
+    3. A convenience initializer must ultimately call a designated initializer.
 
     A simple way to remember this is:
     
-    - Designated initializers must always delegate up.
-    - Convenience initializers must always delegate across.
+    1. Designated initializers must always delegate up.
+    2. Convenience initializers must always delegate across.
 
+    InitializerChaining
+        
     ![(InitializerChaining)](./SwiftProgrammingLanguageNoteworthy.img/InitializerChaining.png)
 
+    InitializerChainingMoreComplex
+    
     ![(InitializerChainingMoreComplex)](./SwiftProgrammingLanguageNoteworthy.img/InitializerChainingMoreComplex.png)
 
 7. Two-Phase Initialization
@@ -1174,19 +1179,19 @@
     
     **Phase 1**
 
-    - A designated or convenience initializer is called on a class.
-    - Memory for a new instance of that class is allocated. The memory is not yet initialized.
-    - A designated initializer for that class confirms that all stored properties introduced by that class have a value. The memory for these stored properties is now initialized.
-    - The designated initializer hands off to a superclass initializer to perform the same task for its own stored properties.
-    - This continues up the class inheritance chain until the top of the chain is reached.
-    - Once the top of the chain is reached, and the final class in the chain has ensured that all of its stored properties have a value, the instance’s memory is considered to be fully initialized, and phase 1 is complete.
+    1. A designated or convenience initializer is called on a class.
+    2. Memory for a new instance of that class is allocated. The memory is not yet initialized.
+    3. A designated initializer for that class confirms that all stored properties introduced by that class have a value. The memory for these stored properties is now initialized.
+    4. The designated initializer hands off to a superclass initializer to perform the same task for its own stored properties.
+    5. This continues up the class inheritance chain until the top of the chain is reached.
+    6. Once the top of the chain is reached, and the final class in the chain has ensured that all of its stored properties have a value, the instance’s memory is considered to be fully initialized, and phase 1 is complete.
 
         ![phase](./SwiftProgrammingLanguageNoteworthy.img/phase1.png)
 
     **Phase 2**
     
-    - Working back down from the top of the chain, each designated initializer in the chain has the option to customize the instance further. Initializers are now able to access self and can modify its properties, call its instance methods, and so on.
-    - Finally, any convenience initializers in the chain have the option to customize the instance and to work with self.
+    1. Working back down from the top of the chain, each designated initializer in the chain has the option to customize the instance further. Initializers are now able to access self and can modify its properties, call its instance methods, and so on.
+    2. Finally, any convenience initializers in the chain have the option to customize the instance and to work with self.
 
         ![phase](./SwiftProgrammingLanguageNoteworthy.img/phase2.png)
 
@@ -1224,13 +1229,9 @@
 
     As mentioned above, subclasses do not inherit their superclass initializers by default. However, superclass initializers are automatically inherited if certain conditions are met
 
-    Rule1 
+    Rule1: If your subclass doesn’t define any designated initializers, it automatically inherits all of its superclass designated initializers.
 
-    - If your subclass doesn’t define any designated initializers, it automatically inherits all of its superclass designated initializers.
-
-    Rule2 
-
-    - If your subclass provides an implementation of all of its superclass designated initializers—either by inheriting them as per rule 1, or by providing a custom implementation as part of its definition—then it automatically inherits all of the superclass convenience initializers.
+    Rule2: If your subclass provides an implementation of all of its superclass designated initializers—either by inheriting them as per rule 1, or by providing a custom implementation as part of its definition—then it automatically inherits all of the superclass convenience initializers.
 
     These rules apply even if your subclass adds further convenience initializers.
 
@@ -1251,4 +1252,6 @@
     > If you use a closure to initialize a property, remember that the rest of the instance has not yet been initialized at the point that the closure is executed. This means that you cannot access any other property values from within your closure, even if those properties have default values. You also cannot use the implicit `self` property, or call any of the instance’s methods.
 
 ## Deinitialization
+
+
 
