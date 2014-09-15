@@ -10,7 +10,7 @@ mark tips, notes, faqs, techs, shares
 	- [Swift Issues](./iOS/SwiftIssues.md)
 	- [Swift Programming Language Noteworthy](./iOS/SwiftProgrammingLanguageNoteworthy.md)
 	- [把「The Swift Programming Language」读薄 by hawstein](./iOS/ReadSwiftThin.md)
-	- [Podfile](./iOS/Podfile)
+	- [iOS Vendors](./iOS/Vendors)
 - linux
 	- [终端相关命令总结-荐](./linux/TerminalCommand.md)
 	- [LinuxCast.net学习笔记](./linux/LinuxCast.net/)
