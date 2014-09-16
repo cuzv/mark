@@ -18,3 +18,4 @@ pod 'LeafScrollView'                                     # 下拉顶部图片拉
 pod 'CHTCollectionViewWaterfallLayout'                   # 瀑布流
 pod 'MPParallaxCollection'                               # 视差效果，启动动画
 # https://github.com/michaelhenry/MHYahooParallaxView    # 视差效果，启动动画
+pod 'NSStringEmojize'                                    # emoj NSString 互转
