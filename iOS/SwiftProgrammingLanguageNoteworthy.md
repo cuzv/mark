@@ -17,6 +17,10 @@
 - [Deinitialization](#deinitialization)
 - [Automatic Reference Counting](#automatic-reference-counting)
 - [Optional Chaining](#optional-chaining)
+- [Type Casting](#type-casting)
+- [Nested Types](#nested-types)
+- [Extensions](extensions)
+- [Protocols](#protocols)
 
 ## The Basics
 
@@ -1371,5 +1375,94 @@
 
 - To reflect the fact that optional chaining can be called on a nil value, the result of an optional chaining call is always an optional value, even if the property, method, or subscript you are querying returns a non-optional value.
 
-- If a subscript returns a value of optional type—such as the key subscript of Swift’s  `Dictionary` type—place a question mark after the subscript’s closing bracket to chain on its optional return value:
+- When you access a subscript on an optional value through optional chaining, you place the question mark before the subscript’s braces, not after. The optional chaining question mark always follows immediately after the part of the expression that is optional.
 
+- If a subscript returns a value of optional type—such as the key subscript of Swift’s  `Dictionary` type—place a question mark after the subscript’s closing bracket to chain on its optional return value
+
+- You can link together multiple levels of optional chaining to drill down to properties, methods, and subscripts deeper within a model. However, multiple levels of optional chaining do not add more levels of optionality to the returned value.
+
+- The previous example shows how to retrieve the value of a property of optional type through optional chaining. You can also use optional chaining to call a method that returns a value of optional type, and to chain on that method’s return value if needed.
+
+## Type Casting
+
+- Use the *type check operator* (`is`) to check whether an instance is of a certain subclass type. The type check operator returns `true` if the instance is of that subclass type and `false` if it is not.
+
+- A constant or variable of a certain class type may actually refer to an instance of a subclass behind the scenes. Where you believe this is the case, you can try to downcast to the subclass type with the *type cast operator* (`as`).
+
+- Use the optional form of the type cast operator (`as?`) when you are not sure if the downcast will succeed. This form of the operator will always return an optional value, and the value will be `nil` if the downcast was not possible. This enables you to check for a successful downcast.
+
+- Swift provides two special type aliases for working with non-specific types:
+    
+    - `AnyObject` can represent an instance of any class type.
+    - `Any` can represent an instance of any type at all, apart from function types.
+
+    ```Swift
+    var things = [Any]()
+    
+    things.append(0)
+    things.append(0.0)
+    things.append(42)
+    things.append(3.14159)
+    things.append("hello")
+    things.append((3.0, 5.0))
+    things.append(Movie(name: "Ghostbusters", director: "Ivan Reitman"))
+    
+    for thing in things {
+        switch thing {
+        case 0 as Int:
+            println("zero as an Int")
+        case 0 as Double:
+            println("zero as a Double")
+        case let someInt as Int:
+            println("an integer value of \(someInt)")
+        case let someDouble as Double where someDouble > 0:
+            println("a positive double value of \(someDouble)")
+        case is Double:
+            println("some other double value that I don't want to print")
+        case let someString as String:
+            println("a string value of \"\(someString)\"")
+        case let (x, y) as (Double, Double):
+            println("an (x, y) point at \(x), \(y)")
+        case let movie as Movie:
+            println("a movie called '\(movie.name)', dir. \(movie.director)")
+        default:
+            println("something else")
+        }
+    }
+    
+    // zero as an Int
+    // zero as a Double
+    // an integer value of 42
+    // a positive double value of 3.14159
+    // a string value of "hello"
+    // an (x, y) point at 3.0, 5.0
+    // a movie called 'Ghostbusters', dir. Ivan Reitman
+    ```
+    
+    The cases of a `switch` statement use the forced version of the type cast operator (`as`, not `as?`) to check and cast to a specific type. This check is always safe within the context of a `switch` case statement.
+
+## Nested Types
+
+## Extensions
+
+- Extensions add new functionality to an existing class, structure, or enumeration type. This includes the ability to extend types for which you do not have access to the original source code (known as retroactive modeling). Extensions are similar to categories in Objective-C. (Unlike Objective-C categories, Swift extensions do not have names.)
+
+- Extensions in Swift can:
+    - Add computed properties and computed static properties
+    - Define instance methods and type methods
+    - Provide new initializers
+    - Define subscripts
+    - Define and use new nested types
+    - Make an existing type conform to a protocol
+
+    > Extensions can add new functionality to a type, but they cannot override existing functionality.
+
+- Extensions can add new computed properties, but they cannot add stored properties, or add property observers to existing properties.
+
+- Extensions can add new convenience initializers to a class, but they cannot add new designated initializers or deinitializers to a class. Designated initializers and deinitializers must always be provided by the original class implementation.
+
+    > If you use an extension to add an initializer to a value type that provides default values for all of its stored properties and does not define any custom initializers, you can call the default initializer and memberwise initializer for that value type from within your extension’s initializer.
+
+- Instance methods added with an extension can also modify (or `mutate`) the instance itself. Structure and enumeration methods that modify `self` or its properties must mark the instance method as mutating, just like mutating methods from an original implementation.
+
+## Protocols
