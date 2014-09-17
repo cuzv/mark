@@ -11,7 +11,7 @@ pod 'FMDB/SQLCipher'                                     # sqllite cipher
 pod 'SSKeychain'                                         # 钥匙串
 pod 'JBChartView'                                        # 绘制图表
 pod 'A3ParallaxScrollView'                               # 下拉顶部图片拉伸效果(cover)
-pod 'MDCParallaxView'                                    # 下拉顶部图片拉伸效果(感觉比上面好)
+pod 'MDCParallaxView'                                    # 下拉顶部图片拉伸效果(❤)
 pod 'CHTwitterCover'                                     # 下拉顶部图片拉伸效果(category, blur)
 pod 'XHPathCover'                                        # 下拉顶部图片拉伸效果(带微信朋友圈刷新效果)
 pod 'LeafScrollView'                                     # 下拉顶部图片拉伸效果(带刷新效果)
@@ -20,3 +20,7 @@ pod 'MPParallaxCollection'                               # 视差效果，启动
 # https://github.com/michaelhenry/MHYahooParallaxView    # 视差效果，启动动画
 pod 'NSStringEmojize'                                    # emoj NSString 互转
 pod 'MessageBanner'                                      # 消息提示框
+pod 'RMStepsController'                                  # 分步展示效果(可以做引导页，介绍页)
+pod 'EAIntroView'                                        # 引导页(❤)
+pod 'MYIntroduction'                                     # 引导页
+pod 'MYBlurIntroductionView'                             # 引导页(模糊效果，号称不再需要其它介绍页了)
