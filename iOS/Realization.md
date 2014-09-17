@@ -1,11 +1,11 @@
 # iOS Realization
 
 - [转换对象](#转换对象)
-- [让Category支持添加属性与成员变量](#让category支持添加属性与成员变量)
+- [让 Category 支持添加属性与成员变量](#让category支持添加属性与成员变量)
 - [获取图片](#获取图片)
 - [通过颜色创建图片](#通过颜色创建图片)
-- [让UILabel具有padding效果](#让uilabel具有padding效果)
-- [让UITextField具有padding效果](#让uitextfield具有padding效果)
+- [让 UILabel 具有 padding 效果](#让-uilabel-具有-padding-效果)
+- [让 UITextField 具有 padding 效果](#让-uitextfield-具有-padding-效果)
 - [方便快捷获取调整视图坐标与大小](#方便快捷获取调整视图坐标与大小)
 - [为视图添加边线](#为视图添加边线)
 - [寻找视图的控制器](#寻找视图的控制器)
@@ -15,6 +15,7 @@
 - [禁用粘贴功能](#禁用粘贴功能)
 - [判断键盘是否已经升起](#判断键盘是否已经升起)
 - [GCD Timer](#cgd-timer)
+- [在  Storyboard  Autolayout 模式下使用 UIScrollview](#在-storyboard -autolayout-模式下使用-uiscrollview)
 
 ## 转换对象
 
@@ -123,7 +124,7 @@
 @end
 ```
 
-## 让Category支持添加属性与成员变量
+## 让 Category 支持添加属性与成员变量
 
 ```objective-c
 // NSObject+IndieBandName.h
@@ -227,7 +228,7 @@ OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 @end
 ```
 
-## 让UILabel具有padding效果
+## 让 UILabel 具有 padding 效果
 
 ```objective-c
 @interface PaddingLabel : UILabel
@@ -253,7 +254,7 @@ OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 @end
 ```
 
-## 让UITextField具有padding效果
+## 让 UITextField 具有 padding 效果
 
 ```objective-c
 #define kPaddingWidth 5
@@ -865,3 +866,9 @@ typedef enum {
     });
     dispatch_resume(timer);
 ```
+
+## 在  Storyboard  Autolayout 模式下使用 UIScrollview
+
+- Setting UIViewControl 「Size Inspector」-「Simulated Size」「Freeform」「width: 320 height: 1000」
+- Drag a UIScrollview to this UIViewControl's view make sure it's frame is the same with UIViewControl's frame
+- Setting the UIScrollview's `frame` and `contentSize` on `viewDidAppear:`
