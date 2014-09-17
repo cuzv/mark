@@ -19,3 +19,4 @@ pod 'CHTCollectionViewWaterfallLayout'                   # 瀑布流
 pod 'MPParallaxCollection'                               # 视差效果，启动动画
 # https://github.com/michaelhenry/MHYahooParallaxView    # 视差效果，启动动画
 pod 'NSStringEmojize'                                    # emoj NSString 互转
+pod 'MessageBanner'                                      # 消息提示框
