@@ -15,7 +15,7 @@
 - [禁用粘贴功能](#禁用粘贴功能)
 - [判断键盘是否已经升起](#判断键盘是否已经升起)
 - [GCD Timer](#cgd-timer)
-- [在 Storyboard  Autolayout 模式下使用 UIScrollview](#在-storyboard-autolayout-模式下使用-uiscrollview)
+- [在 Storyboard Autolayout 模式下使用 UIScrollview](#在-storyboard-autolayout-模式下使用-uiscrollview)
 
 ## 转换对象
 
@@ -867,7 +867,7 @@ typedef enum {
     dispatch_resume(timer);
 ```
 
-## 在  Storyboard  Autolayout 模式下使用 UIScrollview
+## 在 Storyboard Autolayout 模式下使用 UIScrollview
 
 - Setting UIViewControl 「Size Inspector」-「Simulated Size」「Freeform」「width: 320 height: 1000」
 - Drag a UIScrollview to this UIViewControl's view make sure it's frame is the same with UIViewControl's frame
