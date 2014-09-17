@@ -1,7 +1,7 @@
 # iOS Realization
 
 - [转换对象](#转换对象)
-- [让 Category 支持添加属性与成员变量](#让category支持添加属性与成员变量)
+- [让 Category 支持添加属性与成员变量](#让-category-支持添加属性与成员变量)
 - [获取图片](#获取图片)
 - [通过颜色创建图片](#通过颜色创建图片)
 - [让 UILabel 具有 padding 效果](#让-uilabel-具有-padding-效果)
@@ -15,7 +15,7 @@
 - [禁用粘贴功能](#禁用粘贴功能)
 - [判断键盘是否已经升起](#判断键盘是否已经升起)
 - [GCD Timer](#cgd-timer)
-- [在  Storyboard  Autolayout 模式下使用 UIScrollview](#在-storyboard -autolayout-模式下使用-uiscrollview)
+- [在 Storyboard  Autolayout 模式下使用 UIScrollview](#在-storyboard-autolayout-模式下使用-uiscrollview)
 
 ## 转换对象
 
