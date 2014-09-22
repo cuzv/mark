@@ -16,6 +16,10 @@
 - [判断键盘是否已经升起](#判断键盘是否已经升起)
 - [GCD Timer](#cgd-timer)
 - [在 Storyboard Autolayout 模式下使用 UIScrollview](#在-storyboard-autolayout-模式下使用-uiscrollview)
+- [播放短暂的提示声音](#播放短暂的提示声音)
+- [设置textView或者label的行间距方法](#设置-textview-或者-label-的行间距方法)
+- [截屏](#截屏)
+- [手势在左右的边缘才触发](#手势在左右的边缘才触发)
 
 ## 转换对象
 
@@ -872,3 +876,64 @@ typedef enum {
 - Setting UIViewControl 「Size Inspector」-「Simulated Size」「Freeform」「width: 320 height: 1000」
 - Drag a UIScrollview to this UIViewControl's view make sure it's frame is the same with UIViewControl's frame
 - Setting the UIScrollview's `frame` and `contentSize` on `viewDidAppear:`
+
+## 播放短暂的提示声音
+
+```objective-c
+SystemSoundID soundID;
+NSString *strSoundFile = [[NSBundle mainBundle] pathForResource:@"alertsound" ofType:@"wav"];
+AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:strSoundFile],&soundID;);
+AudioServicesPlaySystemSound(soundID);
+```
+
+## 设置textView或者label的行间距方法
+
+```objective-c
+NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
+paragraphStyle.lineSpacing = 4;
+    
+NSDictionary *attributes = @{ NSFontAttributeName:[UIFont systemFontOfSize:14], NSParagraphStyleAttributeName:paragraphStyle};
+label.attributedText = [[NSAttributedString alloc]initWithString:label.text attributes:attributes];
+```
+
+## 截屏
+
+```objective-c
+- (UIImage *)screenshot:(UIDeviceOrientation)orientation isOpaque:(BOOL)isOpaque usePresentationLayer:(BOOL)usePresentationLayer {
+     CGSize size;
+ 
+     if (orientation == UIDeviceOrientationPortrait || orientation == UIDeviceOrientationPortraitUpsideDown) {
+         size = CGSizeMake(self.view.frame.size.width, self.frame.size.height);
+     } else {
+         size = CGSizeMake(self.view.frame.size.height, self.frame.size.width);
+     }
+ 
+     UIGraphicsBeginImageContextWithOptions(size, isOpaque, 0.0);
+ 
+     if (usePresentationLayer) {
+         [self.view.layer.presentationLayer renderInContext:UIGraphicsGetCurrentContext()];
+     } else {
+         [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+     }
+ 
+     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+ 
+     UIGraphicsEndImageContext();
+ 
+     return image;
+ }
+ 
+//使用方法：
+UIImage *image = [self.view screenshot:UIDeviceOrientationPortrait
+                               isOpaque:YES
+                   usePresentationLayer:YES];
+```
+
+## 手势在左右的边缘才触发
+
+```obective-c
+UIScreenEdgePanGestureRecognizer *screenEdgePanGestureRecognizer = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(screenEdgePanGestureRecognizerHanlde:)];
+screenEdgePanGestureRecognizer.edges = UIRectEdgeRight;
+[self.view addGestureRecognizer:screenEdgePanGestureRecognizer];
+
+```
