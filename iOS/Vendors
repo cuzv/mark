@@ -64,6 +64,7 @@ pod 'MYIntroduction'                                     # 引导页
 pod 'MYBlurIntroductionView'                             # 引导页(模糊效果，号称不再需要其它介绍页了)
 pod 'BCGenieEffect'                                      # 视图 present 动画，类似于最小化到 dock 栏效果
 pod 'AMWaveTransition'                                   # 波浪转场效果(cell)
+pod 'Onboard'                                            # 引导页(支持 Swift)
 
 # App framework
 pod 'MMDrawerController'                                 # 侧滑菜单(❤)
