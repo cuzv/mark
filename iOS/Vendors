@@ -1,28 +1,71 @@
 platform :ios,'7.0'                                      # 运行平台
+
+# Data
 pod 'AFNetworking'                                       # 网络请求
 pod 'JSONModel'                                          # JSON 和对象互转
+pod 'FMDB'                                               # 本地缓存, sql
+pod 'FMDB/SQLCipher'                                     # sqllite cipher
+pod 'TMCache'                                            # 本地缓存, tumblr 出品, NSCoding
+pod 'SSKeychain'                                         # 钥匙串
+
+# Cocoa Extension
 pod 'BlocksKit'                                          # cocoa api Blocks 扩展
 pod 'UIActionSheet+Blocks'                               # 同上
 pod 'UIAlertView+Blocks'                                 # 同上
+pod 'NSStringEmojize'                                    # emoj NSString 互转
+
+# Refresh
 pod 'RefreshControl'                                     # 刷新控件
+pod 'ODRefreshControl'                                   # 下拉刷新 like Apple's iOS6 Mail App
+
+# HUD
 pod 'JGProgressHUD'                                      # 吐司框
-pod 'FMDB'                                               # sqlite
-pod 'FMDB/SQLCipher'                                     # sqllite cipher
-pod 'SSKeychain'                                         # 钥匙串
+pod 'MessageBanner'                                      # 消息提示框
+pod 'TSMessages'                                         # 消息提示框 (more stars)
+pod 'M13ProgressSuite'                                   # 指示器
+pod 'AMPopTip'                                           # 类似系统复制提示
+
+# Graph
 pod 'JBChartView'                                        # 绘制图表
+pod 'TEAChart.'                                          # 绘制图表
+
+# Parallax
 pod 'A3ParallaxScrollView'                               # 下拉视差效果(cover)
 pod 'MDCParallaxView'                                    # 下拉视差效果(❤ addSubView)
 pod 'APParallaxHeader'                                   # 下拉视差效果(❤ category)
 pod 'CHTwitterCover'                                     # 下拉视差效果(category, blur)
 pod 'XHPathCover'                                        # 下拉视差效果(带微信朋友圈刷新效果)
 pod 'LeafScrollView'                                     # 下拉视差效果(带刷新效果)
-pod 'CHTCollectionViewWaterfallLayout'                   # 瀑布流
+pod 'SWParallaxScrollView'                               # 多个图层上以不同速度滑动的自定义 ScrollView
+
+# View
+pod 'CHTCollectionViewWaterfallLayout'                   # 瀑布流 (支持 Swift)
+pod 'Shimmer'                                            # 让 view 展示波光粼粼的效果
+pod 'REMenu'                                             # 下拉菜单
+pod 'M80AttributedLabel'                                 # label 功能扩展 (❤)
+pod 'RSKImageCropper'                                    # 圆形取图器
+pod 'THContactPicker'                                    # 搜索过滤
+POD 'HPGrowingTextView'                                  # 输入自动增加高度
+pod 'SDSegmentedControl'                                 # 小三角指示选中状态
+pod 'DZNSegmentedControl'                                # 可以显示数字的segment，通常用于profile的顶部
+pod 'CSNotificationView'                                 # 透明的导航栏下面，滑下的Notif(iOS7)
+pod 'FRDLivelyButton'                                    # 用 CA 实现的补间动画形状按钮
+pod 'TDBadgedCell'                                       # 在 TableCell 右侧添加 badge 有不同风格
+pod 'SWTableViewCell'                                    # 类似 iOS7 邮件中的 Cell, 左右滑动出现多个功能键
+pod 'AMScrollingNavbar'                                  # 上滑收起 navi bar (适用于阅读)
+pod 'MWPhotoBrowser'                                     # 一套图片浏览控件 高仿iOS默认 支持网络图片
+
+# Transition
 pod 'MPParallaxCollection'                               # 左右切换视差效果，启动动画
 # https://github.com/michaelhenry/MHYahooParallaxView    # 左右切换视差效果，启动动画
-pod 'NSStringEmojize'                                    # emoj NSString 互转
-pod 'MessageBanner'                                      # 消息提示框
 pod 'RMStepsController'                                  # 分步展示效果(可以做引导页，介绍页)
 pod 'EAIntroView'                                        # 引导页(❤)
 pod 'MYIntroduction'                                     # 引导页
 pod 'MYBlurIntroductionView'                             # 引导页(模糊效果，号称不再需要其它介绍页了)
 pod 'BCGenieEffect'                                      # 视图 present 动画，类似于最小化到 dock 栏效果
+pod 'AMWaveTransition'                                   # 波浪转场效果(cell)
+
+# App framework
+pod 'MMDrawerController'                                 # 侧滑菜单(❤)
+pod 'AMSlideMenu'                                        # 侧滑菜单(❤)
+pod 'MSDynamicsDrawerViewController'                     # 侧滑菜单
