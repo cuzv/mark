@@ -628,23 +628,57 @@ typedef enum {
 ## 统计并限制输入长度
 
 ```objective-c
-@interface TextConfigure : NSObject <UITextViewDelegate, UITextFieldDelegate>
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@property (nonatomic, strong) UILabel *countLabel;
-@property (nonatomic, assign) NSUInteger maxCount;
-@property (nonatomic, strong) UILabel *placeHolderLabel; // only text view use
+@interface TextConfigure : NSObject
+
+@property (nonatomic, weak) UILabel *countLabel;
+@property (nonatomic, assign) NSUInteger maxLength;
+// only text view use
+@property (nonatomic, weak) UILabel *placeHolderLabel;
 
 @end
+
+@interface UITextView (TextConfigure)
+@property (nonatomic, strong) TextConfigure *textConfigure;
+@end
+
+@interface UITextField (TextConfigure)
+@property (nonatomic, strong) TextConfigure *textConfigure;
+@end
+
 ```
 
 ```objective-c
+#import <objc/runtime.h>
+
+@interface TextConfigure ()
+
+@property (nonatomic, assign) BOOL UITextViewTextDidChangeNotificationRegistered;
+@property (nonatomic, assign) UITextView *observedTextView;
+
+@property (nonatomic, assign) BOOL UITextFieldTextDidChangeNotificationRegistered;
+@property (nonatomic, weak) UITextField *observedTextField;
+
+@end
+
 @implementation TextConfigure
+
+- (void)dealloc {
+    if (self.UITextFieldTextDidChangeNotificationRegistered) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:self.observedTextField];
+    }
+    if (self.UITextViewTextDidChangeNotificationRegistered) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextViewTextDidChangeNotification object:self.observedTextView];
+    }
+}
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-        self.maxCount = 100;
+        self.maxLength = 100;
         _countLabel.bounds = CGRectMake(0, 0, 30, 22);
     }
     return self;
@@ -656,127 +690,113 @@ typedef enum {
         _countLabel.textAlignment = NSTextAlignmentRight;
         _countLabel.bounds = CGRectMake(0, 0, 30, 22);
         _countLabel.textColor = [UIColor lightGrayColor];
-        self.countLabel.text = [@(self.maxCount) stringValue];
+        self.countLabel.text = [@(self.maxLength) stringValue];
     }
 }
 
-- (void)setMaxCount:(NSUInteger)maxCount {
-    if (_maxCount != maxCount) {
-        _maxCount = maxCount;
-        self.countLabel.text = [@(self.maxCount) stringValue];
+- (void)setMaxLength:(NSUInteger)maxLength {
+    if (_maxLength != maxLength) {
+        _maxLength = maxLength;
+        self.countLabel.text = [@(self.maxLength) stringValue];
     }
 }
 
 - (void)setPlaceHolderLabel:(UILabel *)placeHolderLabel {
     if (![_placeHolderLabel isEqual:placeHolderLabel]) {
         _placeHolderLabel = placeHolderLabel;
+        _placeHolderLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
         _placeHolderLabel.textColor = [UIColor lightGrayColor];
-        _placeHolderLabel.text = _placeHolderLabel.text ? : @"请输入内容";
-        _placeHolderLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+        _placeHolderLabel.text = _placeHolderLabel.text ? : [NSString stringWithFormat:@"请输入不多于%d字的内容", self.maxLength];
     }
-}
-
-- (void)textDidChange:(NSNotification *)notification {
-    NSUInteger length;
-    if ([notification.object isKindOfClass:[UITextView class]]) {
-        UITextView *textView = (UITextView *)notification.object;
-        length = textView.text.length;
-    } else if ([notification.object isKindOfClass:[UITextField class]]) {
-        UITextField *textField = (UITextField *)notification.object;
-        length = textField.text.length;
-    }
-    _countLabel.text = [NSString stringWithFormat:@"%d", self.maxCount - length];
 }
 
 - (void)initialNotificationForObject:(id)object {
-    static dispatch_once_t onceToken;
     if ([object isKindOfClass:[UITextView class]]) {
         UITextView *textView = (UITextView *)object;
-        dispatch_once(&onceToken, ^{
-            [[NSNotificationCenter defaultCenter] addObserver:self
-                                                     selector:@selector(textDidChange:)
-                                                         name:UITextViewTextDidChangeNotification
-                                                       object:textView];
-        });
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(textDidChange:)
+                                                     name:UITextViewTextDidChangeNotification
+                                                   object:textView];
+        self.UITextViewTextDidChangeNotificationRegistered = YES;
+        self.observedTextView = textView;
     } else if ([object isKindOfClass:[UITextField class]]) {
         UITextField *textField = (UITextField *)object;
-        dispatch_once(&onceToken, ^{
-            [[NSNotificationCenter defaultCenter] addObserver:self
-                                                     selector:@selector(textDidChange:)
-                                                         name:UITextFieldTextDidChangeNotification
-                                                       object:textField];
-        });
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(textDidChange:)
+                                                     name:UITextFieldTextDidChangeNotification
+                                                   object:textField];
+        self.UITextFieldTextDidChangeNotificationRegistered = YES;
+        self.observedTextField = textField;
     }
 }
 
-#pragma mark - text view delegate
+#pragma mark - text did change notification
 
-- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
-    [self initialNotificationForObject:textView];
-    return YES;
-}
-
-- (void)textViewDidChange:(UITextView *)textView {
-    if (textView.text.length) {
-        [self.placeHolderLabel setHidden:YES];
-    } else {
-        [self.placeHolderLabel setHidden:NO];
-    }
-}
-
-- (void)textViewDidEndEditing:(UITextView *)textView {
-    if(textView.text.length < 1) {
-        [self.placeHolderLabel setHidden:NO];
-    }
-}
-
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    if (NSMaxRange(range) + text.length > self.maxCount){
-        return NO;
-    }
-    if (text.length > 0) {
-        if(self.countLabel.text.intValue > 0) {
-            self.countLabel.text = [NSString stringWithFormat:@"%d",self.maxCount - (NSMaxRange(range) + text.length)];
-            if(textView.text.length == self.maxCount - 1) {
-                textView.text = [textView.text stringByAppendingString:text];
-            }
+- (void)textDidChange:(NSNotification *)notification {
+    NSUInteger length = 0;
+    id object = notification.object;
+    if ([object isMemberOfClass:[UITextField class]]) {
+        UITextField *textField = object;
+        NSString *text = textField.text;
+        if (text.length > self.maxLength && !textField.markedTextRange) {
+            textField.text = [text substringToIndex:self.maxLength];
         }
-    } else {
-        self.countLabel.text = [NSString stringWithFormat:@"%d",self.maxCount - (textView.text.length - range.length)];
-    }
-
-    if (self.countLabel && self.countLabel.text.intValue <= 0) {
-        return NO;
-    }
-    return YES;
-}
-
-#pragma mark - text field delegate
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    [self initialNotificationForObject:textField];
-    return YES;
-}
-
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if (NSMaxRange(range)+string.length > self.maxCount) {
-        return NO;
-    }
-    if (string.length > 0) {
-        if(self.countLabel.text.intValue > 0) {
-            self.countLabel.text = [NSString stringWithFormat:@"%d",self.maxCount - (NSMaxRange(range) + string.length)];
-            if(textField.text.length == self.maxCount - 1) {
-                textField.text = [textField.text stringByAppendingString:string];
-            }
+        length = textField.text.length;
+    } else if ([object isMemberOfClass:[UITextView class]]){
+        UITextView *textView = object;
+        NSString *text = textView.text;
+        if (textView.text.length > self.maxLength && !textView.markedTextRange) {
+            textView.text = [text substringToIndex:self.maxLength];
         }
-    } else {
-        self.countLabel.text = [NSString stringWithFormat:@"%d",self.maxCount - (textField.text.length - range.length)];
-    }
-    if (self.countLabel.text.intValue <= 0) {
-        return NO;
+        length = textView.text.length;
+        if (length) {
+            [self.placeHolderLabel setHidden:YES];
+        } else {
+            [self.placeHolderLabel setHidden:NO];
+        }
     }
     
-    return YES;
+    _countLabel.text = [NSString stringWithFormat:@"%d", self.maxLength - length];
+}
+
+@end
+
+#pragma mark - text field
+
+static const void *UITextFieldKey = &UITextFieldKey;
+
+@implementation UITextField (TextConfigure)
+
+- (void)setTextConfigure:(TextConfigure *)textConfigure {
+    [self willChangeValueForKey:@"UITextFieldKey"];
+    objc_setAssociatedObject(self, UITextFieldKey, textConfigure, OBJC_ASSOCIATION_RETAIN);
+    [self didChangeValueForKey:@"UITextFieldKey"];
+    
+    [textConfigure initialNotificationForObject:self];
+}
+
+- (TextConfigure *)textConfigure {
+    return objc_getAssociatedObject(self, &UITextFieldKey);
+}
+
+@end
+
+#pragma mark - text view
+
+static const void *UITextViewKey = &UITextViewKey;
+
+@implementation UITextView (TextConfigure)
+
+- (void)setTextConfigure:(TextConfigure *)textConfigure {
+    [self willChangeValueForKey:@"UITextViewKey"];
+    objc_setAssociatedObject(self, UITextViewKey, textConfigure, OBJC_ASSOCIATION_RETAIN);
+    [self didChangeValueForKey:@"UITextViewKey"];
+    
+    [textConfigure initialNotificationForObject:self];
+}
+
+- (TextConfigure *)textConfigure {
+    return objc_getAssociatedObject(self, &UITextViewKey);
 }
 
 @end
