@@ -802,28 +802,6 @@ static const void *UITextViewKey = &UITextViewKey;
 @end
 ```
 
-### usage
-
-```objective-c
-    // text configure
-    _textConfigure = [TextConfigure new];
-    _textConfigure.countLabel = _countLabel;
-    _textConfigure.maxCount = 20;
-    
-    // text view
-    UILabel *placeHolderLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 120, 30)];
-    [_textView addSubview:placeHolderLabel];
-    _textConfigure.placeHolderLabel = placeHolderLabel;
-    _textView.delegate = _textConfigure;
-
-    // text field
-    UILabel *countLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 20, 40)];
-    _textField.rightView = countLabel;
-    _textField.rightViewMode = UITextFieldViewModeWhileEditing;
-    _textConfigure.countLabel = countLabel;
-    _textField.delegate = _textConfigure;
-```
-
 ## 禁用粘贴功能
 
 覆盖以下方法：
