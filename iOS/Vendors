@@ -53,7 +53,8 @@ pod 'FRDLivelyButton'                                    # 用 CA 实现的补�
 pod 'TDBadgedCell'                                       # 在 TableCell 右侧添加 badge 有不同风格
 pod 'SWTableViewCell'                                    # 类似 iOS7 邮件中的 Cell, 左右滑动出现多个功能键
 pod 'AMScrollingNavbar'                                  # 上滑收起 navi bar (适用于阅读)
-pod 'MWPhotoBrowser'                                     # 一套图片浏览控件 高仿iOS默认 支持网络图片
+pod 'MWPhotoBrowser'                                     # 一套图片浏览控件 高仿 iOS 默认 支持网络图片
+pod 'ios-realtimeblur.podspec'                           # 毛玻璃效果 (blur)
 
 # Transition
 pod 'MPParallaxCollection'                               # 左右切换视差效果，启动动画
