@@ -57,6 +57,7 @@ pod 'AMScrollingNavbar'                                  # 上滑收起 navi bar
 pod 'MWPhotoBrowser'                                     # 一套图片浏览控件 高仿 iOS 默认 支持网络图片
 pod 'ios-realtimeblur.podspec'                           # 毛玻璃效果 (blur)
 pod 'QBImagePickerController'                            # 多选图片
+pod 'TTTAttributedLabel'                                 # 富文本
 
 # Transition
 pod 'MPParallaxCollection'                               # 左右切换视差效果，启动动画
