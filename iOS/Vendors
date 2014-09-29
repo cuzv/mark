@@ -37,6 +37,7 @@ pod 'CHTwitterCover'                                     # 下拉视差效果(ca
 pod 'XHPathCover'                                        # 下拉视差效果(带微信朋友圈刷新效果)
 pod 'LeafScrollView'                                     # 下拉视差效果(带刷新效果)
 pod 'SWParallaxScrollView'                               # 多个图层上以不同速度滑动的自定义 ScrollView
+pod 'GKLParallaxPictures'                                # 下拉视差效果(多图展示)
 
 # View
 pod 'CHTCollectionViewWaterfallLayout'                   # 瀑布流 (支持 Swift)
@@ -55,6 +56,7 @@ pod 'SWTableViewCell'                                    # 类似 iOS7 邮件中
 pod 'AMScrollingNavbar'                                  # 上滑收起 navi bar (适用于阅读)
 pod 'MWPhotoBrowser'                                     # 一套图片浏览控件 高仿 iOS 默认 支持网络图片
 pod 'ios-realtimeblur.podspec'                           # 毛玻璃效果 (blur)
+pod 'QBImagePickerController'                            # 多选图片
 
 # Transition
 pod 'MPParallaxCollection'                               # 左右切换视差效果，启动动画
