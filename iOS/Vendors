@@ -7,6 +7,8 @@ pod 'FMDB'                                               # 本地缓存, sql
 pod 'FMDB/SQLCipher'                                     # sqllite cipher
 pod 'TMCache'                                            # 本地缓存, tumblr 出品, NSCoding
 pod 'SSKeychain'                                         # 钥匙串
+pod 'SDWebImage'                                         # 异步加载图片
+pod 'UIActivityIndicator-for-SDWebImage'                 # SDWebImage upgrade
 
 # Cocoa Extension
 pod 'BlocksKit'                                          # cocoa api Blocks 扩展
@@ -58,6 +60,10 @@ pod 'MWPhotoBrowser'                                     # 一套图片浏览控
 pod 'ios-realtimeblur.podspec'                           # 毛玻璃效果 (blur)
 pod 'QBImagePickerController'                            # 多选图片
 pod 'TTTAttributedLabel'                                 # 富文本
+pod 'MDRadialProgress'                                   # 圆形百分比 (❤)
+pod 'LASIImageView'                                      # 圆形百分比
+pod 'LLACircularProgressView'                            # app store 下载圆圈效果
+# https://github.com/MaheshRS/Download-Indicator         # 扇形百分比效果
 
 # Transition
 pod 'MPParallaxCollection'                               # 左右切换视差效果，启动动画
