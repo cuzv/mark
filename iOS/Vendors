@@ -2,6 +2,7 @@ platform :ios,'7.0'                                      # 运行平台
 
 # Data
 pod 'AFNetworking'                                       # 网络请求
+pod 'Reachability'                                       # 检测网络状况
 pod 'JSONModel'                                          # JSON 和对象互转
 pod 'FMDB'                                               # 本地缓存, sql
 pod 'FMDB/SQLCipher'                                     # sqllite cipher
