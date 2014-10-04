@@ -81,3 +81,4 @@ pod 'Onboard'                                            # 引导页(支持 Swif
 pod 'MMDrawerController'                                 # 侧滑菜单(❤)
 pod 'AMSlideMenu'                                        # 侧滑菜单(❤)
 pod 'MSDynamicsDrawerViewController'                     # 侧滑菜单
+pod 'ChameleonFramework'                                 # 颜色管理
