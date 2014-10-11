@@ -21,6 +21,7 @@
 - [Nested Types](#nested-types)
 - [Extensions](extensions)
 - [Protocols](#protocols)
+- [Generics](#Generics)
 
 ## The Basics
 
@@ -1466,3 +1467,69 @@
 - Instance methods added with an extension can also modify (or `mutate`) the instance itself. Structure and enumeration methods that modify `self` or its properties must mark the instance method as mutating, just like mutating methods from an original implementation.
 
 ## Protocols
+
+- If a protocol requires a property to be gettable and settable, that property requirement cannot be fulfilled by a constant stored property or a read-only computed property. If the protocol only requires a property to be gettable, the requirement can be satisfied by any kind of property, and it is valid for the property to be also settable if this is useful for your own code.
+
+- If you define a protocol instance method requirement that is intended to mutate instances of any type that adopts the protocol, mark the method with the `mutating` keyword as part of the protocol’s definition. This enables structures and enumerations to adopt the protocol and satisfy that method requirement.
+
+    If you mark a protocol instance method requirement as `mutating`, you do not need to write the `mutating` keyword when writing an implementation of that method for a class. The mutating keyword is only used by structures and enumerations.
+
+- You can implement a protocol initializer requirement on a conforming class as either a designated initializer or a convenience initializer. In both cases, you must mark the initializer implementation with the `required` modifier
+
+- If a subclass overrides a designated initializer from a superclass, and also implements a matching initializer requirement from a protocol, mark the initializer implementation with both the `required` and `override` modifiers
+
+- Protocol is a type, you can use a protocol in many places where other types are allowed, including:
+
+    - As a parameter type or return type in a function, method, or initializer
+    - As the type of a constant, variable, or property
+    - As the type of items in an array, dictionary, or other container
+
+- If a type already conforms to all of the requirements of a protocol, but has not yet stated that it adopts that protocol, you can make it adopt the protocol with an empty extension
+
+    ```Swift
+    struct Hamster {
+        var name: String
+        func asText() -> String {
+            return "A hamster named \(name)"
+        }
+    }
+    extension Hamster: TextRepresentable {}
+    ```
+    Types do not automatically adopt a protocol just by satisfying its requirements. They must always explicitly declare their adoption of the protocol.
+
+- A protocol can *inherit* one or more other protocols and can add further requirements on top of the requirements it inherits. The syntax for protocol inheritance is similar to the syntax for class inheritance, but with the option to list multiple inherited protocols, separated by commas
+
+- You can limit protocol adoption to class types (and not structures or enumerations) by adding the `class` keyword to a protocol’s inheritance list. The `class` keyword must always appear first in a protocol’s inheritance list, before any inherited protocols
+
+    ```Swift
+    protocol SomeClassOnlyProtocol: class, SomeInheritedProtocol {
+    // class-only protocol definition goes here
+    }
+    ```
+
+- You can use the `is` and `as` operators to check for protocol conformance, and to cast to a specific protocol. 
+
+    - The is operator returns `true` if an instance conforms to a protocol and returns `false` if it does not.
+    - The `as?` version of the downcast operator returns an optional value of the protocol’s type, and this value is `nil` if the instance does not conform to that protocol.
+    - The `as` version of the downcast operator forces the downcast to the protocol type and triggers a runtime error if the downcast does not succeed.
+
+- You can check for protocol conformance only if your protocol is marked with the `@objc` attribute, as seen for the HasArea protocol above. 
+
+    ```Swift
+    @objc protocol HasArea {
+        var area: Double { get }
+    }
+    ``` 
+
+    Note also that `@objc` protocols can be adopted only by classes, and not by structures or enumerations. If you mark your protocol as `@objc` in order to check for conformance, you will be able to apply that protocol only to class types.
+
+- You can define *optional requirements* for protocols, These requirements do not have to be implemented by types that conform to the protocol. Optional requirements are prefixed by the `optional` modifier as part of the protocol’s definition.
+
+- You check for an implementation of an optional requirement by writing a question mark after the name of the requirement when it is called, such as `someOptionalMethod?(someArgument)`. Optional property requirements, and optional method requirements that return a value, will always return an optional value of the appropriate type when they are accessed or called, to reflect the fact that the optional requirement may not have been implemented.
+
+    > Optional protocol requirements can only be specified if your protocol is marked with the `@objc` attribute. Even if you are not interoperating with Objective-C, you need to mark your protocols with the `@objc` attribute if you want to specify optional requirements.
+
+    > Note also that `@objc` protocols can be adopted only by classes, and not by structures or enumerations. If you mark your protocol as `@objc` in order to specify optional requirements, you will only be able to apply that protocol to class types.
+
+## Generics
+
