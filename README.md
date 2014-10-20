@@ -11,6 +11,7 @@ mark tips, notes, faqs, techs, shares
 	- [Swift Programming Language Noteworthy](./iOS/SwiftProgrammingLanguageNoteworthy.md)
 	- [把「The Swift Programming Language」读薄 by hawstein](./iOS/ReadSwiftThin.md)
 	- [iOS Vendors](./iOS/Vendors)
+	- [Swift 标准内置函数库](./iOS/SwiftStandardLibrary.md)
 - linux
 	- [终端相关命令总结-荐](./linux/TerminalCommand.md)
 	- [LinuxCast.net学习笔记](./linux/LinuxCast.net/)

@@ -67,6 +67,7 @@ pod 'LLACircularProgressView'                            # app store 下载圆�
 # https://github.com/MaheshRS/Download-Indicator         # 扇形百分比效果
 pod 'UzysAssetsPickerController'                         # 图片选择器
 pod 'RSDayFlow'                                          # 日历控件
+pod 'DAKeyboardControl'                                  # 键盘监听事件
 
 # Transition
 pod 'MPParallaxCollection'                               # 左右切换视差效果，启动动画
