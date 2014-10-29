@@ -10,6 +10,7 @@ pod 'TMCache'                                            # 本地缓存, tumblr 
 pod 'SSKeychain'                                         # 钥匙串
 pod 'SDWebImage'                                         # 异步加载图片
 pod 'UIActivityIndicator-for-SDWebImage'                 # SDWebImage upgrade
+pod 'NSDate+TimeAgo'                                     # 时间显示
 
 # Cocoa Extension
 pod 'BlocksKit'                                          # cocoa api Blocks 扩展
