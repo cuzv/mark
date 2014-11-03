@@ -20,6 +20,7 @@
 - [设置textView或者label的行间距方法](#设置-textview-或者-label-的行间距方法)
 - [截屏](#截屏)
 - [手势在左右的边缘才触发](#手势在左右的边缘才触发)
+- [修改UITabbar高度](#修-uitabbar-高度)
 
 ## 转换对象
 
@@ -933,5 +934,23 @@ UIImage *image = [self.view screenshot:UIDeviceOrientationPortrait
 UIScreenEdgePanGestureRecognizer *screenEdgePanGestureRecognizer = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(screenEdgePanGestureRecognizerHanlde:)];
 screenEdgePanGestureRecognizer.edges = UIRectEdgeRight;
 [self.view addGestureRecognizer:screenEdgePanGestureRecognizer];
+
+```
+
+## 修改UITabbar高度
+
+继承UITabBarController，重载以下方法
+
+```obective-c
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    
+    for (UIView *view in self.view.subviews) {
+        if ([NSStringFromClass([view class]) isEqualToString:@"UITabBar"]) {
+            view.frame = CGRectMake(0, 524, 320, 44);
+            view.backgroundColor = [UIColor magentaColor];
+        }
+    }
+}
 
 ```
