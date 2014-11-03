@@ -21,6 +21,7 @@
 - [截屏](#截屏)
 - [手势在左右的边缘才触发](#手势在左右的边缘才触发)
 - [修改UITabbar高度](#修-uitabbar-高度)
+- [自定义UITabbar图片](#自定义-uitabbar-图片)
 
 ## 转换对象
 
@@ -939,7 +940,7 @@ screenEdgePanGestureRecognizer.edges = UIRectEdgeRight;
 
 ## 修改UITabbar高度
 
-继承UITabBarController，重载以下方法
+- 继承UITabBarController，重载以下方法
 
 ```obective-c
 - (void)viewDidLayoutSubviews {
@@ -954,3 +955,16 @@ screenEdgePanGestureRecognizer.edges = UIRectEdgeRight;
 }
 
 ```
+
+- 使用 UIAppearance
+
+```obective-c
+[[UITabBar appearance] setFrame:CGRectMake(0, 524, 320, 44)];
+```
+
+## 自定义UITabbar图片
+
+- 继承UITabBarController
+- 调整UITabBar高度(optional)
+- 定义自己的tabbar
+- 将自定义的tabbar作为子视图添加到UITabbar上
