@@ -20,7 +20,7 @@
 - [设置textView或者label的行间距方法](#设置-textview-或者-label-的行间距方法)
 - [截屏](#截屏)
 - [手势在左右的边缘才触发](#手势在左右的边缘才触发)
-- [修改 UITabbar 高度](#修-uitabbar-高度)
+- [修改 UITabbar 高度](#修改-uitabbar-高度)
 - [自定义 UITabbar 图片](#自定义-uitabbar-图片)
 
 ## 转换对象
