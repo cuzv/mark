@@ -22,6 +22,7 @@
 - [手势在左右的边缘才触发](#手势在左右的边缘才触发)
 - [修改 UITabbar 高度](#修改-uitabbar-高度)
 - [自定义 UITabbar 图片](#自定义-uitabbar-图片)
+- [UITableViewCell 高度计算](#uitableviewcell-高度计算)
 
 ## 转换对象
 
@@ -968,3 +969,13 @@ screenEdgePanGestureRecognizer.edges = UIRectEdgeRight;
 - 调整UITabBar高度(optional)
 - 定义自己的tabbar
 - 将自定义的tabbar作为子视图添加到UITabbar上
+
+## UITableViewCell 高度计算
+
+`tableView:heightForRowAtIndexPath` 方法会先于 `tableView:cellForRowAtIndexPath` 调用，所以我们在设置数据前不知道 cell 的高度，具体解决方法就是 先计算一遍 cell 配置好数据后的高度. 不推荐 直接调用 dataSource 的 `tableView:cellForRowAtIndexPath` 反法来获取到 cell，然后通过cell 获取到 高度。
+
+- 声明一个 cell 的属性 `@property (nonatomic, strong) UITableViewCell *prototypeCell;`
+- 初始化UITableView 完成后，初始化该属性 `    self.prototypeCell = [self.tableView dequeueReusableCellWithIdentifier:kCellIdentifier];
+- 在 `tableView:heightForRowAtIndexPath` 方法中给 self.prototypeCell 配置数据，计算高度，并返回。
+
+**TIPS**: UITableView 是一次性计算完所有 Cell 的高度，如果有 1W 个 Cell，那么 `tableView:heightForRowAtIndexPath` 就会触发 1W 次，然后才显示内容。iOS7以后，提供了一个新方法可以避免这1W次调用，`tableView:estimatedHeightForRowAtIndexPath` 要求返回一个Cell 的估计值，实现了这个方法，那只有显示的 Cell 才会触发计算高度的 protocol.貌似在这里不管用，会影响刷新动画
