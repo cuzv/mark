@@ -1,6 +1,3 @@
-
-[Source](http://blog.csdn.net/cuzval/article/details/11519193 "Permalink to 黑马程序员_网络编程 - cuzval的专栏 - 博客频道")
-
 # 网络编程
 
 udp发送和接收：
@@ -488,11 +485,7 @@ browser / server 浏览器和服务端。
 * 所有的运算都在服务器端，相对压力较大。&nbsp;  
 
 
-[Source](http://blog.csdn.net/cuzval/article/details/11964531 "Permalink to 黑马程序员_反射技术和正则表达式 - cuzval的专栏 - 博客频道")
-
 ## 反射技术和正则表达式
-
-&nbsp;-----------------  [ android培训][1]、[java培训][1]、期待与您交流！ ----------
 
 如何获取Class对象呢？
 方式一：
