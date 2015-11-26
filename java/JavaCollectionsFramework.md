@@ -1,6 +1,4 @@
 
-[Source](http://blog.csdn.net/cuzval/article/details/9325523 "Permalink to 黑马程序员_集合框架(Collection，Iterator) - cuzval的专栏 - 博客频道")
-
 ## collection、Iterator
 
 为什么出现集合类？
