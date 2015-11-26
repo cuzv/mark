@@ -1,6 +1,3 @@
-
-[Source](http://blog.csdn.net/cuzval/article/details/9470515 "Permalink to 黑马程序员_IO流 - cuzval的专栏 - 博客频道")
-
 # java IO
 
 字符流的由来：
